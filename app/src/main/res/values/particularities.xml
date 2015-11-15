@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="particularities_array">
+        <item>Visio</item>
+        <item>Téléphone</item>
+        <item>Sécurisée</item>
+        <item>Digilab</item>
+    </string-array>
+</resources>

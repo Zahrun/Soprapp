@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sites_array">
+        <item>Sopra Colo 1</item>
+        <item>Sopra Colo 2</item>
+        <item>Sopra Ramassiers</item>
+        <item>Sopra Albi</item>
+    </string-array>
+</resources>
