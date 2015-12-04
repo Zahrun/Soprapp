@@ -9,4 +9,6 @@
 /Server/dist/
 /Server/Server-war/dist/
 /Server/Server-war/build/
-/Server/Server-ejb/dist/
+/Server/Server-ejb/dist/Server/nbproject/build-impl.xml
+/Server/nbproject/project.xml
+/Server/nbproject/project.properties
