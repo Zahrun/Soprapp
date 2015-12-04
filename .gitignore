@@ -12,3 +12,5 @@
 /Server/Server-ejb/dist/Server/nbproject/build-impl.xml
 /Server/nbproject/project.xml
 /Server/nbproject/project.properties
+/Server/Server-ejb/dist/
+/Server/Server-ejb/nbproject/private/
