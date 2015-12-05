@@ -18,9 +18,9 @@ public class DataService {
     // the server address and port, the database name that will be created if it does not exist
     // and the username and password
 
-    private String dbURL = "jdbc:mysql://192.168.0.102/mysql;create=true;user=root;password=BDandroid1";
+    private String dbURL = "jdbc:mysql://192.168.0.102/mysql";
     // the name of the table to be used to insert/select data
-    private String tableName = "PEOPLE";
+    private String tableName = "SopraBD/Users";
     // jdbc Connection
     private Connection conn = null;
     private Statement stmt = null;
@@ -48,7 +48,7 @@ public class DataService {
     public void createConnection() {
         try {
             //Get a connection based on the db URL
-            conn = DriverManager.getConnection(dbURL);
+            conn = DriverManager.getConnection(dbURL, "root", "BDandroid1");
         } catch (Exception except) {
             except.printStackTrace();
         }
@@ -61,13 +61,13 @@ public class DataService {
      * @param age to be inserted
      * @return a 'Data inserted!' message or any thrown exception
      */
-    public synchronized String insertData(String name, int age) {
+    public synchronized String insertData(String name, int admin) {
         String r = "Data inserted!";
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-            stmt.execute("insert into " + tableName + " (name,age) values ('"
-                    + name + "'," + age + ")");
+            stmt.execute("insert into " + tableName + " (name,admin) values ('"
+                    + name + "'," + admin + ")");
             stmt.close();
         } catch (SQLException sqlExcept) {
             r = sqlExcept.toString();
