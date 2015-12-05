@@ -1,9 +1,3 @@
 /Server/build/
 /Server/dist/
-/Server/nbproject/
-/Server/Server-ejb/build/
-/Server/Server-ejb/dist/
-/Server/Server-ejb/nbproject/
-/Server/Server-war/build/
-/Server/Server-war/dist/
-/Server/Server-war/nbproject/
+/Server/nbproject/private
