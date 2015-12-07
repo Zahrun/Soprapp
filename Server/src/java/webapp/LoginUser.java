@@ -1,6 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package webapp;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +22,21 @@ import javax.servlet.http.HttpServletResponse;
 import webapp.business.DataService;
 
 /**
- * Example of a Servlet able to retrieve data from the client side (html form)
- * and to insert it into a Database available at server side.
- * A list of all the available data will be sent back within the response to the client side
- * @author ernestoexposito
+ *
+ * @author gautierenaud
  */
-@WebServlet(name = "HelloData", urlPatterns = {"/HelloData"})
-public class HelloData extends HttpServlet {
+@WebServlet(name = "LoginUser", urlPatterns = {"/LoginUser"})
+public class LoginUser extends HttpServlet {
 
-    /**
-     * the Servlet requires access to the database service
-     */
-    protected static DataService ds = getDataService();
-
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private final String DB_URL = "jdbc:mysql://192.168.0.102:3306/Soprapp";
+    private final String SUB_DB = "/Users";
+    
+    // credentials
+    private final String USER = "root";
+    private final String PASS = "BDandroid1";
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,39 +49,27 @@ public class HelloData extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
-            // retrieving the parameters received from the client via the HTTP request
-            String name = request.getParameter("name");
-            int age = Integer.parseInt(request.getParameter("age"));
+            /* TODO output your page here. You may use following sample code. */
+            // get the parameters
+            String userAddress = request.getParameter("userAddress");
+            String userPass = request.getParameter("userPass");
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HelloData</title>");
+            out.println("<title>Servlet LoginUser</title>");            
             out.println("</head>");
             out.println("<body>");
-            // for now, only showing back the received parameters
-            out.println("<h1>The name is " + name + " and the age is " + age + "</h1>");
-             //  now the data is inserted
-            out.println("<h2>Inserting data ....");
-            String result = getDataService().insertData(name, age);
-            //  and all the data within the database is retrieved and sent back
-            out.println(result + "</h2>");
-            out.println("<h2>The current available data within the database is:</br>" + getDataService().selectData() + "</h2>");
+            out.println("<h1>Servlet LoginUser at " + request.getContextPath() + "</h1>");
+            
+            String result = DataService.getInstance().selectData();
+            out.println("<div>"+result+"</div>");
+            
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-    /**
-     * Retrieves a DataService instance
-     *
-     * @return DataService instance
-     */
-    protected static DataService getDataService() {
-        if (ds == null) {
-            ds = DataService.getInstance();
-        }
-        return ds;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -105,17 +108,7 @@ public class HelloData extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "able to retrieve form parameters from the client side "+
-                "and insert them into a Database at server side";
+        return "Short description";
     }// </editor-fold>
 
-    /**
-     * Servlet destruction and data service shutdown
-     */
-    @Override
-    public void destroy() {
-        super.destroy();
-        ds.shutdown();
-        ds = null;
-    }
 }

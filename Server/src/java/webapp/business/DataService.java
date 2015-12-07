@@ -18,9 +18,9 @@ public class DataService {
     // the server address and port, the database name that will be created if it does not exist
     // and the username and password
 
-    private String dbURL = "jdbc:mysql://192.168.0.102/mysql";
+    private String dbURL = "jdbc:mysql://192.168.0.102/SopraBD";
     // the name of the table to be used to insert/select data
-    private String tableName = "SopraBD/Users";
+    private String tableName = "Users";
     // jdbc Connection
     private Connection conn = null;
     private Statement stmt = null;
@@ -86,7 +86,7 @@ public class DataService {
             // creates a SQL Statement object in order to execute the SQL select command
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
-            ResultSet results = stmt.executeQuery("select * from " + tableName);
+            ResultSet results = stmt.executeQuery("select * from " + "Users");
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             ResultSetMetaData rsmd = results.getMetaData();
@@ -99,14 +99,15 @@ public class DataService {
             while (results.next()) {
                 // the name and age values are retrieved from the appropiate column
                 String name = results.getString(results.findColumn("name"));
-                int age = results.getInt(results.findColumn("age"));
-                r += name + "  --  " + age + "</br>";
+                r += name + "</br>";
             }
             results.close();
             stmt.close();
         } catch (SQLException sqlExcept) {
             r = sqlExcept.toString();
         }
+        r += "<p>lala</p>";
+        
         return r;
     }
 
