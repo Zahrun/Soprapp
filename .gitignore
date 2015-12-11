@@ -1,4 +1,8 @@
 /Server/build/
 /Server/dist/
 /Server/nbproject/
+/soprapp/build/
 /soprapp/dist/
+/webapp/nbproject/private/
+/webapp/build/
+/webapp/dist/
