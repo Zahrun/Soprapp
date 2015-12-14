@@ -1,8 +1,13 @@
 /Server/build/
 /Server/dist/
 /Server/nbproject/
+/soprapp/nbproject/private/
 /soprapp/build/
 /soprapp/dist/
 /webapp/nbproject/private/
 /webapp/build/
 /webapp/dist/
+/client/nbproject/private/
+/client/build/
+/client/dist/
+/httpcomponents-client-4.5.1
