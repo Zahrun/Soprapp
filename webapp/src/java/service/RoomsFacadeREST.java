@@ -34,6 +34,11 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
     public RoomsFacadeREST() {
         super(Rooms.class);
     }
+    
+    public RoomsFacadeREST(EntityManager em) {
+        super(Rooms.class);
+        this.em = em;
+    }
 
     @POST
     @Override

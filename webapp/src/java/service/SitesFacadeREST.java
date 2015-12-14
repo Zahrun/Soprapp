@@ -34,6 +34,11 @@ public class SitesFacadeREST extends AbstractFacade<Sites> {
     public SitesFacadeREST() {
         super(Sites.class);
     }
+    
+    public SitesFacadeREST(EntityManager e) {
+        super(Sites.class);
+        em = e;
+    }
 
     @POST
     @Override

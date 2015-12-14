@@ -34,6 +34,11 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     public ReservationsFacadeREST() {
         super(Reservations.class);
     }
+    
+    public ReservationsFacadeREST(EntityManager em) {
+        super(Reservations.class);
+        this.em = em;
+    }
 
     @POST
     @Override
