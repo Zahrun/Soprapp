@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import fr.insa.gei.soprapp.dto.Request;
-import fr.insa.gei.soprapp.dto.Site;
-import fr.insa.gei.soprapp.dto.Sites;
+import fr.insa.gei.soprapp.entities.Sites;
 
 public class ActivityTest extends AppCompatActivity {
 
@@ -25,25 +21,24 @@ public class ActivityTest extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String uri = "192.168.0.101:8080/soprapp/sites" ;
-                //contient les paramètres
-                Map<String, Request> params = new HashMap<String, Request>();
-                params.put("roomsAvailable",new Request());
-                // Create a new RestTemplate instance
-                RestTemplate restTemplate = new RestTemplate();
-                Sites result = new Sites();
-                result = restTemplate.getForObject(uri, Sites.class);
-                displayResult(result) ;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String uri = "192.168.0.101:8080/soprapp/sites" ;
+                        // Create a new RestTemplate instance
+                        RestTemplate restTemplate = new RestTemplate();
+                        Sites result = new Sites();
+                        result = restTemplate.getForObject(uri, Sites.class);
+                        displayResult(result) ;
+                    }
+                }).start();
         }
         });
     }
 
-    /*
-
-
-     */
     private void displayResult(Sites result) {
+        TextView textView = (TextView) findViewById(R.id.testTextView);
+        textView.setText(result.toString());
     }
 
 

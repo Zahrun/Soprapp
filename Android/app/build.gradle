@@ -20,11 +20,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    compile files('libs/eclipselink/javax.persistence_2.1.0.v201304241213.jar')
+    compile files('libs/eclipselink/eclipselink.jar')
+    compile files('libs/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar')
+    compile files('libs/javaee-endorsed-api-7.0/javaee-doc-api.jar')
+    compile files('libs/javaee-endorsed-api-7.0/javax.annotation-api.jar')
+    compile files('libs/javaee-endorsed-api-7.0/javax.xml.soap-api.jar')
+    compile files('libs/javaee-endorsed-api-7.0/jaxb-api-osgi.jar')
+    compile files('libs/javaee-endorsed-api-7.0/jaxws-api.jar')
+    compile files('libs/javaee-endorsed-api-7.0/jsr181-api.jar')
+    compile files('libs/bean-validator.jar')
 }
 
 repositories {
