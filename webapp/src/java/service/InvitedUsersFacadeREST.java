@@ -34,6 +34,11 @@ public class InvitedUsersFacadeREST extends AbstractFacade<InvitedUsers> {
     public InvitedUsersFacadeREST() {
         super(InvitedUsers.class);
     }
+    
+    public InvitedUsersFacadeREST(EntityManager em) {
+        super(InvitedUsers.class);
+        this.em = em;
+    }
 
     @POST
     @Override

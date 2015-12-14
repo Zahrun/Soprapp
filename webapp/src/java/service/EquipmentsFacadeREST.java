@@ -34,6 +34,11 @@ public class EquipmentsFacadeREST extends AbstractFacade<Equipments> {
     public EquipmentsFacadeREST() {
         super(Equipments.class);
     }
+    
+    public EquipmentsFacadeREST(EntityManager em) {
+        super(Equipments.class);
+        this.em = em;
+    }
 
     @POST
     @Override
