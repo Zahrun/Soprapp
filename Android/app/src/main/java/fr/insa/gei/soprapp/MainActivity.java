@@ -14,14 +14,24 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import fr.insa.gei.soprapp.entities.Sites;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +50,15 @@ public class MainActivity extends AppCompatActivity {
                         String uri = "http://192.168.0.101:8080/webapp/rest/entities.sites";
                         // Create a new RestTemplate instance
                         RestTemplate restTemplate = new RestTemplate();
-                        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter  ());
-                        final Sites result = restTemplate.getForObject(uri, Sites.class);
+                        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                        ResponseEntity<Sites[]> responseEntity = restTemplate.getForEntity(uri, Sites[].class);
 
+                        final Sites[] result = responseEntity.getBody();
                         final TextView  textView = (TextView) findViewById(R.id.textView2);
                         textView.post(new Runnable() {
                             @Override
                             public void run() {
-                                textView.setText(result.toString());
+                                textView.setText(result[0].toString());
                             }
                         });
                     }

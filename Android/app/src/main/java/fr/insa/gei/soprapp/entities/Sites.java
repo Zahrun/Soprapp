@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  *
  * @author Aroun
  */
-public class Sites implements Serializable {
+public class Sites {
 
     private static final long serialVersionUID = 1L;
 
