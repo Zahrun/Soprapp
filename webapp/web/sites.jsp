@@ -1,16 +1,15 @@
 <%-- 
-    Document   : index
-    Created on : 14 déc. 2015, 08:40:37
+    Document   : sites
+    Created on : 14 déc. 2015, 10:37:45
     Author     : gautierenaud
 --%>
 
-<%@page import="javax.persistence.Persistence"%>
-<%@page import="org.osgi.service.jpa.EntityManagerFactoryBuilder"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.persistence.EntityManager"%>
 <%@page import="entities.Sites"%>
 <%@page import="java.util.List"%>
 <%@page import="service.SitesFacadeREST"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="javax.persistence.EntityManagerFactory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,8 +18,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        
+        <h1>List of sites</h1>
         <%
             EntityManagerFactory ef = Persistence.createEntityManagerFactory("webappPU");
             EntityManager em = ef.createEntityManager();
@@ -28,15 +26,8 @@
             SitesFacadeREST sitesREST = new SitesFacadeREST(em);
             List<Sites> listSites = sitesREST.findAll();
             for (Sites s : listSites){
-                %><p>Name: <%out.println(s.getName());%></p><%
+        %><p><a href=<%  %><%out.println(s.getName());%></a></p><%
             }
         %>
-        
-        <form action="localhost:8080/" method="POST">
-            Mail: <input type="text" name="mail"/><br/>
-            Pwd: <input type="password" name="pwd"/>
-        </form>
-
     </body>
 </html>
- 

@@ -9,7 +9,11 @@ import entities.Users;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -91,6 +95,34 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+ 
+    
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String loginREST(HttpServletRequest request, HttpServletResponse response){
+        String mail = request.getParameter("mail");
+        String pwd = request.getParameter("pwd");
+        
+        Users user = null;
+        try{
+            user = findWithMail(mail, pwd);
+        }catch (NoResultException e){
+        }finally{
+            if (user == null)
+                return "false";
+            else
+                return "true";
+        }
+            
+    }
+    
+    public Users findWithMail(String mail, String pwd) throws NoResultException{
+        TypedQuery<Users> query;
+        query = getEntityManager().createQuery("SELECT u FROM USERS u WHERE u.mailAddress = :mail AND u.password = :pwd", Users.class);
+        query.setParameter("mail", mail);
+        query.setParameter("pwd", pwd);
+        return query.getSingleResult();
     }
     
 }
