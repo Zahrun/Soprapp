@@ -21,17 +21,12 @@ public class ActivityTest extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String uri = "192.168.0.101:8080/soprapp/sites" ;
+                        String uri = "http://192.168.0.101:8080/webapp/rest/entities.sites" ;
                         // Create a new RestTemplate instance
                         RestTemplate restTemplate = new RestTemplate();
                         Sites result = new Sites();
                         result = restTemplate.getForObject(uri, Sites.class);
                         displayResult(result) ;
-                    }
-                }).start();
         }
         });
     }

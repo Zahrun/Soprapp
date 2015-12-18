@@ -6,42 +6,16 @@
 package fr.insa.gei.soprapp.entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Aroun
  */
-@Entity
-@Table(name = "OldInvitedUsers")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "OldInvitedUsers.findAll", query = "SELECT o FROM OldInvitedUsers o"),
-    @NamedQuery(name = "OldInvitedUsers.findByOldInvitedUserID", query = "SELECT o FROM OldInvitedUsers o WHERE o.oldInvitedUserID = :oldInvitedUserID")})
 public class OldInvitedUsers implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "oldInvitedUserID")
     private Integer oldInvitedUserID;
-    @JoinColumn(name = "oldReservationRef", referencedColumnName = "oldReservationID")
-    @ManyToOne(optional = false)
     private OldReservations oldReservationRef;
-    @JoinColumn(name = "userRef", referencedColumnName = "userID")
-    @ManyToOne(optional = false)
     private Users userRef;
 
     public OldInvitedUsers() {

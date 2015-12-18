@@ -12,8 +12,16 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import fr.insa.gei.soprapp.entities.Sites;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +34,37 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String uri = "http://192.168.0.101:8080/webapp/rest/entities.sites";
+                        // Create a new RestTemplate instance
+                        RestTemplate restTemplate = new RestTemplate();
+                        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter  ());
+                        final Sites result = restTemplate.getForObject(uri, Sites.class);
+
+                        final TextView  textView = (TextView) findViewById(R.id.textView2);
+                        textView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setText(result.toString());
+                            }
+                        });
+                    }
+                }).start();
+
+            }
+        });
+
+
+
+        /*fab.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
                 Intent act2 = new Intent(view.getContext(),ActivityTest.class);
                 startActivity(act2);
             }
-        });
+        });*/
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
             // Create an ArrayAdapter using the string array and a default spinner layout

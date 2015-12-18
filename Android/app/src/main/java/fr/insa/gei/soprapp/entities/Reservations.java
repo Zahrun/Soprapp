@@ -8,62 +8,22 @@ package fr.insa.gei.soprapp.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Aroun
  */
-@Entity
-@Table(name = "Reservations")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Reservations.findAll", query = "SELECT r FROM Reservations r"),
-    @NamedQuery(name = "Reservations.findByReservationID", query = "SELECT r FROM Reservations r WHERE r.reservationID = :reservationID"),
-    @NamedQuery(name = "Reservations.findByStart", query = "SELECT r FROM Reservations r WHERE r.start = :start"),
-    @NamedQuery(name = "Reservations.findByEnd", query = "SELECT r FROM Reservations r WHERE r.end = :end")})
 public class Reservations implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "reservationID")
     private Integer reservationID;
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "start")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date start;
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "end")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date end;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationRef")
     private Collection<InvitedUsers> invitedUsersCollection;
-    @JoinColumn(name = "roomRef", referencedColumnName = "roomID")
-    @ManyToOne(optional = false)
     private Rooms roomRef;
-    @JoinColumn(name = "ownerRef", referencedColumnName = "userID")
-    @ManyToOne(optional = false)
     private Users ownerRef;
 
     public Reservations() {
@@ -103,7 +63,6 @@ public class Reservations implements Serializable {
         this.end = end;
     }
 
-    @XmlTransient
     public Collection<InvitedUsers> getInvitedUsersCollection() {
         return invitedUsersCollection;
     }
