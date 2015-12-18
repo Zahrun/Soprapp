@@ -8,4 +8,6 @@
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
     <string name="title_activity_activity_test">ActivityTest</string>
+    <string name="Fragment1">This is Fragment of Alex</string>
+    <string name="Fragment2">This is Fragment of Clement</string>
 </resources>

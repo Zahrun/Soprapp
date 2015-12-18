@@ -1,14 +1,25 @@
 package fr.insa.gei.soprapp;
 
+import android.app.ActionBar;
+
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -16,6 +27,7 @@ import android.widget.TextView;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        // Set the ViewPagerAdapter into ViewPager
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,23 +85,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        /*fab.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent act2 = new Intent(view.getContext(),ActivityTest.class);
-                startActivity(act2);
-            }
-        });*/
-
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-            // Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.sites_array, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         Button date = (Button) findViewById(R.id.dateButton);
@@ -112,7 +120,64 @@ public class MainActivity extends AppCompatActivity {
                 ppf.show(getFragmentManager(),"particularitiesPicker");
             }
         });
+        }
+
+    class CustomPagerAdapter extends FragmentPagerAdapter {
+
+        Context mContext;
+
+        public CustomPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            mContext = context;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            // Create fragment object
+            Fragment fragment = new DemoFragment();
+
+            // Attach some data to the fragment
+            // that we'll use to populate our fragment layouts
+            Bundle args = new Bundle();
+            args.putInt("page_position", position + 1);
+
+            // Set the arguments on the fragment
+            // that will be fetched in the
+            // DemoFragment@onCreateView
+            fragment.setArguments(args);
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "Page " + (position + 1);
+        }
     }
+
+    public class DemoFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            // Inflate the layout resource that'll be returned
+            View rootView = inflater.inflate(R.layout.activity_main, container, false);
+
+            // Get the arguments that was supplied when
+            // the fragment was instantiated in the
+            // CustomPagerAdapter
+            Bundle args = getArguments();
+            ((TextView) rootView.findViewById(R.id.textView)).setText("Page " + args.getInt("page_position"));
+
+            return rootView;
+        } }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
