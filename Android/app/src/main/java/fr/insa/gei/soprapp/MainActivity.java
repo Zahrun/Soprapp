@@ -1,71 +1,103 @@
 package fr.insa.gei.soprapp;
 
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener{
+    AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+    ViewPager mViewPager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        // Create the adapter that will return a fragment for each of the three primary sections
+        // of the app.
+        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the action bar.
+        final ActionBar actionBar = getActionBar();
+
+        // Specify that the Home/Up button should not be enabled, since there is no hierarchical
+        // parent.
+        actionBar.setHomeButtonEnabled(false);
+
+        // Specify that we will be displaying tabs in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Set up the ViewPager, attaching the adapter and setting up a listener for when the
+        // user swipes between sections.
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When swiping between different app sections, select the corresponding tab.
+                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
+                // Tab.
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        // For each of the sections in the app, add a tab to the action bar.
+        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+            // Create a tab with text corresponding to the page title defined by the adapter.
+            // Also specify this Activity object, which implements the TabListener interface, as the
+            // listener for when this tab is selected.
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(mAppSectionsPagerAdapter.getPageTitle(i))
+                            .setTabListener(this));
+        }
+
+
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent act2 = new Intent(view.getContext(),ActivityTest.class);
-                startActivity(act2);
-            }
-        });
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String uri = "http://192.168.0.101:8080/webapp/rest/entities.sites";
+                        // Create a new RestTemplate instance
+                        RestTemplate restTemplate = new RestTemplate();
+                        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                        ResponseEntity<Sites[]> responseEntity = restTemplate.getForEntity(uri, Sites[].class);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-            // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sites_array, android.R.layout.simple_spinner_item);
-            // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+                        final Sites[] result = responseEntity.getBody();
+                        final TextView textView = (TextView) findViewById(R.id.textView2);
+                        textView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setText(result[0].toString());
+                            }
+                        });
+                    }
+                }).start();
 
-        Button date = (Button) findViewById(R.id.dateButton);
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PickDateFragment pdf = new PickDateFragment();
-                pdf.show(getFragmentManager(), "datePicker");
             }
-        });
+        });*/
 
-        Button heure = (Button) findViewById(R.id.heureButton);
-        heure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PickTimeFragment ptf = new PickTimeFragment();
-                ptf.show(getFragmentManager(),"timePicker");
-            }
-        });
+    }
 
-        Button selectionner = (Button) findViewById(R.id.selectionnerButton);
-        selectionner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PickParticularitiesFragment ppf = new PickParticularitiesFragment();
-                ppf.show(getFragmentManager(),"particularitiesPicker");
-            }
-        });
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        // When the given tab is selected, switch to the corresponding page in the ViewPager.
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
     @Override

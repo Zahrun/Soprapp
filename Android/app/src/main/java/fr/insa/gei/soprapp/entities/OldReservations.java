@@ -8,62 +8,22 @@ package fr.insa.gei.soprapp.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Aroun
  */
-@Entity
-@Table(name = "OldReservations")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "OldReservations.findAll", query = "SELECT o FROM OldReservations o"),
-    @NamedQuery(name = "OldReservations.findByOldReservationID", query = "SELECT o FROM OldReservations o WHERE o.oldReservationID = :oldReservationID"),
-    @NamedQuery(name = "OldReservations.findByStart", query = "SELECT o FROM OldReservations o WHERE o.start = :start"),
-    @NamedQuery(name = "OldReservations.findByEnd", query = "SELECT o FROM OldReservations o WHERE o.end = :end")})
 public class OldReservations implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "oldReservationID")
     private Integer oldReservationID;
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "start")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date start;
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "end")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date end;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "oldReservationRef")
     private Collection<OldInvitedUsers> oldInvitedUsersCollection;
-    @JoinColumn(name = "roomRef", referencedColumnName = "roomID")
-    @ManyToOne(optional = false)
     private Rooms roomRef;
-    @JoinColumn(name = "ownerRef", referencedColumnName = "userID")
-    @ManyToOne(optional = false)
     private Users ownerRef;
 
     public OldReservations() {
@@ -103,7 +63,6 @@ public class OldReservations implements Serializable {
         this.end = end;
     }
 
-    @XmlTransient
     public Collection<OldInvitedUsers> getOldInvitedUsersCollection() {
         return oldInvitedUsersCollection;
     }

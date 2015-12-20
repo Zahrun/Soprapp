@@ -7,5 +7,6 @@
     <string name="particularities">Particularités</string>
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
-    <string name="title_activity_activity_test">ActivityTest</string>
+
+    <string name="dummy_section_text">A venir...</string>
 </resources>
