@@ -46,6 +46,14 @@
             <button type="Submit" value="Submit" action="Submit">Submit</button>
         </form>
         
+        <p>Test for filtering</p>
+        <form action="http://localhost:8080/webapp/rest/entities.users/filterUser" method="POST">
+            Name: <input type="text" name="name" /><br/>
+            Surname: <input type="text" name="surname"/><br/>
+            Mail: <input type="text" name="mail" /><br/>
+            <button type="Submit" value="Submit" action="Submit">Submit</button>
+        </form>
+        
     </body>
 </html>
  

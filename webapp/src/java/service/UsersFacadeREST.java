@@ -103,17 +103,6 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    /*
-    @POST
-    @Path("login")
-    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public String loginREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
-        Users user = findWithMail(mail, pwd);
-        if (user != null)
-            return user.toString();
-        else
-            return "false";
-    }*/
     
     // will redirect to a admin web page
     @POST
@@ -159,5 +148,27 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         }catch (NoResultException e){}
         
         return user;
+    }
+    
+    // methods for filtering
+    @POST
+    @Path("filterUser")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public List<Users> filterUsers(@FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail){
+        
+        return filterByNameSurnameMail(name, surname, mail);
+    }
+    
+    public List<Users> filterByNameSurnameMail(String name, String surname, String mail){
+        List<Users> listUsers = null;
+        System.out.println("name: " + name);
+        System.out.println("surname: " + surname);
+        System.out.println("mail: " + mail);
+        listUsers = (List<Users>) em.createNamedQuery("Users.filterByNameSurnameMail")
+                .setParameter("name", "%" + name + "%")
+                .setParameter("surname", "%" + surname + "%")
+                .setParameter("mail", "%" + mail + "%")
+                .getResultList();
+        return listUsers;
     }
 }
