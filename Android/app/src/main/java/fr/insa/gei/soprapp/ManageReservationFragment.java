@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Fragment1 extends Fragment {
+public class ManageReservationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Get the view from fragmenttab1.xml
-        View view = inflater.inflate(R.layout.fragment1, container, false);
-        return view;
+        View rootView = inflater.inflate(R.layout.manage_reservation_fragment, container, false);
+        return rootView;
     }
-
 }
