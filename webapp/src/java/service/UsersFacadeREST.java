@@ -118,20 +118,13 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @POST
     @Path("login")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public Response loginREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
-        Users user = null;
-        try{
-            user = findWithMail(mail, pwd);
-        }catch(NoResultException e){
-            
-        }
-        
-        System.out.println("User:" + user.getPassword());
+    public Response loginAdminREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
+        Users user = getByMailPwd(mail, pwd);
         
         java.net.URI location;
         try {
             
-            if (user != null && user.getPassword().equals(pwd))             
+            if (user != null && user.getAdmin())             
                 location = new URI("http://localhost:8080/webapp/Logged.jsp");
             else
                 location = new URI("http://localhost:8080/webapp/index.jsp");
@@ -143,10 +136,40 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         return null;
     }
     
-    public Users findWithMail(String mail, String pwd) throws NoResultException{
-        Users user = (Users) em.createNamedQuery("Users.findByMailAddress")
+    @POST
+    @Path("login")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    public Response loginUserREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
+        Users user = getByMailPwd(mail, pwd);
+        
+        java.net.URI location;
+        try {
+            
+            if (user != null && user.getAdmin())             
+                location = new URI("http://localhost:8080/webapp/Logged.jsp");
+            else
+                location = new URI("http://localhost:8080/webapp/index.jsp");
+            
+            return Response.temporaryRedirect(location).build();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    // this function will return the first occurence with the corresponding mail and password
+    // if there is no occurence, it will return null
+    public Users getByMailPwd(String mail, String pwd){
+        Users user;
+        try{
+            user = (Users) em.createNamedQuery("Users.findByMailPass")
                 .setParameter("mailAddress", mail)
+                .setParameter("password", pwd)
                 .getSingleResult();
+        }catch (NoResultException e){
+            user = null;
+        }
         return user;
     }
 }
