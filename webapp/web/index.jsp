@@ -32,7 +32,7 @@
             }
         %>
         
-        <form action="http://localhost:8080/webapp/rest/entities.users/login" method="POST">
+        <form action="http://localhost:8080/webapp/rest/entities.users/loginAdmin" method="POST">
             Mail: <input type="text" name="mail" value="marre@marre.marre"/><br/>
             Pwd: <input type="password" name="pwd" value="marre"/>
             <button type="Submit" value="Submit" action="Submit">Submit</button>

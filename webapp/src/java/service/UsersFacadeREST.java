@@ -116,7 +116,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
    */
     @POST
-    @Path("login")
+    @Path("loginAdmin")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public Response loginAdminREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
         Users user = getByMailPwd(mail, pwd);
@@ -137,7 +137,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
     
     @POST
-    @Path("login")
+    @Path("loginUser")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public Response loginUserREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
         Users user = getByMailPwd(mail, pwd);
@@ -145,7 +145,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         java.net.URI location;
         try {
             
-            if (user != null && user.getAdmin())             
+            if (user != null)             
                 location = new URI("http://localhost:8080/webapp/Logged.jsp");
             else
                 location = new URI("http://localhost:8080/webapp/index.jsp");
