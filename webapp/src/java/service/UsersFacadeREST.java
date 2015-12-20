@@ -6,7 +6,11 @@
 package service;
 
 import entities.Users;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -16,13 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -96,33 +103,50 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
- 
-    
+    /*
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String loginREST(HttpServletRequest request, HttpServletResponse response){
-        String mail = request.getParameter("mail");
-        String pwd = request.getParameter("pwd");
-        
+    @Path("login")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    public String loginREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
+        Users user = findWithMail(mail, pwd);
+        if (user != null)
+            return user.toString();
+        else
+            return "false";
+    }
+   */
+    @POST
+    @Path("login")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    public Response loginREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
         Users user = null;
         try{
             user = findWithMail(mail, pwd);
-        }catch (NoResultException e){
-        }finally{
-            if (user == null)
-                return "false";
-            else
-                return "true";
-        }
+        }catch(NoResultException e){
             
+        }
+        
+        System.out.println("User:" + user.getPassword());
+        
+        java.net.URI location;
+        try {
+            
+            if (user != null && user.getPassword().equals(pwd))             
+                location = new URI("http://localhost:8080/webapp/Logged.jsp");
+            else
+                location = new URI("http://localhost:8080/webapp/index.jsp");
+            
+            return Response.temporaryRedirect(location).build();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public Users findWithMail(String mail, String pwd) throws NoResultException{
-        TypedQuery<Users> query;
-        query = getEntityManager().createQuery("SELECT u FROM USERS u WHERE u.mailAddress = :mail AND u.password = :pwd", Users.class);
-        query.setParameter("mail", mail);
-        query.setParameter("pwd", pwd);
-        return query.getSingleResult();
+        Users user = (Users) em.createNamedQuery("Users.findByMailAddress")
+                .setParameter("mailAddress", mail)
+                .getSingleResult();
+        return user;
     }
-    
 }

@@ -32,11 +32,12 @@
             }
         %>
         
-        <form action="localhost:8080/" method="POST">
-            Mail: <input type="text" name="mail"/><br/>
-            Pwd: <input type="password" name="pwd"/>
+        <form action="http://localhost:8080/webapp/rest/entities.users/login" method="POST">
+            Mail: <input type="text" name="mail" value="marre@marre.marre"/><br/>
+            Pwd: <input type="password" name="pwd" value="marre"/>
+            <button type="Submit" value="Submit" action="Submit">Submit</button>
         </form>
-
+                
     </body>
 </html>
  
