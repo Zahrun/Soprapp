@@ -103,7 +103,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+    /*
     @POST
     @Path("login")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
@@ -113,26 +113,19 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
             return user.toString();
         else
             return "false";
-    }
+    }*/
     
-    /*
+    // will redirect to a admin web page
     @POST
-    @Path("login")
+    @Path("loginAdmin")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public Response loginREST(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
-        Users user = null;
-        try{
-            user = findWithMail(mail, pwd);
-        }catch(NoResultException e){
-            
-        }
-        
-        System.out.println("User:" + user.getPassword());
+    public Response loginAdmin(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
+        Users user = findByMailPass(mail, pwd);
         
         java.net.URI location;
         try {
             
-            if (user != null && user.getPassword().equals(pwd))             
+            if (user != null && user.getAdmin())             
                 location = new URI("http://localhost:8080/webapp/Logged.jsp");
             else
                 location = new URI("http://localhost:8080/webapp/index.jsp");
@@ -143,11 +136,28 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         }
         return null;
     }
-    */
-    public Users findWithMail(String mail, String pwd) throws NoResultException{
-        Users user = (Users) em.createNamedQuery("Users.findByMailAddress")
+    
+    // will return a boolean
+    @POST
+    @Path("loginUser")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public boolean loginUser(@FormParam("mail") String mail, @FormParam("pwd") String pwd){ 
+        Users user = findByMailPass(mail, pwd);
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+    
+    public Users findByMailPass(String mail, String pwd){
+        Users user = null;
+        try{
+            user = (Users) em.createNamedQuery("Users.findByMailPass")
                 .setParameter("mailAddress", mail)
+                .setParameter("password", pwd)
                 .getSingleResult();
+        }catch (NoResultException e){}
+        
         return user;
     }
 }
