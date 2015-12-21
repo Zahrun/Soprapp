@@ -115,7 +115,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         try {
             
             if (user != null && user.getAdmin())             
-                location = new URI("http://localhost:8080/webapp/Logged.jsp");
+                location = new URI("http://localhost:8080/webapp/mainPage.jsp");
             else
                 location = new URI("http://localhost:8080/webapp/index.html");
             

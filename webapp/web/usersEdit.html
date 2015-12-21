@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Sopra Admin Page</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/starter-template.css" rel="stylesheet" />
+        <link href="css/main.css" rel="stylesheet" />
+    </head>
+    <body onload="initUserEdit()">
+        <!-- navigation bar for all the edit sections -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" >
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        Sopradmin
+                    </a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="Sites"><a href="#">Sites</a></li>
+                        <li id="Salles"><a href="#">Salles</a></li>
+                        <li class="active" id="Utilisateurs" onclick="getUserList()"><a href="#">Utilisateurs</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav> <!-- fin de la barre de navigation -->
+        
+        <div class="mainContainer"> <!-- here we put the content of the site -->
+            <div class="research-bar row"> <!-- research bar -->
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher ..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Chercher</button>
+                        
+                    </span>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="optionDropdown" data-toggle="dropdown">
+                        Options
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="optionDropdown">
+                        <li><a href="#">lala</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/users.js"></script>
+    </body>
+</html>
