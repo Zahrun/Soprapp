@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,6 +29,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.container.AsyncResponse;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -104,17 +107,35 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         return em;
     }
     
-    // will redirect to a admin web page
+    
     @POST
-    @Path("loginAdmin")
-    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public Response loginAdmin(@FormParam("mail") String mail, @FormParam("pwd") String pwd){
+    @Path(value = "loginUser")
+    @Consumes(value = MediaType.APPLICATION_FORM_URLENCODED)
+    @Asynchronous
+    public void loginUser(@Suspended final AsyncResponse asyncResponse, @FormParam(value = "mail") final String mail, @FormParam(value = "pwd") final String pwd) {
+        asyncResponse.resume(doLoginUser(mail, pwd));
+    }
+
+    private boolean doLoginUser(@FormParam("mail") String mail, @FormParam("pwd") String pwd) {
+        Users user = findByMailPass(mail, pwd);
+        return user != null;
+    }
+    
+    @POST
+    @Path(value = "loginAdmin")
+    @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED})
+    @Asynchronous
+    public void loginAdmin(@Suspended final AsyncResponse asyncResponse, @FormParam(value = "mail") final String mail, @FormParam(value = "pwd") final String pwd) {
+        asyncResponse.resume(doLoginAdmin(mail, pwd));
+    }
+
+    private Response doLoginAdmin(@FormParam("mail") String mail, @FormParam("pwd") String pwd) {
         Users user = findByMailPass(mail, pwd);
         
         java.net.URI location;
         try {
             
-            if (user != null && user.getAdmin())             
+            if (user != null && user.getAdmin())
                 location = new URI("http://localhost:8080/webapp/mainPage.jsp");
             else
                 location = new URI("http://localhost:8080/webapp/index.html");
@@ -125,19 +146,7 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         }
         return null;
     }
-    
-    // will return a boolean
-    @POST
-    @Path("loginUser")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public boolean loginUser(@FormParam("mail") String mail, @FormParam("pwd") String pwd){ 
-        Users user = findByMailPass(mail, pwd);
-        if (user != null)
-            return true;
-        else
-            return false;
-    }
-    
+        
     public Users findByMailPass(String mail, String pwd){
         Users user = null;
         try{
@@ -151,20 +160,43 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
     
     // methods for filtering
-    @POST
-    @Path("filterUser")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public List<Users> filterUsers(@FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail){
-        
-        return filterByNameSurnameMail(name, surname, mail);
+    @GET
+    @Path(value = "filterUsers/{name}/{surname}/{mail}")
+    public List<Users> filterUsersGET(@PathParam(value = "name") final String name, @PathParam(value = "surname") final String surname, @PathParam(value = "mail") final String mail) {
+        return filterByEverythingOR(name, surname, mail);
     }
     
-    public List<Users> filterByNameSurnameMail(String name, String surname, String mail){
-        List<Users> listUsers = null;
-        System.out.println("name: " + name);
-        System.out.println("surname: " + surname);
-        System.out.println("mail: " + mail);
-        listUsers = (List<Users>) em.createNamedQuery("Users.filterByNameSurnameMail")
+    @GET
+    @Path(value = "filterUsersName/{name}")
+    public List<Users> filterUsersNameGET(@PathParam(value = "name") final String name) {
+        return filterByEverythingAND(name, "", "");
+    }
+    
+    @GET
+    @Path(value = "filterUsersSurname/{surname}")
+    public List<Users> filterUsersSurnameGET(@PathParam(value = "surname") final String surname) {
+        return filterByEverythingAND("", surname, "");
+    }
+
+    @GET
+    @Path(value = "filterUsersMail/{mail}")
+    public List<Users> filterUsers(@PathParam(value = "mail") final String mail) {
+        return filterByEverythingAND("", "", mail);
+    }
+
+    public List<Users> filterByEverythingAND(String name, String surname, String mail){
+        List<Users> listUsers;
+        listUsers = (List<Users>) em.createNamedQuery("Users.filterByEverythingAND")
+                .setParameter("name", "%" + name + "%")
+                .setParameter("surname", "%" + surname + "%")
+                .setParameter("mail", "%" + mail + "%")
+                .getResultList();
+        return listUsers;
+    }
+    
+    public List<Users> filterByEverythingOR(String name, String surname, String mail){
+        List<Users> listUsers;
+        listUsers = (List<Users>) em.createNamedQuery("Users.filterByEverythingOR")
                 .setParameter("name", "%" + name + "%")
                 .setParameter("surname", "%" + surname + "%")
                 .setParameter("mail", "%" + mail + "%")

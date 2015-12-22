@@ -27,26 +27,42 @@
             </div>
         </nav> <!-- fin de la barre de navigation -->
         
-        <div class="mainContainer"> <!-- here we put the content of the site -->
-            <div class="research-bar row"> <!-- research bar -->
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Rechercher ..." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Chercher</button>
-                        
-                    </span>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="optionDropdown" data-toggle="dropdown">
-                        Options
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="optionDropdown">
-                        <li><a href="#">lala</a></li>
-                    </ul>
-                </div>
+        <div id="mainContainer" class="container"> <!-- here we put the content of the site -->
+            
+            <div id="research-bar"> <!-- research bar -->
+                <div class="row">
+                    <div class="col-xs-9">
+                        <div class="input-group">
+                            <input id="searchString" type="text" class="form-control" placeholder="Rechercher ..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="searchUsers()">Chercher</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="optionDropdown" data-toggle="dropdown">
+                                Options
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="optionDropdown">
+                                <li><a href="#"><input type="radio" name="searchOption" id="all" checked="checked"/>Tout</a></li>
+                                <li><a href="#"><input type="radio" name="searchOption" id="name"/>Nom</a></li>
+                                <li><a href="#"><input type="radio" name="searchOption" id="surname"/>Prenom</a></li>
+                                <li><a href="#"><input type="radio" name="searchOption" id="mail"/>Mail</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    
+                </div> <!-- end of the research bar -->
             </div>
-        </div>
+            
+            <div id="searchResult"> <!-- to put the result of the research -->
+                
+            </div> <!-- end of the research div -->
+            
+        </div> <!-- end of the container -->
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

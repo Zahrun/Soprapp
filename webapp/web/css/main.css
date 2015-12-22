@@ -14,7 +14,7 @@ and open the template in the editor.
     margin-right: auto;
 }
 
-.mainContainer{
+#mainContainer{
     width: 500px;
     margin-top: 10px;
     margin-left: auto;
@@ -27,4 +27,35 @@ and open the template in the editor.
 
 #optionDropdown{
     margin-left: 10px;
+}
+
+.dropdown-menu > li{
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857;
+    color: #333;
+    white-space: nowrap;
+}
+
+.dropdown-menu > li > a > input{
+    margin-right: 10px;
+}
+
+.userOverview{
+    border: 2px solid #b94a48;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-flex;
+}
+
+.userOverview > div > img {
+    margin: 5px;
+}
+
+.userOverview > .informations{
+    margin: 5px;
+    margin-left: 0px;
 }

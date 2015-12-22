@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByAdmin", query = "SELECT u FROM Users u WHERE u.admin = :admin"),
     @NamedQuery(name = "Users.findByMailPass", query = "SELECT u FROM Users u WHERE u.mailAddress = :mailAddress AND u.password = :password"),
     @NamedQuery(name = "Users.filterByName", query = "SELECT u FROM Users u WHERE u.name LIKE :name"),
-    @NamedQuery(name = "Users.filterByNameSurnameMail", query = "SELECT u FROM Users u WHERE u.name LIKE :name AND u.surname LIKE :surname AND u.mailAddress LIKE :mail")
+    @NamedQuery(name = "Users.filterByEverythingAND", query = "SELECT u FROM Users u WHERE u.name LIKE :name AND u.surname LIKE :surname AND u.mailAddress LIKE :mail"),
+    @NamedQuery(name = "Users.filterByEverythingOR", query = "SELECT u FROM Users u WHERE u.name LIKE :name OR u.surname LIKE :surname OR u.mailAddress LIKE :mail")
 })
 public class Users implements Serializable {
 
