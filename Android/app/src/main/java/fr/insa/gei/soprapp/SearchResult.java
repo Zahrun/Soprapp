@@ -3,6 +3,9 @@ package fr.insa.gei.soprapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import org.springframework.http.ResponseEntity;
@@ -11,12 +14,20 @@ import org.springframework.web.client.RestTemplate;
 
 import fr.insa.gei.soprapp.entities.Sites;
 
-public class SearchResult extends Activity {
+public class SearchResult extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
         new Thread(new Runnable() {
             @Override
