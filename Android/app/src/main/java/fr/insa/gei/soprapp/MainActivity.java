@@ -61,25 +61,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         fab.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String uri = "http://192.168.0.101:8080/webapp/rest/entities.sites";
-                        // Create a new RestTemplate instance
-                        RestTemplate restTemplate = new RestTemplate();
-                        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                        ResponseEntity<Sites[]> responseEntity = restTemplate.getForEntity(uri, Sites[].class);
 
-                        final Sites[] result = responseEntity.getBody();
-                        final TextView textView = (TextView) findViewById(R.id.textView2);
-                        textView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                textView.setText(result[0].toString());
-                            }
-                        });
-                    }
-                }).start();
 
             }
         });*/

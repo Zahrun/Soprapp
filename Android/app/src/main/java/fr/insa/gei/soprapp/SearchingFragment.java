@@ -2,7 +2,9 @@ package fr.insa.gei.soprapp;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class SearchingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.searching_fragment, container, false);
         fm = getActivity().getFragmentManager();
+
         return view;
     }
 
@@ -40,7 +43,7 @@ public class SearchingFragment extends Fragment {
 
                                 {
                                     @Override
-                                    public void onClick (View v){
+                                    public void onClick(View v) {
                                         PickDateFragment pdf = new PickDateFragment();
                                         pdf.show(fm, "datePicker");
                                     }
@@ -72,8 +75,20 @@ public class SearchingFragment extends Fragment {
                                             }
                                         }
 
+
+
         );
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick (View v){
+                Intent intent = new Intent(getActivity().getApplicationContext(), SearchResult.class);
+                startActivity(intent);
+            }
+        } );
 
     }
 }
