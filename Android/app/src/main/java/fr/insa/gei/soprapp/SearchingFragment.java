@@ -32,9 +32,9 @@ public class SearchingFragment extends Fragment {
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.sites_array, android.R.layout.simple_spinner_item);
+                R.array.sites_array, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 

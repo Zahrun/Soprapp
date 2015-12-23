@@ -12,16 +12,19 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
 
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
+        android:theme="@style/PagerTabStrip"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="true"
+        android:background="@color/orangeSopra"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsIndicatorColor="@color/colorPrimaryDark"
+        app:pstsUnderlineHeight="0dp"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 

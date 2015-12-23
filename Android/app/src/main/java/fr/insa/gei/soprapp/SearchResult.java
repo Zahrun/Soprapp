@@ -28,6 +28,12 @@ public class SearchResult extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setLogo(R.mipmap.ic_launcher);
+        ab.setDisplayUseLogoEnabled(true);
+
+
+
+
 
         new Thread(new Runnable() {
             @Override

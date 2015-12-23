@@ -7,6 +7,7 @@
     <string name="particularities">Particularités</string>
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
+    <string name="roomManagementButton">Salles favorites</string>
 
     <string name="dummy_section_text">A venir...</string>
 </resources>
