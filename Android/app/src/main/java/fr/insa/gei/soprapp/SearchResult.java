@@ -31,10 +31,6 @@ public class SearchResult extends AppCompatActivity {
         ab.setLogo(R.mipmap.ic_launcher);
         ab.setDisplayUseLogoEnabled(true);
 
-
-
-
-
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -4,13 +4,11 @@ package fr.insa.gei.soprapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TableLayout;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), TemplateActivity.class);
             startActivity(intent);
             return true;
         }
