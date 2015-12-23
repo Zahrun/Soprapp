@@ -14,12 +14,18 @@
 
 
     <!-- SETTINGS -->
-    <string name="preferences">Préfèrences</string>
+    <string name="preferences">Préférences</string>
     <string name="pref_site">Site actuel</string>
     <string name="pref_site_summary">Choisissez votre site courant</string>
     <string name="pref_site_title">Sites Sopra</string>
     <string name="pref_rooms">Vos salles</string>
     <string name="pref_rooms_summary">Choisissez vos salles favorites</string>
     <string name="pref_rooms_title">Salles courantes</string>
+    <string name="pref_notif">Notifications</string>
+    <string name="pref_notif_new_summary">Recevoir une notification lorsque l\'on est convié à une réunion</string>
+    <string name="pref_notif_new_title">Nouvelle réunion</string>
+    <string name="pref_notif_delete_summary">Recevoir une notification lorsque l\'une de nos réunion est annulée</string>
+    <string name="pref_notif_delete_title">Réunion annulée</string>
+
 
 </resources>

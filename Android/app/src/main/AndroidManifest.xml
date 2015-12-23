@@ -25,6 +25,9 @@
         <activity android:label="@string/preferences" android:name=".TemplateActivity"
             android:parentActivityName="MainActivity"/>
 
+        <activity android:label="@string/preferences" android:name=".HeadersActivity"
+            android:parentActivityName=".TemplateActivity"/>
+
     </application>
 
 </manifest>
