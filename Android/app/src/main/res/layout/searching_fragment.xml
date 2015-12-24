@@ -144,4 +144,15 @@
     </RelativeLayout>
 
 
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_margin="@dimen/fab_margin"
+        app:borderWidth="0dp"
+        app:fabSize="normal"/>
+
 </FrameLayout>

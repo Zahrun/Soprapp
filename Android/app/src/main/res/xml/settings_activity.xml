@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Vos préférences">
+
+        <PreferenceScreen
+            android:summary="Choisissez vos paramètres préférentiels"
+            android:title="Site et salles favorites">
+            <intent android:targetPackage="fr.insa.gei.soprapp"
+                android:targetClass="fr.insa.gei.soprapp.HeadersActivity"/>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_notif"
+        android:key="pref_key_notifs">
+            <CheckBoxPreference
+            android:key="pref_key_notif_new"
+            android:summary="@string/pref_notif_new_summary"
+            android:title="@string/pref_notif_new_title"
+            android:defaultValue="true"/>
+            <CheckBoxPreference
+                android:key="pref_key_notif_delete"
+                android:summary="@string/pref_notif_delete_summary"
+                android:title="@string/pref_notif_delete_title"
+                android:defaultValue="true"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

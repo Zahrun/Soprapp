@@ -2,7 +2,9 @@ package fr.insa.gei.soprapp;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ public class SearchingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.searching_fragment, container, false);
         fm = getActivity().getFragmentManager();
+
         return view;
     }
 
@@ -29,9 +32,9 @@ public class SearchingFragment extends Fragment {
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(),
-                R.array.sites_array, android.R.layout.simple_spinner_item);
+                R.array.sites_array, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
@@ -40,7 +43,7 @@ public class SearchingFragment extends Fragment {
 
                                 {
                                     @Override
-                                    public void onClick (View v){
+                                    public void onClick(View v) {
                                         PickDateFragment pdf = new PickDateFragment();
                                         pdf.show(fm, "datePicker");
                                     }
@@ -72,8 +75,20 @@ public class SearchingFragment extends Fragment {
                                             }
                                         }
 
+
+
         );
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick (View v){
+                Intent intent = new Intent(getActivity().getApplicationContext(), SearchResult.class);
+                startActivity(intent);
+            }
+        } );
 
     }
 }
