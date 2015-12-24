@@ -6,8 +6,7 @@ function getUserList() {
     $.get(
             "http://localhost:8080/webapp/rest/entities.users",
             function (data) {
-                $(".container").html(data);
-                alert("done");
+                drawUserList(data);
             },
             "json"
             );
@@ -23,6 +22,9 @@ function initUserEdit() {
 
     userImg.src = "media/userIcon.png";
     adminImg.src = "media/adminIcon.png";
+    
+    // load the initial list
+    searchUsers();
 
 }
 
@@ -32,7 +34,10 @@ function searchUsers() {
     var url = "http://localhost:8080/webapp/rest/entities.users/filterUsers";
     switch (selectedOption) {
         case "all":
-            url += "/" + searchString + "/" + searchString + "/" + searchString;
+            if (searchString !== "")
+                url += "/" + searchString + "/" + searchString + "/" + searchString;
+            else
+                url = "http://localhost:8080/webapp/rest/entities.users";
             break;
         case "name":
             url += "Name/" + searchString;
@@ -49,28 +54,31 @@ function searchUsers() {
     }
 
     $.get(
-            url,
-            function (data) {
-                var resultDiv = $("#searchResult");
-                resultDiv.html("");
-                var tmpData;
-                var iconImg;
-                for (var i = 0; i < data.length; i++) {
-                    tmpData = data[i];
-                    if (tmpData.admin)
-                        iconImg = adminImg.src;
-                    else
-                        iconImg = userImg.src;
+        url,
+        function (data) {
+            drawUserList(data);
+        },
+        "json"
+    );
+}
 
-                    resultDiv.append("<div id='" + tmpData.userID + "' class='userOverview'>"
-                            + "<div><img src='" + iconImg + "'/></div>"
-                            + "<div class='informations'>"
-                            + "<div id='name'>" + tmpData.name + "</div><div id='surname'>" + tmpData.surname + "</div>"
-                            + "<div id='mailAddress'>" + tmpData.mailAddress + "</div>"
-                            + "</div></div>");
-//"+ data[i].name + "</div>");
-                }
-            },
-            "json"
-            );
+function drawUserList(userList){
+    var resultDiv = $("#searchResult");
+    resultDiv.html("");
+    var tmpData;
+    var iconImg;
+    for (var i = 0; i < userList.length; i++) {
+        tmpData = userList[i];
+        if (tmpData.admin)
+            iconImg = adminImg.src;
+        else
+            iconImg = userImg.src;
+
+        resultDiv.append("<div id='" + tmpData.userID + "' class='userOverview'>"
+            + "<div><img src='" + iconImg + "'/></div>"
+            + "<div class='informations'>"
+            + "<div id='name'>" + tmpData.name + "</div><div id='surname'>" + tmpData.surname + "</div>"
+            + "<div id='mailAddress'>" + tmpData.mailAddress + "</div>"
+            + "</div></div>");
+    }
 }

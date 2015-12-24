@@ -26,7 +26,7 @@
             SitesFacadeREST sitesREST = new SitesFacadeREST(em);
             List<Sites> listSites = sitesREST.findAll();
             for (Sites s : listSites){
-        %><p><a href=<%  %><%out.println(s.getName());%></a></p><%
+                %><p><a href="#"><%out.println(s.getName());%></a></p><%
             }
         %>
     </body>
