@@ -40,10 +40,21 @@ function loadSideBar(id){
     sideBar.append("<li class='sidebar-brand'><a>" + id + "</a></li>");
     // load the content of the list
     for (var i in tmpList){
-        sideBar.append("<li><a href='#' onclick='loadPage(" + tmpLinkList[i] + "," + id + ")'>" + tmpList[i] + "</a></li>");
+        sideBar.append("<li><a href='#' onclick=\"loadPage('" + tmpLinkList[i] + "','" + id + "')\">" + tmpList[i] + "</a></li>");
     }
 }
 
 function toggleMenu(){
     $("#wrapper").toggleClass("toggled");
+}
+
+// sample for put request (not tested!)
+function put(url){
+    $.ajax({
+       url: url,
+       type: 'PUT',
+       success: function (result){
+           // do something
+       }
+    });
 }

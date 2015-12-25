@@ -13,6 +13,7 @@
 
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/starter-template.css" rel="stylesheet" />
+        <link href="css/simple-sidebar.css" rel="stylesheet" />
         <link href="css/main.css" rel="stylesheet" />
     </head>
     <body onload="loadPage('sites.jsp','Sites')">
@@ -47,7 +48,7 @@
             <!-- Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid"> <!-- pour que le contenu s'adapte -->
-                    <div class="mainContainer"> <!-- here we put the content of the site -->
+                    <div class="mainContainer container"> <!-- here we put the content of the site -->
 
                     </div>
                 </div>
