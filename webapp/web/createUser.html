@@ -4,26 +4,28 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
-<div id="createUserForm">
+<!-- action="http://localhost:8080/webapp/rest/entities.users/createUser"  method="POST" -->
+<form id="createUserForm" onsubmit="createUser()">
     <div class="form-group">
-        <label for="admin"><input id="admin" type="checkbox" checked="" />Admin</label>
+        <label for="admin"><input name="admin" type="checkbox"/>Admin</label>
     </div>
     <div class="form-group">
         <label for="name">Nom:</label>
-        <input type="text" class="form-control" id="name" placeholder="Nom de l'utilisateur" />
+        <input type="text" class="form-control" required name="name" placeholder="Nom de l'utilisateur" />
     </div>
     <div class="form-group">
         <label for="surname">Prenom:</label>
-        <input type="text" class="form-control" id="surname" placeholder="Prenom de l'utilisateur"/>
+        <input type="text" class="form-control" required name="surname" placeholder="Prenom de l'utilisateur"/>
     </div>
     <div class="form-group">
         <label for="mail">Email:</label>
-        <input type="text" class="form-control" id="mail" placeholder="Email de l'utilisateur"/>
+        <input type="email" class="form-control" required name="mail" placeholder="Email de l'utilisateur"/>
     </div>
     <div class="form-group">
         <label for="password">Mot de passe:</label>
-        <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe"/>
-        <input type="password" class="form-control" name="confirmation" id="confirmation" />
+        <input type="password" class="form-control" required name="pwd" placeholder="Mot de passe"/>
     </div>
-</div>
+    <div class="form-group">
+        <input type="Submit"/>
+    </div>
+</form>

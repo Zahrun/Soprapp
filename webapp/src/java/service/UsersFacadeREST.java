@@ -63,9 +63,19 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
     public void edit(@PathParam("id") Integer id, Users entity) {
         super.edit(entity);
+    }
+    
+    @POST
+    @Path(value = "createUser")
+    @Consumes(value = MediaType.APPLICATION_FORM_URLENCODED)
+    public void createUserREST(@FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd, @FormParam("admin") boolean admin){
+        System.out.println(mail);
+        System.out.println(admin);
+        Users user = new Users(null, name, surname, mail, pwd, admin);
+        super.create(user);
     }
 
     @DELETE
