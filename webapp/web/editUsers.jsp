@@ -21,6 +21,8 @@
    Users user = userFacade.find(id);
 %>
 
+<button class="btn-danger" onclick="deleteUser(<% out.println(id); %>)">Delete</button>
+
 <form id="createUserForm" onsubmit="updateUser(<% out.println(user.getUserID()); %>)">
     <div class="form-group">
         <label for="admin"><input name="admin" type="checkbox" <% if (user.getAdmin()) out.println("checked"); %>/>Admin</label>

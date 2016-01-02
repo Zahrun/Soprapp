@@ -146,3 +146,16 @@ function updateUser(id){
        }
     });
 }
+
+function deleteUser(id){
+    alert(id);
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.users/" + id,
+       type: 'DELETE',
+       success: function (result){
+           // redirect to the search page
+           alert("Deletion is a success!");
+           loadPage('searchUsers.html','Utilisateurs');
+       }
+   });
+}

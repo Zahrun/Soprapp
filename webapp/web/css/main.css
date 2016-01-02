@@ -60,3 +60,9 @@ and open the template in the editor.
     margin: 5px;
     margin-left: 0px;
 }
+
+.btn-danger{
+    margin-left: 10%;
+    margin-right: 10%;
+    width : 80%;
+}
