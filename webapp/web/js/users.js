@@ -95,7 +95,7 @@ function createUser(){
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/testcreate",
+       url: "http://localhost:8080/webapp/rest/entities.users/createUser",
        type: 'POST',
        data: {
            admin: admin,
@@ -122,28 +122,31 @@ function editUser(id){
 
 function updateUser(id){
     
-    var user = {
-        userID:parseInt(id),
-        name:$("input[name=name]").val(),
-        surname:$("input[name=surname]").val(),
-        mailAddress:$("input[name=mail]").val(),
-        password:$("input[name=pwd]").val(),
-        admin:$("input[name=admin]").is(":checked")
-    };
+    // retrieve the parameters from the form
+    var name = $('input[name = "name"]').val();
+    var surname = $('input[name = "surname"]').val();
+    var mail = $('input[name = "mail"]').val();
+    var pwd = $('input[name = "pwd"]').val();
+    var admin = $('input[name = "admin"]').is(":checked");
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/" + id,
+       url: "http://localhost:8080/webapp/rest/entities.users/test/" + id,
        type: 'PUT',
-       data: JSON.stringify(user),
-       success: function (result){
-           // redirect to the search page
-           alert("Modifiation is a success!");
+       data: {
+           name: name,
+           surname: surname,
+           mail: mail,
+           pwd: pwd,
+           admin: admin
+       },
+       success: function (){
            loadPage('searchUsers.html','Utilisateurs');
        },
        error: function (result){
-           alert(result);
+           //alert(result);
        }
     });
+    loadPage('searchUsers.html','Utilisateurs');
 }
 
 function deleteUser(id){

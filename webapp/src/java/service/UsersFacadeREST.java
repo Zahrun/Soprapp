@@ -68,25 +68,26 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         super.edit(entity);
     }
     
-    @POST
-    @Path(value = "createUser")
-    @Consumes(value = MediaType.APPLICATION_FORM_URLENCODED)
-    public void createUserREST(@FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd, @FormParam("admin") boolean admin){
+    @PUT
+    @Path("test/{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
+    public void editTest(@PathParam("id") Integer id, @FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd) {
+        //super.edit(entity);
+        System.out.println(name);
+        System.out.println(id);
+        System.out.println(surname);
         System.out.println(mail);
+        System.out.println(pwd);
         System.out.println(admin);
-        Users user = new Users();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setMailAddress(mail);
-        user.setPassword(pwd);
-        user.setAdmin(admin);
-        super.create(user);
+        Users entity = new Users(id, name, surname, mail, pwd, admin);
+        super.edit(entity);
     }
+    
 
     @POST
-    @Path(value = "testcreate")
+    @Path(value = "createUser")
     @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void testcreateUserREST(@FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd){
+    public void createUserREST(@FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd){
         /*
         System.out.println(admin);
         System.out.println(name);
