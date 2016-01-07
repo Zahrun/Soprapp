@@ -95,7 +95,7 @@ function createUser(){
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/createUser",
+       url: "http://localhost:8080/webapp/rest/entities.users/js",
        type: 'POST',
        data: {
            admin: admin,
@@ -130,7 +130,7 @@ function updateUser(id){
     var admin = $('input[name = "admin"]').is(":checked");
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/test/" + id,
+       url: "http://localhost:8080/webapp/rest/entities.users/js/" + id,
        type: 'PUT',
        data: {
            name: name,

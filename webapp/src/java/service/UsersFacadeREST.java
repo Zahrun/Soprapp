@@ -68,8 +68,9 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         super.edit(entity);
     }
     
+    // put method that takes Form parameters, because I did not know how to pass a Java object from JS
     @PUT
-    @Path("test/{id}")
+    @Path("js/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
     public void editTest(@PathParam("id") Integer id, @FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd) {
         //super.edit(entity);
@@ -83,9 +84,9 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         super.edit(entity);
     }
     
-
+    // vatiation of create, with form parameters to enable the use with ajax Post request
     @POST
-    @Path(value = "createUser")
+    @Path(value = "js")
     @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createUserREST(@FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd){
         /*
