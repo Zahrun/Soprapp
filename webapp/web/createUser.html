@@ -5,7 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!-- action="http://localhost:8080/webapp/rest/entities.users/createUser"  method="POST" -->
-<form id="createUserForm" onsubmit="createUser()">
+<div id="createUserForm">
     <div class="form-group">
         <label for="admin"><input name="admin" type="checkbox"/>Admin</label>
     </div>
@@ -26,6 +26,6 @@ and open the template in the editor.
         <input type="password" class="form-control" required name="pwd" placeholder="Mot de passe"/>
     </div>
     <div class="form-group">
-        <input type="Submit"/>
+        <button onclick="createUser()">Submit</button>
     </div>
-</form>
+</div>

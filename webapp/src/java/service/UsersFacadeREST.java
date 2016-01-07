@@ -74,10 +74,36 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     public void createUserREST(@FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd, @FormParam("admin") boolean admin){
         System.out.println(mail);
         System.out.println(admin);
-        Users user = new Users(null, name, surname, mail, pwd, admin);
+        Users user = new Users();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setMailAddress(mail);
+        user.setPassword(pwd);
+        user.setAdmin(admin);
         super.create(user);
     }
 
+    @POST
+    @Path(value = "testcreate")
+    @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void testcreateUserREST(@FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd){
+        /*
+        System.out.println(admin);
+        System.out.println(name);
+        System.out.println(surname);
+        System.out.println(mail);
+        System.out.println(pwd);
+        */
+        
+        Users user = new Users();
+        user.setAdmin(admin);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setMailAddress(mail);
+        user.setPassword(pwd);
+        super.create(user);
+    }
+    
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {

@@ -6,12 +6,12 @@
 function getUserList() {
     var userList;
     $.get(
-            "http://localhost:8080/webapp/rest/entities.users",
-            function (data) {
-                drawUserList(data);
-            },
-            "json"
-            );
+        "http://localhost:8080/webapp/rest/entities.users",
+        function (data) {
+            drawUserList(data);
+        },
+        "json"
+    );
 }
 
 var userImg;
@@ -87,34 +87,33 @@ function drawUserList(userList){
 
 function createUser(){
     // retrieve the parameters from the form
-    var name = $('[name = "name"]').val();
-    var surname = $('[name = "surname"]').val();
-    var mail = $('[name = "mail"]').val();
-    var pwd = $('[name = "password"]').val();
-    var admin = $(".admin").is(":checked");
-    
-    var user = {
-        userID:null,
-        name:$("input[name=name]").val(),
-        surname:$("input[name=surname]").val(),
-        mailAddress:$("input[name=mail]").val(),
-        password:$("input[name=pwd]").val(),
-        admin:$("input[name=admin]").is(":checked")
-    };
+    var name = $('input[name = "name"]').val();
+    var surname = $('input[name = "surname"]').val();
+    var mail = $('input[name = "mail"]').val();
+    var pwd = $('input[name = "pwd"]').val();
+    var admin = $('input[name = "admin"]').is(":checked");
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users",
+       url: "http://localhost:8080/webapp/rest/entities.users/testcreate",
        type: 'POST',
-       data: JSON.stringify(user),
-       success: function (result){
-           // do something
-           alert("ok");
+       data: {
+           admin: admin,
+           name: name,
+           surname: surname,
+           pwd: pwd,
+           mail: mail   
        },
-       error: function(){
-           alert("something went wrong");
+       success: function (){
+           loadPage('searchUsers.html','Utilisateurs');
+       },
+       error: function(error){
+           alert(error);
        }
     });
+    
+    // disable redirection
+    return false;
 }
 
 function editUser(id){
@@ -131,7 +130,7 @@ function updateUser(id){
         password:$("input[name=pwd]").val(),
         admin:$("input[name=admin]").is(":checked")
     };
-    alert(JSON.stringify(user));
+    
     $.ajax({
        url: "http://localhost:8080/webapp/rest/entities.users/" + id,
        type: 'PUT',
