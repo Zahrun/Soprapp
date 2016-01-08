@@ -60,5 +60,6 @@
         <script src="js/variables.js"></script>
         <script src="js/main.js"></script>
         <script src="js/users.js"></script>
+        <script src="js/rooms.js"></script> 
     </body>
 </html>

@@ -31,6 +31,10 @@ function loadSideBar(id){
             tmpList = userOptions;
             tmpLinkList = userLinks;
             break;
+        case "Salles":
+            tmpList = roomOptions;
+            tmpLinkList = roomLinks;
+            break;
         default:
             alert(id + " not defined yet");
             break;

@@ -1,9 +1,43 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<div>
-    Edit some rooms
+     
+
+
+<div id="search-bar"> <!-- research bar -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="input-group">
+                <input id="searchString" type="text" class="form-control" placeholder="Rechercher ..." />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="searchRooms()">Chercher</button>
+                </span>
+            </div>
+        </div>
+    
+ 
+        
+        <div class="col-xs-2">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="optionDropdown" data-toggle="dropdown">
+                    Options
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="optionDropdown">
+                    <li><a href="#"><input type="radio" name="searchOption" id="all" checked="checked"/>Tout</a></li>
+                    <li><a href="#"><input type="radio" name="searchOption" id="number"/>Nom de la salle</a></li>
+                    <li><a href="#"><input type="radio" name="searchOption" id="capacity"/>Capacité</a></li>
+                </ul>
+            </div>
+        </div>
+
+        -->
+
+    </div> <!-- end of the research bar -->
 </div>
+
+<div id="searchResult"> <!-- to put the result of the research -->
+
+</div> <!-- end of the research div -->
+            
+<script>
+    initRoomEdit();
+</script>
