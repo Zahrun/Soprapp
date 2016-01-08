@@ -7,4 +7,3 @@ var userDefault = 0; // première option par défaut
 var userOptions = ["Recherche", "Nouveau"];
 var userLinks = ["searchUsers.html", "createUser.html"];
 
-// Nouveay commentaire de texte
