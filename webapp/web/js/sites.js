@@ -14,16 +14,10 @@ function getSiteList() {
     );
 }
 
-//var userImg;
-//var adminImg; IMAGES spéciales à ajouter après par rapport aux types de salles?
+
 function initSiteEdit() {
 
-    // preload the images
-    //userImg = new Image();
-    //adminImg = new Image();
 
-    //userImg.src = "media/userIcon.png";
-   // adminImg.src = "media/adminIcon.png";
     
     // load the initial list
     searchSites();
@@ -72,12 +66,8 @@ function drawSiteList(siteList){
     var iconImg;
     for (var i = 0; i < siteList.length; i++) {
         tmpData = siteList[i];
-    /*    if (tmpData.admin)
-            iconImg = adminImg.src;
-        else
-            iconImg = userImg.src; */
 
-        resultDiv.append("<div id='" + tmpData.siteID + "' class='roomOverview' onclick='editSite(" + tmpData.siteID + ")' >"
+        resultDiv.append("<div id='" + tmpData.siteID + "' class='siteOverview' onclick='editSite(" + tmpData.siteID + ")' >"
             + "<div class='informations'>"
             + "<div id='name'>" + tmpData.name + "</div>"
             + "<div id='address'>" + tmpData.address + "</div>"
@@ -113,47 +103,43 @@ function createSite(){
     return false;
 }
 
-function editSite(id){ // TODO
-    loadPage("http://localhost:8080/webapp/editRooms.jsp?id=" + id, "Salles");
+function editSite(id){ 
+    loadPage("http://localhost:8080/webapp/editSites.jsp?id=" + id, "Sites");
 }
 
-function updateSite(id){ // TODO
+function updateSite(id){ 
     
     // retrieve the parameters from the form
     var name = $('input[name = "name"]').val();
-    var surname = $('input[name = "surname"]').val();
-    var mail = $('input[name = "mail"]').val();
-    var pwd = $('input[name = "pwd"]').val();
-    var admin = $('input[name = "admin"]').is(":checked");
+    var address = $('input[name = "address"]').val();
+    var description = $('input[name = "description"]').val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js/" + id,
+       url: "http://localhost:8080/webapp/rest/entities.sites/js/" + id,
        type: 'PUT',
        data: {
            name: name,
-           surname: surname,
-           mail: mail,
-           pwd: pwd,
-           admin: admin
+           address: address,
+           description: description
        },
        success: function (){
-           loadPage('searchUsers.html','Utilisateurs');
+           loadPage('editSites.html','Sites');
        },
        error: function (result){
            //alert(result);
        }
     });
-    loadPage('searchUsers.html','Utilisateurs');
+    loadPage('editSites.html','Sites');
 }
 
-function deleteSite(id){ // TODO
+function deleteSite(id){
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/" + id,
+       url: "http://localhost:8080/webapp/rest/entities.sites/" + id,
        type: 'DELETE',
        success: function (result){
            // redirect to the search page
            alert("Deletion is a success!");
-           loadPage('roomsEdit.html','Salles');
+           loadPage('sitesEdit.html','Sites');
        }
    });
 }

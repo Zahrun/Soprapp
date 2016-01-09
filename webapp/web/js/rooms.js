@@ -86,7 +86,7 @@ function drawRoomList(roomList){
     }
 }
 
-function createRoom(){ // TODO
+function createRoom(){ 
     // retrieve the parameters from the form
     var name = $('input[name = "name"]').val();
     var surname = $('input[name = "surname"]').val();

@@ -14,11 +14,12 @@ function loadPage(url, newActiveNavItem){
     if (selectedNavItem !== newActiveNavItem){
         $("#" + selectedNavItem).toggleClass("active");
         $("#" + newActiveNavItem).toggleClass("active");
+    }
         selectedNavItem = newActiveNavItem;
         
         // charge les options du side bar
         loadSideBar(newActiveNavItem);
-    }
+    
 }
 
 var sideBar = $(".sidebar-nav");
@@ -36,13 +37,21 @@ function loadSideBar(id){
             tmpList = roomOptions;
             tmpLinkList = roomLinks;
             break;
+            
+        case "Sites":
+            tmpList = siteOptions;
+            tmpLinkList = siteLinks;
+            break;
 
         case "Reservations":
             tmpList = reservationOptions;
             tmpLinkList = reservationLinks;
             break;
+            
         default:
-            alert(id + " not defined yet");
+            // alert(id + " not defined yet");
+            tmpList = siteOptions;
+            tmpLinkList = siteLinks;
             break;
     }
 
