@@ -1,14 +1,14 @@
-/* global Room, Rooms */
+/* global Site, Sites */
 
-// this file is made to control all the interactions from the "Salles" section of the webpage
+// this file is made to control all the interactions from the "Sites" section of the webpage
 
 // REST api -> GET
-function getRoomList() {
-    var roomList;
+function getSiteList() {
+    var siteList;
     $.get(
-        "http://localhost:8080/webapp/rest/entities.rooms",
+        "http://localhost:8080/webapp/rest/entities.sites",
         function (data) {
-            drawRoomList(data);
+            drawSiteList(data);
         },
         "json"
     );
@@ -16,7 +16,7 @@ function getRoomList() {
 
 //var userImg;
 //var adminImg; IMAGES spéciales à ajouter après par rapport aux types de salles?
-function initRoomEdit() {
+function initSiteEdit() {
 
     // preload the images
     //userImg = new Image();
@@ -26,20 +26,20 @@ function initRoomEdit() {
    // adminImg.src = "media/adminIcon.png";
     
     // load the initial list
-    searchRooms();
+    searchSites();
 
 }
 
-function searchRooms() {
+function searchSites() {
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
-    var url = "http://localhost:8080/webapp/rest/entities.users/filterUsers";
+    var url = "http://localhost:8080/webapp/rest/entities.sites/filterSites";
     switch (selectedOption) {
         case "all":
             if (searchString !== "")
                 url += "/" + searchString + "/" + searchString + "/" + searchString;
             else
-                url = "http://localhost:8080/webapp/rest/entities.rooms";
+                url = "http://localhost:8080/webapp/rest/entities.sites";
             break;
  // autres cas de recherche à préciser !
       /*  case "name":
@@ -59,54 +59,50 @@ function searchRooms() {
     $.get(
         url,
         function (data) {
-            drawRoomList(data);
+            drawSiteList(data);
         },
         "json"
     );
 }
 
-function drawRoomList(roomList){
+function drawSiteList(siteList){
     var resultDiv = $("#searchResult");
     resultDiv.html("");
     var tmpData;
     var iconImg;
-    for (var i = 0; i < roomList.length; i++) {
-        tmpData = roomList[i];
+    for (var i = 0; i < siteList.length; i++) {
+        tmpData = siteList[i];
     /*    if (tmpData.admin)
             iconImg = adminImg.src;
         else
             iconImg = userImg.src; */
 
-        resultDiv.append("<div id='" + tmpData.roomID + "' class='roomOverview' onclick='editRoom(" + tmpData.roomID + ")' >"
+        resultDiv.append("<div id='" + tmpData.siteID + "' class='roomOverview' onclick='editSite(" + tmpData.siteID + ")' >"
             + "<div class='informations'>"
-            + "<div id='number'>" + tmpData.number + "</div>"
-            + "<div id='capacity'>" + tmpData.capacity + "</div>"
-            + "<div id='siteRef.name'>" + tmpData.siteRef.name + "</div>"
+            + "<div id='name'>" + tmpData.name + "</div>"
+            + "<div id='address'>" + tmpData.address + "</div>"
+            + "<div id='description'>" + tmpData.description + "</div>"
             + "</div></div>");
     }
 }
 
-function createRoom(){ // TODO
+function createSite(){ 
     // retrieve the parameters from the form
     var name = $('input[name = "name"]').val();
-    var surname = $('input[name = "surname"]').val();
-    var mail = $('input[name = "mail"]').val();
-    var pwd = $('input[name = "pwd"]').val();
-    var admin = $('input[name = "admin"]').is(":checked");
+    var address = $('input[name = "address"]').val();
+    var description = $('input[name = "description"]').val();
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js",
+       url: "http://localhost:8080/webapp/rest/entities.sites/js",
        type: 'POST',
        data: {
-           admin: admin,
            name: name,
-           surname: surname,
-           pwd: pwd,
-           mail: mail   
+           address: address,
+           description: description  
        },
        success: function (){
-           loadPage('searchUsers.html','Utilisateurs');
+           loadPage('sitesEdit.html','Sites');
        },
        error: function(error){
            alert(error);
@@ -117,11 +113,11 @@ function createRoom(){ // TODO
     return false;
 }
 
-function editRoom(id){ // TODO
+function editSite(id){ // TODO
     loadPage("http://localhost:8080/webapp/editRooms.jsp?id=" + id, "Salles");
 }
 
-function updateRoom(id){ // TODO
+function updateSite(id){ // TODO
     
     // retrieve the parameters from the form
     var name = $('input[name = "name"]').val();
@@ -150,7 +146,7 @@ function updateRoom(id){ // TODO
     loadPage('searchUsers.html','Utilisateurs');
 }
 
-function deleteRoom(id){ // TODO
+function deleteSite(id){ // TODO
     $.ajax({
        url: "http://localhost:8080/webapp/rest/entities.rooms/" + id,
        type: 'DELETE',

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!-- action="http://localhost:8080/webapp/rest/entities.sites/createSite"  method="POST" -->
+<div id="createUserForm">
+    
+    <div class="form-group">
+        <label for="name">Nom:</label>
+        <input type="text" class="form-control" required name="name" placeholder="Nom du site" />
+    </div>
+    <div class="form-group">
+        <label for="address">Adresse:</label>
+        <input type="text" class="form-control" required name="address" placeholder="Adresse du site"/>
+    </div>
+    <div class="form-group">
+        <label for="description">Email:</label>
+        <input type="text" class="form-control" required name="description" placeholder="Description du site"/>
+    </div>
+    
+    <div class="form-group">
+        <button onclick="createSite()">Submit</button>
+    </div>
+</div>
+
