@@ -16,3 +16,5 @@ var roomLinks = ["roomsEdit.html", "createRoom.html"];
 var siteDefault = 0; // première option par défaut
 var siteOptions = ["Recherche", "Nouveau"];
 var siteLinks = ["sitesEdit.html", "createSite.html"];
+
+// PROBLEMES de navigation à régler
