@@ -78,6 +78,13 @@ public class OldReservations implements Serializable {
         this.start = start;
         this.end = end;
     }
+    
+    public OldReservations(Reservations reserv){
+        this.start = reserv.getStart();
+        this.end = reserv.getEnd();
+        this.roomRef = reserv.getRoomRef();
+        this.ownerRef = reserv.getOwnerRef();
+    }
 
     public Integer getOldReservationID() {
         return oldReservationID;

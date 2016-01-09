@@ -68,6 +68,14 @@ and open the template in the editor.
     width : 80%;
 }
 
-.reservationInput{
-    margin-left: 5px;
+.inputDefault{
+    margin: 5px;
+}
+
+.inputDefault > input {
+    text-align: right;
+}
+
+.small-btn{
+    width: 100px;
 }

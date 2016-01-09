@@ -14,7 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/starter-template.css" rel="stylesheet" />
         <link href="css/simple-sidebar.css" rel="stylesheet" />
-        <link href="css/daterangepicker.css"rel="stylesheet" />
+        <link href="css/datepicker.css" rel="stylesheet" />
         <link href="css/main.css" rel="stylesheet" />
     </head>
     <body onload="loadPage('sites.jsp','Sites')">
@@ -63,7 +63,6 @@
         <script src="js/main.js"></script>
         <script src="js/users.js"></script>
         <script src="js/reservations.js"></script>
-        <script src="js/moment.min.js"></script>
-        <script src="js/daterangepicker.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
     </body>
 </html>

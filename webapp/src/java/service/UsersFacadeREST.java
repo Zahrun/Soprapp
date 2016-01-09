@@ -16,9 +16,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -28,7 +25,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
@@ -74,12 +70,14 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED})
     public void editTest(@PathParam("id") Integer id, @FormParam("admin") boolean admin, @FormParam("name") String name, @FormParam("surname") String surname, @FormParam("mail") String mail, @FormParam("pwd") String pwd) {
         //super.edit(entity);
+        /*
         System.out.println(name);
         System.out.println(id);
         System.out.println(surname);
         System.out.println(mail);
         System.out.println(pwd);
         System.out.println(admin);
+        */
         Users entity = new Users(id, name, surname, mail, pwd, admin);
         super.edit(entity);
     }

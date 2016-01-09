@@ -5,6 +5,7 @@
  */
 package service;
 
+import entities.OldReservations;
 import entities.Reservations;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -57,7 +59,10 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        Reservations entity = super.find(id);
+        OldReservationsFacadeREST oldReservFacade = new OldReservationsFacadeREST(em);
+        oldReservFacade.create(new OldReservations(entity));
+        super.remove(entity);
     }
 
     @GET
@@ -92,5 +97,14 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
+    @GET
+    @Path("filter/ownerName={ownerName}/roomName={roomName}/dateRangeStart={dateRangeStart}/dateRangeEnd={dateRangeEnd}")
+    public List<Reservations> filterReservations(@PathParam("ownerName") String ownerName){
+        System.out.println(ownerName);
+        return null;
+    }
+
     
 }
