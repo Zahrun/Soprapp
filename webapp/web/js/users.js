@@ -4,7 +4,6 @@
 
 // REST api -> GET
 function getUserList() {
-    var userList;
     $.get(
         "http://localhost:8080/webapp/rest/entities.users",
         function (data) {
@@ -76,7 +75,7 @@ function drawUserList(userList){
         else
             iconImg = userImg.src;
 
-        resultDiv.append("<div id='" + tmpData.userID + "' class='userOverview' onclick='editUser(" + tmpData.userID + ")' >"
+        resultDiv.append("<div id='" + tmpData.userID + "' class='objectOverview' onclick='editUser(" + tmpData.userID + ")' >"
             + "<div><img src='" + iconImg + "'/></div>"
             + "<div class='informations'>"
             + "<div id='name'>" + tmpData.name + "</div><div id='surname'>" + tmpData.surname + "</div>"

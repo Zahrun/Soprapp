@@ -14,6 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/starter-template.css" rel="stylesheet" />
         <link href="css/simple-sidebar.css" rel="stylesheet" />
+        <link href="css/daterangepicker.css"rel="stylesheet" />
         <link href="css/main.css" rel="stylesheet" />
     </head>
     <body onload="loadPage('sitesEdit.html','Sites')">
@@ -31,6 +32,7 @@
                         <li class="active" id="Sites" onclick="loadPage('sitesEdit.html','Sites')"><a href="#">Sites</a></li>
                         <li id="Salles" onclick="loadPage('roomsEdit.html','Salles')"><a href="#">Salles</a></li>
                         <li id="Utilisateurs" onclick="loadPage('searchUsers.html','Utilisateurs')"><a href="#">Utilisateurs</a></li>
+                        <li id="Reservations" onclick="loadPage('searchReservations.jsp','Reservations')"><a href="#">Réservations</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -62,5 +64,9 @@
         <script src="js/users.js"></script>
         <script src="js/rooms.js"></script> 
         <script src="js/sites.js"></script>
+        <script src="js/reservations.js"></script>
+        <script src="js/moment.min.js"></script>
+        <script src="js/daterangepicker.js"></script>
+
     </body>
 </html>
