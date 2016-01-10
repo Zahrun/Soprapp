@@ -9,6 +9,6 @@ import android.util.AttributeSet;
 public class ListPreferenceSites extends ListPreferenceCustom {
 
     public ListPreferenceSites(Context context, AttributeSet attrs) {
-        super(context, attrs, R.array.sites_array, Globals.sitesPreferenceKey);
+        super(context, attrs, R.array.sites_array, Globals.listeSitesKey);
     }
 }
