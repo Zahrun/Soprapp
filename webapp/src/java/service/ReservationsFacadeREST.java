@@ -100,9 +100,15 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     
     
     @GET
-    @Path("filter/ownerName={ownerName}/roomName={roomName}/dateRangeStart={dateRangeStart}/dateRangeEnd={dateRangeEnd}")
-    public List<Reservations> filterReservations(@PathParam("ownerName") String ownerName){
-        System.out.println(ownerName);
+    @Path("filter/{searchParams}")
+    public List<Reservations> filterReservations(@PathParam("searchParams") String searchParams){
+        String[] params = searchParams.split("&");
+            System.out.println(params[0]);
+        
+        List<Reservations> result;
+        result = (List<Reservations>) em.createNamedQuery("Reservations.findByAll");
+         //       .setParameter("user", params[0]);
+        
         return null;
     }
 

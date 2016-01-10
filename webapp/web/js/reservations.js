@@ -55,11 +55,11 @@ function searchReservations(){
     // on ajoute des %% pour que les chaines ne soient pas vides
     // elles sont équivalentes à des jokers lors des requetes SQL
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.reservations/filter"
-        + "/ownerName=%" + ownerName + "%"
-        + "/roomName=%" + roomName + "%"
-        + "/dateRangeStart=%" + dateRangeStart + "%"
-        + "/dateRangeEnd=%" + dateRangeEnd + "%",
+       url: "http://localhost:8080/webapp/rest/entities.reservations/filter/"
+        + ownerName + "&"
+        + roomName + "&"
+        + dateRangeStart + "&"
+        + dateRangeEnd,
        type: 'GET',
        success: function (reservationList){
             drawReservationList(reservationList);
