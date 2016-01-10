@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#cacaca</color>
     <color name="orangeSopra">#ef7d00</color>
     <color name="redSopra">#d1012b</color>
-    <color name="background">#fafafa</color>
+    <color name="background">#ffffff</color>
     <color name="textColor">#000000</color>
-    <color name="textColorLight">#ffffff</color>
+    <color name="darkSopra">#b25d00</color>
 </resources>

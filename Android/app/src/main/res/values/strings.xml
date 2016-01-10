@@ -1,31 +1,26 @@
 <resources>
-    <string name="app_name">Soprapp</string>
-    <string name="action_settings">Préfèrences</string>
+<string name="app_name">Soprapp</string>
+<string name="action_settings">Préférences</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="particularities">Particularités</string>
-    <string name="cancel">Annuler</string>
-    <string name="ok">OK</string>
-    <string name="roomManagementButton">Salles favorites</string>
+<string name="particularities">Particularités</string>
+<string name="cancel">Annuler</string>
+<string name="ok">OK</string>
+<string name="roomManagementButton">Salles favorites</string>
 
-    <string name="dummy_section_text">A venir...</string>
-
-
-
-    <!-- SETTINGS -->
-    <string name="preferences">Préférences</string>
-    <string name="pref_site">Site actuel</string>
-    <string name="pref_site_summary">Choisissez votre site courant</string>
-    <string name="pref_site_title">Sites Sopra</string>
-    <string name="pref_rooms">Vos salles</string>
-    <string name="pref_rooms_summary">Choisissez vos salles favorites</string>
-    <string name="pref_rooms_title">Salles courantes</string>
-    <string name="pref_notif">Notifications</string>
-    <string name="pref_notif_new_summary">Recevoir une notification lorsque l\'on est convié à une réunion</string>
-    <string name="pref_notif_new_title">Nouvelle réunion</string>
-    <string name="pref_notif_delete_summary">Recevoir une notification lorsque l\'une de nos réunion est annulée</string>
-    <string name="pref_notif_delete_title">Réunion annulée</string>
+<!-- SETTINGS -->
+<string name="preferences">Préférences</string>
+<string name="pref_site">Site actuel</string>
+<string name="pref_site_summary">Choisissez votre site principal</string>
+<string name="pref_site_title">Site favori</string>
+<string name="pref_rooms">Vos salles</string>
+<string name="pref_rooms_summary">Choisissez vos salles favorites</string>
+<string name="pref_rooms_title">Salles habituelles</string>
+<string name="pref_notif">Notifications</string>
+<string name="pref_notif_new_summary">Recevoir une notification lorsque l\'on est convié à une réunion</string>
+<string name="pref_notif_new_title">Nouvelle réunion</string>
+<string name="pref_notif_delete_summary">Recevoir une notification lorsque l\'une de nos réunion est annulée</string>
+<string name="pref_notif_delete_title">Réunion annulée</string>
+    <string name="sites">Sites</string>
 
 
 </resources>

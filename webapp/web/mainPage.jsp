@@ -17,7 +17,7 @@
         <link href="css/datepicker.css" rel="stylesheet" />
         <link href="css/main.css" rel="stylesheet" />
     </head>
-    <body onload="loadPage('sites.jsp','Sites')">
+    <body onload="loadPage('sitesEdit.html','Sites')">
         <!-- navigation bar for all the edit sections -->
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container">
@@ -29,7 +29,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active" id="Sites" onclick="loadPage('sites.jsp','Sites')"><a href="#">Sites</a></li>
+                        <li class="active" id="Sites" onclick="loadPage('sitesEdit.html','Sites')"><a href="#">Sites</a></li>
                         <li id="Salles" onclick="loadPage('roomsEdit.html','Salles')"><a href="#">Salles</a></li>
                         <li id="Utilisateurs" onclick="loadPage('searchUsers.html','Utilisateurs')"><a href="#">Utilisateurs</a></li>
                         <li id="Reservations" onclick="loadPage('searchReservations.jsp','Reservations')"><a href="#">Réservations</a></li>
@@ -62,7 +62,10 @@
         <script src="js/variables.js"></script>
         <script src="js/main.js"></script>
         <script src="js/users.js"></script>
+        <script src="js/rooms.js"></script> 
+        <script src="js/sites.js"></script>
         <script src="js/reservations.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
+
     </body>
 </html>

@@ -5,18 +5,19 @@
     <PreferenceCategory
         android:title="Vos préférences">
 
-        <PreferenceScreen
-            android:summary="Choisissez vos paramètres préférentiels"
-            android:title="Site et salles favorites">
-            <intent android:targetPackage="fr.insa.gei.soprapp"
-                android:targetClass="fr.insa.gei.soprapp.HeadersActivity"/>
-        </PreferenceScreen>
+        <gei.soprapp.ListPreferenceSites
+            android:key="pref_key_site"
+            android:summary="@string/pref_site_summary"
+            android:title="@string/pref_site_title"/>
 
+        <gei.soprapp.MultiSelectListPreferenceSalles
+        android:key="pref_key_salles"
+        android:summary="@string/pref_rooms_summary"
+        android:title="@string/pref_rooms_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/pref_notif"
-        android:key="pref_key_notifs">
+        android:title="@string/pref_notif">
             <CheckBoxPreference
             android:key="pref_key_notif_new"
             android:summary="@string/pref_notif_new_summary"
