@@ -7,6 +7,13 @@
         <item>Sopra Albi</item>
     </string-array>
 
+    <string-array name="salles_array">
+        <item>Salle 201</item>
+        <item>Salle 202</item>
+        <item>Salle 20</item>
+        <item>Salle B12</item>
+    </string-array>
+
     <string-array name="listValues">
         <item>1</item>
         <item>2</item>
