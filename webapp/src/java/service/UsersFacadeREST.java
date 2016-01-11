@@ -8,7 +8,6 @@ package service;
 import entities.Users;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -171,19 +170,14 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         
         java.net.URI location;
         try {
-            String localhost = java.net.InetAddress.getLocalHost().getHostAddress();
-            if (localhost.equals("192.168.0.102")){
-                localhost="176.31.1.146";
-            }
+            
             if (user != null && user.getAdmin())
-                location = new URI("http://"+localhost+":8080/webapp/mainPage.jsp");
+                location = new URI("http://localhost:8080/webapp/mainPage.jsp");
             else
-                location = new URI("http://"+localhost+":8080/webapp/index.html");
+                location = new URI("http://localhost:8080/webapp/index.html");
             
             return Response.temporaryRedirect(location).build();
         } catch (URISyntaxException ex) {
-            Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnknownHostException ex) {
             Logger.getLogger(UsersFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
