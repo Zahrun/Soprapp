@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import gei.soprapp.FragmentSearchResults;
 
 
 public class PickDateDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -26,5 +30,6 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         // Do something with the time chosen by the user
+        FragmentSearchResults.setRequestDate(new GregorianCalendar(year,monthOfYear,dayOfMonth).getTimeInMillis());
     }
 }

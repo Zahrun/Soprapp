@@ -20,7 +20,8 @@ public class ListPreferenceCustom extends ListPreference {
             String defaultItemsArray[] = context.getResources().getStringArray(array);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             Set<String> itemsSet = sharedPreferences.getStringSet(stringSetKey, Globals.arrayToSet(defaultItemsArray));
-            this.setEntries(Globals.setToArray(itemsSet));
-            this.setEntryValues(Globals.makePositionArray(itemsSet.size()));
+            String items[] = Globals.setToArray(itemsSet);
+            this.setEntries(items);
+            this.setEntryValues(items);
         }
     }

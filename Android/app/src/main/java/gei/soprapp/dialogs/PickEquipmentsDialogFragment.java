@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.Set;
 
+import gei.soprapp.FragmentSearchResults;
 import gei.soprapp.Globals;
 import gei.soprapp.MainActivity;
 import gei.soprapp.R;
@@ -21,11 +22,11 @@ import gei.soprapp.entities.Equipments;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PickParticularitiesDialogFragment extends DialogFragment {
+public class PickEquipmentsDialogFragment extends DialogFragment {
 
-    private ArrayList<Integer> mSelectedItems;
+    private ArrayList<String> mSelectedItems;
 
-    public PickParticularitiesDialogFragment() {
+    public PickEquipmentsDialogFragment() {
         // Required empty public constructor
     }
 
@@ -36,7 +37,7 @@ public class PickParticularitiesDialogFragment extends DialogFragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String[] defaultEquipments = getResources().getStringArray(R.array.equipments_array);
         Set<String> itemsSet = sharedPreferences.getStringSet(Globals.CACHE_EQUIPMENTS_KEY, Globals.arrayToSet(defaultEquipments));
-        String[] equipments = Globals.setToArray(itemsSet);
+        final String[] equipments = Globals.setToArray(itemsSet);
         // Set the dialog title
         builder.setTitle(R.string.equipments)
                 // Specify the list array, the items to be selected by default (null for none),
@@ -48,10 +49,10 @@ public class PickParticularitiesDialogFragment extends DialogFragment {
                                                 boolean isChecked) {
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
-                                    mSelectedItems.add(which);
-                                } else if (mSelectedItems.contains(which)) {
+                                    mSelectedItems.add(equipments[which]);
+                                } else if (mSelectedItems.contains(equipments[which])) {
                                     // Else, if the item is already in the array, remove it
-                                    mSelectedItems.remove(Integer.valueOf(which));
+                                    mSelectedItems.remove(equipments[which]);
                                 }
                             }
                         })
@@ -61,6 +62,7 @@ public class PickParticularitiesDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
+                        FragmentSearchResults.setRequestEquipments(Globals.listToArray(mSelectedItems));
 
                     }
                 })

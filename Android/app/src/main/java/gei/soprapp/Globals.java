@@ -1,7 +1,13 @@
 package gei.soprapp;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import gei.soprapp.entities.Sites;
 
 /**
  * Created by Clément Baudouin on 10/01/2016.
@@ -15,7 +21,7 @@ public class Globals {
     public final static String PREF_FAVORITE_SALLE = "pref_key_salles";
     public final static String PREF_FAVORITE_SITE = "pref_key_site";
     //Valeurs par defaut
-    public final static String DEFAULT_PREFERENCE_VALUE = "0";
+    public final static int DEFAULT_POSITION = 0;
     // URIs
     public final static String BASE_URI="http://176.31.1.146:8080/webapp";
     public final static String REST_URI=BASE_URI+"/rest/";
@@ -35,13 +41,42 @@ public class Globals {
         return array;
     }
 
-    public static String[] makePositionArray(int size){
-        String result[] = new String[size];
-        for (int i =0; i< size; i++){
-            result[i]=String.valueOf(i);
+    public static int findPositionInArray(String favoriteSite, String[] sitesArray) {
+        for (int i = 0; i<sitesArray.length; i++){
+            if(sitesArray[i].equals(favoriteSite))
+                return i;
         }
+        return DEFAULT_POSITION;
+    }
+
+    public static Sites findSiteFromDescription(Object selectedItem) {
+        if(!(selectedItem instanceof String)){
+            return null;
+        }
+        return null;
+    }
+
+    public static String[] listToArray(List<String> list) {
+        String result[] = new String[list.size()];
+        list.toArray(result);
         return result;
     }
+
+    public static long getDate() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int monthOfYear = c.get(Calendar.MONTH);
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        return new GregorianCalendar(year,monthOfYear,dayOfMonth).getTimeInMillis();
+    }
+
+    public static long getTime() {
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minutes = c.get(Calendar.MINUTE);
+        return hour*60*60*1000+minutes*60*1000;
+    }
+
 
     // Ici du code de debug potentiellement utile
 

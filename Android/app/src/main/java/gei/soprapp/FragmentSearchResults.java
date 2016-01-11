@@ -6,8 +6,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
+import gei.soprapp.entities.Equipments;
 import gei.soprapp.entities.RoomEquipments;
 import gei.soprapp.entities.Sites;
 
@@ -16,20 +20,29 @@ import gei.soprapp.entities.Sites;
  */
 public class FragmentSearchResults extends FragmentAbstract {
 
-    private static Sites siteRequest;
-    private static Date dateRequest;
-    private static Time timeRequest;
-    private static int dureeRequest;
-    private static int nbPersonnesRequest;
-    private static RoomEquipments equipmentsRequest;
+    private static String siteRequest = "";
+    private static long dateRequest = Globals.getDate();
+    private static long timeRequest = Globals.getTime();
+    private static int dureeRequest = 0;
+    private static int nbPersonnesRequest = 0;
+    private static String[] equipmentsRequest = new String[0];
 
-    public static void setRequest(Sites site, Date date, Time time, int duree, int nbPersonnes, RoomEquipments equipments){
+    public static void setRequest(String site, int duree, int nbPersonnes){
         siteRequest = site;
-        dateRequest = date;
-        timeRequest = time;
         dureeRequest = duree;
         nbPersonnesRequest = nbPersonnes;
-        equipmentsRequest = equipments;
+    }
+
+    public static void setRequestEquipments(String[] equipments){
+        FragmentSearchResults.equipmentsRequest=equipments;
+    }
+
+    public static void setRequestTime(long time) {
+        FragmentSearchResults.timeRequest = time;
+    }
+
+    public static void setRequestDate(long date) {
+        FragmentSearchResults.dateRequest = date;
     }
 
     public static FragmentAbstract newInstance(int sectionNumber) {
@@ -41,14 +54,33 @@ public class FragmentSearchResults extends FragmentAbstract {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        new Thread(new Runnable() {
+        final TextView textView = (TextView) view.findViewById(R.id.resultatText);
+
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+                String text = new String();
+                text += "site " + siteRequest + "\n";
+                text += "date " + dateRequest + "\n";
+                text += "heure " + timeRequest + "\n";
+                Date date = new Date(dateRequest+timeRequest);
+                text += "debut(date+heure) " + date + "\n";
+                text += "duree " + dureeRequest + "\n";
+                text += "nbPerssonnes " + nbPersonnesRequest + "\n";
+                for (String s : equipmentsRequest) {
+                    text += "equipement " + s.toString() + "\n";
+                }
+                textView.setText("Arguments de la requete:\n"+text);
+            }
+        });
+
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 final Sites[] sites = Requests.getSites(view);
                 if (sites == null){
                     return;
                 }
-                final TextView textView = (TextView) view.findViewById(R.id.resultatText);
                 textView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -56,11 +88,11 @@ public class FragmentSearchResults extends FragmentAbstract {
                         for (Sites site : sites) {
                             text += site.toString() + "\n";
                         }
-                        textView.setText("Petit test de requete (sites):\n" + text);
+                        textView.append("Petit test de requete (sites):\n" + text);
                     }
                 });
             }
-        }).start();
+        }).start();*/
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();

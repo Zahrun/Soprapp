@@ -74,7 +74,7 @@
         android:inputType="number"
         android:ems="3"
         android:text="30"
-        android:id="@+id/editText"
+        android:id="@+id/editTextDuree"
         android:layout_alignTop="@+id/textView4"
         android:layout_toRightOf="@+id/textView4"
         android:layout_marginTop="-10dp"
@@ -88,8 +88,8 @@
         android:text="min"
         android:id="@+id/textView6"
         android:layout_alignTop="@+id/textView4"
-        android:layout_toRightOf="@+id/editText"
-        android:layout_toEndOf="@+id/editText" />
+        android:layout_toRightOf="@+id/editTextDuree"
+        android:layout_toEndOf="@+id/editTextDuree" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
         android:inputType="number"
         android:ems="3"
         android:text="5"
-        android:id="@+id/editText2"
+        android:id="@+id/editTextNbPerssonnes"
         android:layout_alignTop="@+id/textView5"
         android:layout_toRightOf="@+id/textView5"
         android:layout_marginTop="-10dp"

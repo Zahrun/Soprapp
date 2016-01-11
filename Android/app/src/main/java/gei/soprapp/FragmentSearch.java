@@ -8,12 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Set;
 
 import gei.soprapp.dialogs.PickDateDialogFragment;
-import gei.soprapp.dialogs.PickParticularitiesDialogFragment;
+import gei.soprapp.dialogs.PickEquipmentsDialogFragment;
 import gei.soprapp.dialogs.PickTimeDialogFragment;
 
 /**
@@ -29,20 +30,26 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Spinner spinner;
+        Set<String> sites;
+        String defaultSites[];
         switch (key) {
             case Globals.CACHE_SITES_KEY :
             // Affecter les valeurs de la liste déroullante des sites
             spinner = (Spinner) getActivity().findViewById(R.id.spinner);
-            String[] defaultSites = getResources().getStringArray(R.array.equipments_array);
-            Set<String> sites = sharedPreferences.getStringSet(Globals.CACHE_SITES_KEY, Globals.arrayToSet(defaultSites));
+            defaultSites = getResources().getStringArray(R.array.equipments_array);
+            sites = sharedPreferences.getStringSet(Globals.CACHE_SITES_KEY, Globals.arrayToSet(defaultSites));
             ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(), R.layout.spinner_item, Globals.setToArray(sites));
             adapter.setDropDownViewResource(R.layout.spinner_item);
             spinner.setAdapter(adapter);
                 break;
             case Globals.PREF_FAVORITE_SITE:
                 spinner = (Spinner) getActivity().findViewById(R.id.spinner);
-                String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, Globals.DEFAULT_PREFERENCE_VALUE);
-                spinner.setSelection(Integer.valueOf(favoriteSite));
+                defaultSites = getResources().getStringArray(R.array.equipments_array);
+                sites = sharedPreferences.getStringSet(Globals.CACHE_SITES_KEY, Globals.arrayToSet(defaultSites));
+                // Valeur par défaut
+                String sitesArray[] = Globals.setToArray(sites);
+                String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, sitesArray[0]);
+                spinner.setSelection(Globals.findPositionInArray(favoriteSite, sitesArray));
                 break;
             default:
                 break;
@@ -54,7 +61,7 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
         super.onViewCreated(view, savedInstanceState);
 
         // Affecter les valeurs de la liste déroullante des sites
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String[] defaultSites = getResources().getStringArray(R.array.equipments_array);
         Set<String> sites = sharedPreferences.getStringSet(Globals.CACHE_SITES_KEY, Globals.arrayToSet(defaultSites));
@@ -62,8 +69,9 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
         // Valeur par défaut
-        String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, Globals.DEFAULT_PREFERENCE_VALUE);
-        spinner.setSelection(Integer.valueOf(favoriteSite));
+        String sitesArray[] = Globals.setToArray(sites);
+        String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, sitesArray[0]);
+        spinner.setSelection(Globals.findPositionInArray(favoriteSite, sitesArray));
 
         //Etre notifié des changements de cache et préférences
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -83,7 +91,7 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
 
         );
 
-        Button time = (Button) view.findViewById(R.id.timeButton);
+        final Button time = (Button) view.findViewById(R.id.timeButton);
         time.setOnClickListener(new View.OnClickListener()
 
                                 {
@@ -104,7 +112,7 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
                                         new Thread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                PickParticularitiesDialogFragment ppf = new PickParticularitiesDialogFragment();
+                                                PickEquipmentsDialogFragment ppf = new PickEquipmentsDialogFragment();
                                                 ppf.show(fm, "particularitiesPicker");
                                             }
                                         }).start();
@@ -127,7 +135,10 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                FragmentSearchResults.setRequest(null,null,null,0,0,null);
+                String site = (String) spinner.getSelectedItem();
+                int duree = Integer.valueOf(((EditText) view.findViewById(R.id.editTextDuree)).getText().toString());
+                int nbPersonnes = Integer.valueOf(((EditText) view.findViewById(R.id.editTextNbPerssonnes)).getText().toString());
+                FragmentSearchResults.setRequest(site,duree,nbPersonnes);
                 ((MainActivity) getContext()).getmSectionsPagerAdapter().switchSearchFragment();
             }
         });

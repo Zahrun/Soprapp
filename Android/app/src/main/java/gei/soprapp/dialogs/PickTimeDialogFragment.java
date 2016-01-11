@@ -10,6 +10,8 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import gei.soprapp.FragmentSearchResults;
+
 public class PickTimeDialogFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
@@ -26,6 +28,6 @@ public class PickTimeDialogFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
+        FragmentSearchResults.setRequestTime(hourOfDay*60*60*1000+minute*60*1000);
     }
 }
