@@ -79,16 +79,16 @@ function drawRoomList(roomList){
 
 function createRoom(){ 
     // retrieve the parameters from the form
- //   var siteRef_name = $('input[name = "siteRef_name"]').val();
-    var number = $('input[name = "number"]').val();
-    var capacity = $('input[name = "capacity"]').val();
+    var siteRef_name = $('input[name="siteRef_name"]').val();
+    var number = $('input[name="number"]').val();
+    var capacity = $('input[name="capacity"]').val();
     
     // sending the put request with the parameters
     $.ajax({
        url: "http://localhost:8080/webapp/rest/entities.rooms/js",
        type: 'POST',
        data: {
-  //         siteRef_name: siteRef_name,
+           siteRef_name: siteRef_name,
            number: number,
            capacity: capacity  
        },

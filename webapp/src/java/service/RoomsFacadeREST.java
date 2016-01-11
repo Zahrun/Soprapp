@@ -53,16 +53,20 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
     @POST
     @Path(value = "js")
     @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void createUserREST(@FormParam("number") String number, @FormParam("capacity") short capacity, @FormParam("siteRef_name") String siteRef_name ){     
-        Rooms room = new Rooms();      
+    public void createRoomREST(@FormParam("number") String number, @FormParam("capacity") short capacity, @FormParam("siteRef_name") String siteRef_name ){     
+        Rooms room = new Rooms();  
+        
         room.setNumber(number);
         room.setCapacity(capacity);
         
         Sites site = null;
+        
         try{
             site = (Sites) em.createNamedQuery("Sites.findByName") // CA VEUT PAS CAST ICI ???
-                    .setParameter("name", siteRef_name) ;
+                    .setParameter("name", siteRef_name)
+                    .getSingleResult();
         }catch (NoResultException e){}
+        
         room.setSiteRef(site); 
 
         
@@ -73,6 +77,7 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         */
         super.create(room);
     }
+    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
