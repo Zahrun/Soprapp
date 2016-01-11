@@ -44,7 +44,10 @@ public class FragmentSearchResults extends FragmentAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Sites[] sites = Requests.getSites();
+                final Sites[] sites = Requests.getSites(view);
+                if (sites == null){
+                    return;
+                }
                 final TextView textView = (TextView) view.findViewById(R.id.resultatText);
                 textView.post(new Runnable() {
                     @Override
