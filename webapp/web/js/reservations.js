@@ -63,7 +63,8 @@ function searchReservations(){
        type: 'GET',
        success: function (reservationList){
             drawReservationList(reservationList);
-       }
+       },
+       dataType: "json"
     });
 }
 
@@ -75,15 +76,168 @@ function clearReservation(id){
            // redirect to the search page
            alert("Deletion is a success!");
            getReservationList();
-       }
+       },
+       dataType: "json"
    });
 }
 
 function initStats(){
+    // get data for reservationWeekDate
     $.ajax({
        url: "http://localhost:8080/webapp/rest/entities.stats/reservationWeekdate",
        type: 'GET',
        success: function (result){
-       }
+            //drawWeekReservation(result);
+            var title = "Réservations par Jour";
+            var legend = ['Jour', 'Nb Reservation'];
+            var colName = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+            var colColor = ["#d50000", "#aa00ff", "#1a237e", "#01579b", "#00bfa5", "#64dd17", "#ffd600"];
+            //drawColumnChart(title, legend, result, colName, colColor, 'chart_div');
+            drawWeekReservation(result);
+       },
+       dataType: "json"
+   });
+   
+   // get data for reservationMonth
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.stats/reservationMonth",
+       type: 'GET',
+       success: function (result){
+            drawMonthReservation(result);
+       },
+       dataType: "json"
+   });
+   
+    $("input[name='roomName']").on('input', inputChange);
+   
+   //get data for the room stats
+   getRooms();
+}
+/*
+function drawColumnChart(title, legend, colVal, colName, colColor, divID){
+    var params = new Array;
+    var tmpBase = new Array;
+    for (var i = 0; i < legend.length; i++)
+        tmpBase.push(legend[i]);
+    
+    tmpBase.push('{ role: "style" }');
+    params.push(tmpBase);
+    for (var i = 0; i < colVal.length; i++){
+        tmpBase = new Array;
+        tmpBase.push(colName[i]);
+        tmpBase.push(colVal[i].value);
+        tmpBase.push(colColor[i]);
+        params.push(tmpBase);
+        alert(tmpBase);
+    }
+    
+    var data = google.visualization.arrayToDataTable(params);
+    
+     // Set chart options
+    var options = {'title': title};
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById(divID));
+    chart.draw(data, options);
+}*/
+
+function drawWeekReservation(weekRepartition){
+    // Create the data table.
+    var data = google.visualization.arrayToDataTable([
+        ['Jour', "Nb Réservations", { role: "style" } ],
+        ['Lun', weekRepartition[0].value, "#d50000" ],
+        ['Mar', weekRepartition[1].value, "#aa00ff"],
+        ['Mer', weekRepartition[2].value, "#1a237e"],
+        ['Jeu', weekRepartition[3].value, "#01579b"],
+        ['Ven', weekRepartition[4].value, "#00bfa5"],
+        ['Sam', weekRepartition[5].value, "#64dd17"],
+        ['Dim', weekRepartition[6].value, "#ffd600"]
+      ]);
+    
+     // Set chart options
+    var options = {'title':'Répartition des réservations par jour'};
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+}
+
+function drawMonthReservation(monthRepartition){
+    // Create the data table.
+    var data = google.visualization.arrayToDataTable([
+        ['Mois', "Nb Réservations", { role: "style" } ],
+        ['Jan', monthRepartition[0].value, "#d50000" ],
+        ['Fev', monthRepartition[1].value, "#aa00ff"],
+        ['Mar', monthRepartition[2].value, "#1a237e"],
+        ['Avr', monthRepartition[3].value, "#01579b"],
+        ['Mai', monthRepartition[4].value, "#00bfa5"],
+        ['Jun', monthRepartition[5].value, "#64dd17"],
+        ['Jui', monthRepartition[6].value, "#ffd600"],
+        ['Aou', monthRepartition[7].value, "#ff6d00"],
+        ['Sep', monthRepartition[8].value, "#dd2c00"],
+        ['Oct', monthRepartition[9].value, "#795548"],
+        ['Nov', monthRepartition[10].value, "#bdbdbd"],
+        ['Dec', monthRepartition[11].value, "#607d8b"]
+      ]);
+    
+     // Set chart options
+    var options = {'title':'Répartition des réservations par Mois'};
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById('monthDiv'));
+    chart.draw(data, options);
+}
+
+function inputChange(){
+    if ($("input[name='roomName']").val() === "")
+        getRooms();
+    else
+        loadRoomList();
+}
+
+function getRooms(){
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.rooms/",
+       type: 'GET',
+       success: function (result){
+           drawRoomList(result);               
+       },
+       dataType: "json"
+   });
+}
+
+function loadRoomList(){
+    var salleInput = $("input[name='roomName']").val();
+    
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.rooms/filterRoomsName/" + salleInput,
+       type: 'GET',
+       success: function (result){
+            drawRoomList(result);              
+       },
+       dataType: "json"
+   });
+}
+
+function drawRoomList(roomList){
+    var salleList = $("#salleList");
+    salleList.html("");
+    for (var i = 0; i < roomList.length; i++){
+        salleList.append("<li id='" + roomList[i].roomID + "' onclick='loadRoomStats(" + roomList[i].roomID + ",\"" + roomList[i].number + "\")'><a href='#'>" + roomList[i].number + "</a></li>");
+    }
+}
+
+function loadRoomStats(id, number){
+    $("input[name='roomName']").val(number);
+    loadRoomList();
+    
+    // erase content of previous stats
+    var roomStatDiv = $("#roomStatDiv");
+    roomStatDiv.html("");
+    
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.stats/room/" + id,
+       type: 'GET',
+       success: function (result){
+           roomStatDiv.append("<div>Il y a eu " + result.value + " réservations pour cette salle</div>");
+       },
+       dataType: "json"
    });
 }

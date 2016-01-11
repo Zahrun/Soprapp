@@ -31,4 +31,12 @@ public class IntegerDummy {
     public void setValue(int value){
         this.value = value;
     }
+    
+    public void succ(){
+        this.value++;
+    }
+    
+    public void add(int i){
+        this.value += i;
+    }
 }

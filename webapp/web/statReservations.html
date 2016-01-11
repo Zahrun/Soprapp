@@ -4,16 +4,21 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+
+<div class="col-xs-12 statUnit" id="salleDiv">
+    <div class="input-group inputDefault">
+        <div class="input-group-addon">Salle</div>
+        <input class="form-control dropdown-toggle" data-toggle="dropdown" name="roomName" type="text" placeholder="Salle"/>
+        <ul class="dropdown-menu" id="salleList">
+        </ul>
+    </div>
+    <div id="roomStatDiv">
         
-        <script>
-            initStats();
-        </script>
-    </body>
-</html>
+    </div>
+</div>
+<div class="col-xs-12 statUnit" id="chart_div"></div>
+<div class="col-xs-12 statUnit" id="monthDiv"></div>
+
+<script>
+    initStats();
+</script>

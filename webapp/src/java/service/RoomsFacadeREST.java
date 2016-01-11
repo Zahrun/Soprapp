@@ -104,7 +104,7 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
     @GET
     @Path(value = "filterRoomsName/{number}")
     public List<Rooms> filterRoomsNameGET(@PathParam(value = "number") final String number) {
-        return filterByEverythingAND(number, "");
+        return filterByEverythingOR(number, "-404");
     }
     @GET
     @Path(value = "filterRoomsCapacity/{capacity}")
@@ -115,8 +115,8 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
      public List<Rooms> filterByEverythingAND(String number, String capacity){
         List<Rooms> listRooms;
         listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingAND")
-                .setParameter("name", "%" + number + "%")
-                .setParameter("capacity", "%" + capacity + "%")               
+                .setParameter("number", "%" + number + "%")
+                .setParameter("capacity", Short.parseShort(capacity))               
                 .getResultList();
         return listRooms;
     }
@@ -124,8 +124,8 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
     public List<Rooms> filterByEverythingOR(String number, String capacity){
         List<Rooms> listRooms;
         listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingOR")
-                .setParameter("name", "%" + number + "%")
-                .setParameter("capacity", "%" + capacity + "%")              
+                .setParameter("number", "%" + number + "%")
+                .setParameter("capacity", Short.parseShort(capacity))              
                 .getResultList();
         return listRooms;
     }
