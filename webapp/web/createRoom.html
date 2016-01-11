@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<!-- action="http://localhost:8080/webapp/rest/entities.sites/createRoom"  method="POST" -->
+<div id="createUserForm">
+    
+    <!-- form à modifier 
+        -> faire une liste des sites disponibles -->
+    
+    
+    <div class="form-group">
+        <label for="siteRef_name">Site ( ça marche pas !! WATCH OUT !!:</label>
+        <input type="text" class="form-control" required name="siteRef_name" placeholder="Choisir un lieu pour la salle ( rentrer son nom complet et existant, il y aura une liste d'options plus tard!) "/>
+    </div> 
+    
+    
+    
+    <div class="form-group">
+        <label for="number">Nom/Numéro:</label>
+        <input type="text" class="form-control" required name="number" placeholder="Nom de la salle" />
+    </div>
+    <div class="form-group">
+        <label for="capacity">Capacité:</label>
+        <input type="text" class="form-control" required name="capacity" placeholder="Capacité de la salle"/>
+    </div>
+
+    
+    <div class="form-group">
+        <button onclick="createRoom()">Submit</button>
+    </div>
+</div>
+
+

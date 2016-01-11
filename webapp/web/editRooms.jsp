@@ -21,7 +21,7 @@
    Rooms room = roomFacade.find(id);
 %>
 
-<button class="btn-danger" onclick="deleteSite(<% out.println(id); %>)">Delete </button>
+<button class="btn-danger" onclick="deleteRoom(<% out.println(id); %>)">Delete </button>
 
 <form id="createUserForm" onsubmit="updateRoom(<% out.println(room.getRoomID()); %>)">
 

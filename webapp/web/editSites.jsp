@@ -21,7 +21,7 @@
    Sites site = siteFacade.find(id);
 %>
 
-<button class="btn-danger" onclick="deleteSite(<% out.println(id); %>)">Delete ( not deleting every room atm )</button>
+<button class="btn-danger" onclick="deleteSite(<% out.println(id); %>)">Delete</button>
 
 <form id="createUserForm" onsubmit="updateSite(<% out.println(site.getSiteID()); %>)">
 

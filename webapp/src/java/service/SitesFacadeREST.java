@@ -48,7 +48,6 @@ public class SitesFacadeREST extends AbstractFacade<Sites> {
         super.create(entity);
     }
     
-    /* Fait de la même façon que ce cher Gautier, car j'avais la flemme de me pencher sur les objets java en js :p */
     @POST
     @Path(value = "js")
     @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
