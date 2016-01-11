@@ -14,16 +14,9 @@ function getRoomList() {
     );
 }
 
-//var userImg;
-//var adminImg; IMAGES spéciales à ajouter après par rapport aux types de salles?
+
 function initRoomEdit() {
 
-    // preload the images
-    //userImg = new Image();
-    //adminImg = new Image();
-
-    //userImg.src = "media/userIcon.png";
-   // adminImg.src = "media/adminIcon.png";
     
     // load the initial list
     searchRooms();
@@ -73,10 +66,7 @@ function drawRoomList(roomList){
     var iconImg;
     for (var i = 0; i < roomList.length; i++) {
         tmpData = roomList[i];
-    /*    if (tmpData.admin)
-            iconImg = adminImg.src;
-        else
-            iconImg = userImg.src; */
+
 
         resultDiv.append("<div id='" + tmpData.roomID + "' class='roomOverview' onclick='editRoom(" + tmpData.roomID + ")' >"
             + "<div class='informations'>"
@@ -89,25 +79,21 @@ function drawRoomList(roomList){
 
 function createRoom(){ 
     // retrieve the parameters from the form
-    var name = $('input[name = "name"]').val();
-    var surname = $('input[name = "surname"]').val();
-    var mail = $('input[name = "mail"]').val();
-    var pwd = $('input[name = "pwd"]').val();
-    var admin = $('input[name = "admin"]').is(":checked");
+    var siteRef_name = $('input[name="siteRef_name"]').val();
+    var number = $('input[name="number"]').val();
+    var capacity = $('input[name="capacity"]').val();
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js",
+       url: "http://localhost:8080/webapp/rest/entities.rooms/js",
        type: 'POST',
        data: {
-           admin: admin,
-           name: name,
-           surname: surname,
-           pwd: pwd,
-           mail: mail   
+           siteRef_name: siteRef_name,
+           number: number,
+           capacity: capacity  
        },
        success: function (){
-           loadPage('searchUsers.html','Utilisateurs');
+           loadPage('roomsEdit.html','Salles');
        },
        error: function(error){
            alert(error);
@@ -125,33 +111,27 @@ function editRoom(id){ // TODO
 function updateRoom(id){ // TODO
     
     // retrieve the parameters from the form
-    var name = $('input[name = "name"]').val();
-    var surname = $('input[name = "surname"]').val();
-    var mail = $('input[name = "mail"]').val();
-    var pwd = $('input[name = "pwd"]').val();
-    var admin = $('input[name = "admin"]').is(":checked");
+    var number = $('input[name = "number"]').val();
+    var capacity = $('input[name = "capacity"]').val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js/" + id,
+       url: "http://localhost:8080/webapp/rest/entities.rooms/js/" + id,
        type: 'PUT',
        data: {
-           name: name,
-           surname: surname,
-           mail: mail,
-           pwd: pwd,
-           admin: admin
+           number: number,
+           capacity: capacity 
        },
        success: function (){
-           loadPage('searchUsers.html','Utilisateurs');
+         loadPage('roomsEdit.html','Salles');
        },
        error: function (result){
            //alert(result);
        }
     });
-    loadPage('searchUsers.html','Utilisateurs');
+    loadPage('roomsEdit.html','Salles');
 }
 
-function deleteRoom(id){ // TODO
+function deleteRoom(id){ 
     $.ajax({
        url: "http://localhost:8080/webapp/rest/entities.rooms/" + id,
        type: 'DELETE',

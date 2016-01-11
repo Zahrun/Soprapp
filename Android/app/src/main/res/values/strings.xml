@@ -2,7 +2,7 @@
 <string name="app_name">Soprapp</string>
 <string name="action_settings">Préférences</string>
 
-<string name="particularities">Particularités</string>
+<string name="equipments">Équipements:</string>
 <string name="cancel">Annuler</string>
 <string name="ok">OK</string>
 <string name="roomManagementButton">Salles favorites</string>

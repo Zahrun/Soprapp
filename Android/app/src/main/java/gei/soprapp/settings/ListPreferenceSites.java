@@ -12,6 +12,6 @@ import gei.soprapp.R;
 public class ListPreferenceSites extends ListPreferenceCustom {
 
     public ListPreferenceSites(Context context, AttributeSet attrs) {
-        super(context, attrs, R.array.sites_array, Globals.listeSitesKey);
+        super(context, attrs, R.array.sites_array, Globals.CACHE_SITES_KEY);
     }
 }

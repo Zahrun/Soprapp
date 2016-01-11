@@ -6,12 +6,15 @@
 package service;
 
 import entities.Rooms;
+import entities.Sites;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -47,6 +50,28 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         super.create(entity);
     }
 
+    @POST
+    @Path(value = "js")
+    @Consumes(value = {MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void createRoomREST(@FormParam("number") String number, @FormParam("capacity") short capacity, @FormParam("siteRef_name") String siteRef_name ){     
+        Rooms room = new Rooms();  
+        
+        room.setNumber(number);
+        room.setCapacity(capacity);
+        
+        Sites site = null;
+        
+        try{
+            site = (Sites) em.createNamedQuery("Sites.findByName")
+                    .setParameter("name", siteRef_name)
+                    .getSingleResult();
+        }catch (NoResultException e){}
+        
+        room.setSiteRef(site); 
+
+        super.create(room);
+    }
+    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
