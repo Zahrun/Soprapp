@@ -34,7 +34,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date et heure de début:"
         android:id="@+id/dateText"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/localisationText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -45,17 +45,37 @@
         android:text="Date"
         android:id="@+id/dateButton"
         android:layout_below="@+id/dateText"
+        android:layout_marginLeft="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Date"
+        android:id="@+id/textViewDate"
+        android:layout_alignBaseline="@+id/dateButton"
+        android:layout_toRightOf="@+id/dateButton"
+        android:layout_toEndOf="@+id/dateButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heure"
         android:id="@+id/timeButton"
-        android:layout_alignBottom="@+id/dateButton"
-        android:layout_toRightOf="@+id/dateButton"
-        android:layout_toEndOf="@+id/dateButton" />
+        android:layout_below="@+id/dateButton"
+        android:layout_alignRight="@+id/dateButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Heure"
+        android:id="@+id/textViewHeure"
+        android:layout_alignBaseline="@+id/timeButton"
+        android:layout_toRightOf="@+id/timeButton"
+        android:layout_toEndOf="@+id/timeButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +83,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Durée:"
         android:id="@+id/textView4"
-        android:layout_marginTop="70dp"
-        android:layout_below="@+id/dateText"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/timeButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -100,7 +120,7 @@
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -119,12 +139,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Particularités:"
+        android:text="Equipements:"
         android:id="@+id/textView7"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="16dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -136,6 +156,18 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/textView7"
         android:layout_toEndOf="@+id/textView7" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/textViewEquipements"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
