@@ -11,7 +11,7 @@ import gei.soprapp.entities.Sites;
 /**
  * Created by Clément Baudouin on 11/01/2016.
  */
-public class Requetes {
+public class Requests {
 
     private static <T> T requete(String URI, Class<T> type) {
         // Create a new RestTemplate instance

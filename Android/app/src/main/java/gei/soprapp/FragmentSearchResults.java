@@ -5,10 +5,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import java.sql.Time;
 import java.util.Date;
 
@@ -48,7 +44,7 @@ public class FragmentSearchResults extends FragmentAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Sites[] sites = Requetes.getSites();
+                final Sites[] sites = Requests.getSites();
                 final TextView textView = (TextView) view.findViewById(R.id.resultatText);
                 textView.post(new Runnable() {
                     @Override

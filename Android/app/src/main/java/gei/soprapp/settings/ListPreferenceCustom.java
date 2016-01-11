@@ -1,4 +1,4 @@
-package gei.soprapp;
+package gei.soprapp.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -7,13 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import gei.soprapp.entities.Sites;
+import gei.soprapp.dialogs.PickDateDialogFragment;
+import gei.soprapp.dialogs.PickParticularitiesDialogFragment;
+import gei.soprapp.dialogs.PickTimeDialogFragment;
 
 /**
  * Created by Clément Baudouin on 10/01/2016.
@@ -45,7 +42,7 @@ public class FragmentSearch extends FragmentAbstract {
                                 {
                                     @Override
                                     public void onClick(View v) {
-                                        PickDateFragment pdf = new PickDateFragment();
+                                        PickDateDialogFragment pdf = new PickDateDialogFragment();
                                         pdf.show(fm, "datePicker");
                                     }
                                 }
@@ -58,7 +55,7 @@ public class FragmentSearch extends FragmentAbstract {
                                 {
                                     @Override
                                     public void onClick(View v) {
-                                        PickTimeFragment ptf = new PickTimeFragment();
+                                        PickTimeDialogFragment ptf = new PickTimeDialogFragment();
                                         ptf.show(fm, "timePicker");
                                     }
                                 }
@@ -71,7 +68,7 @@ public class FragmentSearch extends FragmentAbstract {
                                 {
                                     @Override
                                     public void onClick(View v) {
-                                        PickParticularitiesFragment ppf = new PickParticularitiesFragment();
+                                        PickParticularitiesDialogFragment ppf = new PickParticularitiesDialogFragment();
                                         ppf.show(fm, "particularitiesPicker");
                                     }
                                 }

@@ -1,4 +1,4 @@
-package gei.soprapp;
+package gei.soprapp.dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -9,7 +9,7 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 
-public class PickDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class PickDateDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
