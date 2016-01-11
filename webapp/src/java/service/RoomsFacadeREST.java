@@ -62,19 +62,13 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         Sites site = null;
         
         try{
-            site = (Sites) em.createNamedQuery("Sites.findByName") // CA VEUT PAS CAST ICI ???
+            site = (Sites) em.createNamedQuery("Sites.findByName")
                     .setParameter("name", siteRef_name)
                     .getSingleResult();
         }catch (NoResultException e){}
         
         room.setSiteRef(site); 
 
-        
-        /* gotta use :  setSiteRef(Sites siteRef) {
-        On a cette NamedQuery pour récupérer l'ensemble du site à partir de seulement le nom ( le plus simple à faire choisir par l'admin) par exemple
-         @NamedQuery(name = "Sites.findByName", query = "SELECT s FROM Sites s WHERE s.name = :name")})
-        How to use it?
-        */
         super.create(room);
     }
     
