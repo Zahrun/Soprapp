@@ -12,9 +12,11 @@ public class Globals {
     public final static String CACHE_SITES_KEY = "cache_sites";
     public final static String CACHE_EQUIPMENTS_KEY = "cache_equipments";
     // Préférences
-    public final static String sallesPreferenceKey = "pref_key_salles";
-    public final static String sitesPreferenceKey = "pref_key_site";
-
+    public final static String PREF_FAVORITE_SALLE = "pref_key_salles";
+    public final static String PREF_FAVORITE_SITE = "pref_key_site";
+    //Valeurs par defaut
+    public final static String DEFAULT_PREFERENCE_VALUE = "0";
+    // URIs
     public final static String BASE_URI="http://176.31.1.146:8080/webapp";
     public final static String REST_URI=BASE_URI+"/rest/";
 
@@ -29,12 +31,16 @@ public class Globals {
 
     public static String[] setToArray(Set<String> set){
         String[] array = new String[set.size()];
-        int i=0;
-        for (String current : set)
-        {
-            array[i++] = current;
-        }
+        set.toArray(array);
         return array;
+    }
+
+    public static String[] makePositionArray(int size){
+        String result[] = new String[size];
+        for (int i =0; i< size; i++){
+            result[i]=String.valueOf(i);
+        }
+        return result;
     }
 
     // Ici du code de debug potentiellement utile

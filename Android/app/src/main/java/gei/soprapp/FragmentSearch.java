@@ -15,8 +15,6 @@ import java.util.Set;
 import gei.soprapp.dialogs.PickDateDialogFragment;
 import gei.soprapp.dialogs.PickParticularitiesDialogFragment;
 import gei.soprapp.dialogs.PickTimeDialogFragment;
-import gei.soprapp.entities.Equipments;
-import gei.soprapp.entities.Sites;
 
 /**
  * Created by Clément Baudouin on 10/01/2016.
@@ -30,14 +28,24 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(Globals.CACHE_SITES_KEY)) {
+        Spinner spinner;
+        switch (key) {
+            case Globals.CACHE_SITES_KEY :
             // Affecter les valeurs de la liste déroullante des sites
-            Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+            spinner = (Spinner) getActivity().findViewById(R.id.spinner);
             String[] defaultSites = getResources().getStringArray(R.array.equipments_array);
             Set<String> sites = sharedPreferences.getStringSet(Globals.CACHE_SITES_KEY, Globals.arrayToSet(defaultSites));
             ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(), R.layout.spinner_item, Globals.setToArray(sites));
             adapter.setDropDownViewResource(R.layout.spinner_item);
             spinner.setAdapter(adapter);
+                break;
+            case Globals.PREF_FAVORITE_SITE:
+                spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+                String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, Globals.DEFAULT_PREFERENCE_VALUE);
+                spinner.setSelection(Integer.valueOf(favoriteSite));
+                break;
+            default:
+                break;
         }
     }
 
@@ -53,7 +61,11 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getActivity(),R.layout.spinner_item,Globals.setToArray(sites));
         adapter.setDropDownViewResource(R.layout.spinner_item);
         spinner.setAdapter(adapter);
+        // Valeur par défaut
+        String favoriteSite = sharedPreferences.getString(Globals.PREF_FAVORITE_SITE, Globals.DEFAULT_PREFERENCE_VALUE);
+        spinner.setSelection(Integer.valueOf(favoriteSite));
 
+        //Etre notifié des changements de cache et préférences
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         final FragmentManager fm = getActivity().getFragmentManager();
