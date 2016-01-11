@@ -36,13 +36,13 @@ function drawReservationList(reservationList){
         tmpData = reservationList[i];
        
         resultDiv.append("<div id='" + tmpData.reservationID + "' class='objectOverview' >"
-            + "<div class='informations'>"
-            + "<div id='roomName'>" + tmpData.roomRef.number + "</div>"
-            + "<div id='owner'>" + tmpData.ownerRef.name + " " + tmpData.ownerRef.surname + "</div>"
-            + "<div id='start'>Début: " + tmpData.start.split("+", 1) + "</div>"
-            + "<div id='end'>Fin: " + tmpData.end.split("+", 1) + "</div>"
+            + "<div class='informations col-xs-9'>"
+                + "<div id='roomName'>" + tmpData.roomRef.number + "</div>"
+                + "<div id='owner'>" + tmpData.ownerRef.name + " " + tmpData.ownerRef.surname + "</div>"
+                + "<div id='start'>Début: " + tmpData.start.split("+", 1) + "</div>"
+                + "<div id='end'>Fin: " + tmpData.end.split("+", 1) + "</div>"
             + "</div>"
-            + "<button class='btn btn-danger small-btn' onclick='clearReservation(" + tmpData.reservationID + ")'>Effacer</button></div>");
+            + "<div class='col-xs-2'><button class='btn btn-danger small-btn' onclick='clearReservation(" + tmpData.reservationID + ")'>Effacer</button></div></div>");
     }
 }
 
@@ -75,6 +75,15 @@ function clearReservation(id){
            // redirect to the search page
            alert("Deletion is a success!");
            getReservationList();
+       }
+   });
+}
+
+function initStats(){
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.stats/reservationWeekdate",
+       type: 'GET',
+       success: function (result){
        }
    });
 }
