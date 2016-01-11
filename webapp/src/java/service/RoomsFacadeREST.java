@@ -93,4 +93,40 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         return em;
     }
     
+     // methods for filtering
+    
+    @GET
+    @Path(value = "filterRooms/{number}/{capacity}")
+    public List<Rooms> filterRoomsGET(@PathParam(value = "number") final String number, @PathParam(value = "capacity") final String capacity) {
+        return filterByEverythingOR(number, capacity);
+    }
+    
+    @GET
+    @Path(value = "filterRoomsName/{number}")
+    public List<Rooms> filterRoomsNameGET(@PathParam(value = "number") final String number) {
+        return filterByEverythingAND(number, "");
+    }
+    @GET
+    @Path(value = "filterRoomsCapacity/{capacity}")
+    public List<Rooms> filterRoomsCapacityGET(@PathParam(value = "capacity") final String capacity) {
+        return filterByEverythingAND("", capacity);
+    }
+    
+     public List<Rooms> filterByEverythingAND(String number, String capacity){
+        List<Rooms> listRooms;
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingAND")
+                .setParameter("name", "%" + number + "%")
+                .setParameter("capacity", "%" + capacity + "%")               
+                .getResultList();
+        return listRooms;
+    }
+    
+    public List<Rooms> filterByEverythingOR(String number, String capacity){
+        List<Rooms> listRooms;
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingOR")
+                .setParameter("name", "%" + number + "%")
+                .setParameter("capacity", "%" + capacity + "%")              
+                .getResultList();
+        return listRooms;
+    }
 }

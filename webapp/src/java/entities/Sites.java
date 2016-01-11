@@ -74,6 +74,13 @@ public class Sites implements Serializable {
         this.address = address;
     }
 
+    public Sites(Integer siteID, String name, String address, String description) {
+        this.siteID = siteID;
+        this.name = name;
+        this.address = address;
+        this.description = description ;
+    }
+    
     public Integer getSiteID() {
         return siteID;
     }

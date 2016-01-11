@@ -3,8 +3,7 @@
 // this file is made to control all the interactions from the "Sites" section of the webpage
 
 // REST api -> GET
-function getSiteList() {
-    var siteList;
+function getSiteList() {    
     $.get(
         "http://localhost:8080/webapp/rest/entities.sites",
         function (data) {
@@ -24,30 +23,30 @@ function initSiteEdit() {
 
 }
 
-function searchSites() {
+function searchSites() {    
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
     var url = "http://localhost:8080/webapp/rest/entities.sites/filterSites";
     switch (selectedOption) {
         case "all":
             if (searchString !== "")
-                url += "/" + searchString + "/" + searchString + "/" + searchString;
+                url += "/" + searchString + "/" + searchString + "/" + searchString;            
             else
                 url = "http://localhost:8080/webapp/rest/entities.sites";
             break;
- // autres cas de recherche à préciser !
-      /*  case "name":
+        case "name":
             url += "Name/" + searchString;
             break;
-        case "surname":
+       // autres cas de recherche à préciser !
+      /* case "surname":
             url += "Surname/" + searchString;
             break;
         case "mail":
             url += "Mail/" + searchString;
-            break;
+            break; */
         default:
             url += "";
-            break;*/
+            break;
     }
 
     $.get(
@@ -69,9 +68,9 @@ function drawSiteList(siteList){
 
         resultDiv.append("<div id='" + tmpData.siteID + "' class='siteOverview' onclick='editSite(" + tmpData.siteID + ")' >"
             + "<div class='informations'>"
-            + "<div id='name'>" + tmpData.name + "</div>"
+            + "<div id='name'><b>" + tmpData.name + "</b></div>"
             + "<div id='address'>" + tmpData.address + "</div>"
-            + "<div id='description'>" + tmpData.description + "</div>"
+            + "<div id='description'><i>" + tmpData.description + "</i></div>"
             + "</div></div>");
     }
 }

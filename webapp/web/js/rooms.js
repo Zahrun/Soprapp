@@ -33,27 +33,28 @@ function initRoomEdit() {
 function searchRooms() {
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
-    var url = "http://localhost:8080/webapp/rest/entities.users/filterUsers";
+    var url = "http://localhost:8080/webapp/rest/entities.rooms/filterRooms";
     switch (selectedOption) {
         case "all":
             if (searchString !== "")
-                url += "/" + searchString + "/" + searchString + "/" + searchString;
+                url += "/" + searchString + "/" + searchString ;
             else
                 url = "http://localhost:8080/webapp/rest/entities.rooms";
             break;
- // autres cas de recherche à préciser !
-      /*  case "name":
+        case "name":
             url += "Name/" + searchString;
             break;
+            // autres cas de recherche à préciser !
+      /* 
         case "surname":
             url += "Surname/" + searchString;
             break;
         case "mail":
             url += "Mail/" + searchString;
-            break;
+            break;*/
         default:
             url += "";
-            break;*/
+            break;
     }
 
     $.get(
