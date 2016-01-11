@@ -7,6 +7,7 @@ package service;
 
 import entities.OldReservations;
 import entities.Reservations;
+import entities.Users;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,32 +111,31 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     @Path("filter/{searchParams}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Reservations> filterReservations(@PathParam("searchParams") String searchParams){
-        String[] params = searchParams.split("&");
+        String[] params = {"", "", "", ""};
+        String[] splitResult = searchParams.split("&");
+        System.arraycopy(splitResult, 0, params, 0, splitResult.length);
+
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date startDate = new Date();
         Date endDate = new Date();
         
         try {
-            startDate = df.parse(params[2]);
-            if (params.length == 4) // if there endDate is specified
+            if (!"".equals(params[2]))
+                startDate = df.parse(params[2]);
+            if(!"".equals(params[3]))
                 endDate = df.parse(params[3]);
+            
         } catch (ParseException ex) {
+            System.out.println("Error from Date parsing: \n");
             Logger.getLogger(ReservationsFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
         }
        
         List<Reservations> result = new ArrayList<>();
         List<Reservations> tmp = super.findAll();
-
+        
         for (Reservations tmpReserv : tmp){
-            System.out.println(tmpReserv.getStart());
-            System.out.println(startDate);
-            System.out.println(tmpReserv.getStart().after(startDate));
-            if (tmpReserv.getStart().after(startDate)){
-                if (params.length == 4){
-                    if (tmpReserv.getEnd().before(endDate))
-                        result.add(tmpReserv);
-                }else
-                    result.add(tmpReserv);
+            if (("".equals(params[2]) || tmpReserv.getStart().after(startDate)) && ("".equals(params[3]) || tmpReserv.getEnd().before(endDate)) && (tmpReserv.getOwnerRef().getName().contains(params[0]) || tmpReserv.getOwnerRef().getSurname().contains(params[0])) && (tmpReserv.getRoomRef().getNumber().contains(params[1]))){
+                result.add(tmpReserv);
             }
         }
         
