@@ -83,6 +83,7 @@ public class FragmentSearch extends FragmentAbstract {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                FragmentSearchResults.setRequest(null,null,null,0,0,null);
                 ((MainActivity) getContext()).getmSectionsPagerAdapter().switchSearchFragment();
             }
         });
