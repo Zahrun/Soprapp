@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import gei.soprapp.dialogs.PickDateDialogFragment;
@@ -91,6 +94,10 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
 
         );
 
+        final java.text.DateFormat dateFormat = DateFormat.getDateFormat(getActivity());
+        final TextView textViewDate = ((TextView) view.findViewById(R.id.textViewDate));
+        textViewDate.setText(dateFormat.format(Calendar.getInstance().getTime()));
+
         final Button time = (Button) view.findViewById(R.id.timeButton);
         time.setOnClickListener(new View.OnClickListener()
 
@@ -103,6 +110,10 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
                                 }
 
         );
+
+        final java.text.DateFormat timeFormat = DateFormat.getTimeFormat(getActivity());
+        final TextView textViewHeure = ((TextView) view.findViewById(R.id.textViewHeure));
+        textViewHeure.setText(timeFormat.format(Calendar.getInstance().getTime()));
 
         Button pick = (Button) view.findViewById(R.id.pickButton);
         pick.setOnClickListener(new View.OnClickListener()

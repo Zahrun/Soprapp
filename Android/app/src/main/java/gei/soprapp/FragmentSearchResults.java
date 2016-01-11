@@ -45,6 +45,14 @@ public class FragmentSearchResults extends FragmentAbstract {
         FragmentSearchResults.dateRequest = date;
     }
 
+
+    public static long getRequestDate() {
+        return FragmentSearchResults.dateRequest;
+    }
+    public static long getRequestBeginning() {
+        return FragmentSearchResults.dateRequest+FragmentSearchResults.timeRequest;
+    }
+
     public static FragmentAbstract newInstance(int sectionNumber) {
         FragmentSearchResults fragment = new FragmentSearchResults();
         return FragmentAbstract.newInstance(fragment, sectionNumber, R.layout.fragment_search_results);
@@ -65,7 +73,7 @@ public class FragmentSearchResults extends FragmentAbstract {
                 text += "heure " + timeRequest + "\n";
                 Date date = new Date(dateRequest+timeRequest);
                 text += "debut(date+heure) " + date + "\n";
-                text += "duree " + dureeRequest + "\n";
+                text += "duree " + dureeRequest + " (min)\n";
                 text += "nbPerssonnes " + nbPersonnesRequest + "\n";
                 for (String s : equipmentsRequest) {
                     text += "equipement " + s.toString() + "\n";
