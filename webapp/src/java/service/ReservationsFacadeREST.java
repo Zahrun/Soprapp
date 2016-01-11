@@ -119,6 +119,7 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
         Date startDate = new Date();
         Date endDate = new Date();
         
+        // parse the date from the parameters
         try {
             if (!"".equals(params[2]))
                 startDate = df.parse(params[2]);

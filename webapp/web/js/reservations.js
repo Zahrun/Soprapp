@@ -78,3 +78,12 @@ function clearReservation(id){
        }
    });
 }
+
+function initStats(){
+    $.ajax({
+       url: "http://localhost:8080/webapp/rest/entities.stats/reservationWeekdate",
+       type: 'GET',
+       success: function (result){
+       }
+   });
+}
