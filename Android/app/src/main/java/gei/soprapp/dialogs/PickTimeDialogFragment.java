@@ -1,4 +1,4 @@
-package gei.soprapp;
+package gei.soprapp.dialogs;
 
 
 import android.app.Dialog;
@@ -10,7 +10,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-public class PickTimeFragment extends DialogFragment
+public class PickTimeDialogFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
     @Override

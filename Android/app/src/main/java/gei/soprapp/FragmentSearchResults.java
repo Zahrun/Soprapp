@@ -5,10 +5,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import java.sql.Time;
 import java.util.Date;
 
@@ -48,20 +44,14 @@ public class FragmentSearchResults extends FragmentAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String uri = "http://176.31.1.146:8080/webapp/rest/entities.sites";
-                // Create a new RestTemplate instance
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                ResponseEntity<Sites[]> responseEntity = restTemplate.getForEntity(uri, Sites[].class);
-
-                final Sites[] result = responseEntity.getBody();
+                final Sites[] sites = Requests.getSites();
                 final TextView textView = (TextView) view.findViewById(R.id.resultatText);
                 textView.post(new Runnable() {
                     @Override
                     public void run() {
                         String text = new String();
-                        for (Sites site : result){
-                            text+=site.toString()+"\n";
+                        for (Sites site : sites) {
+                            text += site.toString() + "\n";
                         }
                         textView.setText("Petit test de requete (sites):\n" + text);
                     }

@@ -5,12 +5,12 @@
     <PreferenceCategory
         android:title="Vos préférences">
 
-        <gei.soprapp.ListPreferenceSites
+        <gei.soprapp.settings.ListPreferenceSites
             android:key="pref_key_site"
             android:summary="@string/pref_site_summary"
             android:title="@string/pref_site_title"/>
 
-        <gei.soprapp.MultiSelectListPreferenceSalles
+        <gei.soprapp.settings.MultiSelectListPreferenceSalles
         android:key="pref_key_salles"
         android:summary="@string/pref_rooms_summary"
         android:title="@string/pref_rooms_title"/>

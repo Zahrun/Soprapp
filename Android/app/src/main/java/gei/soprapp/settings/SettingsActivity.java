@@ -1,8 +1,10 @@
-package gei.soprapp;
+package gei.soprapp.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import gei.soprapp.R;
 
 /**
  * Created by Clément Baudouin on 10/01/2016.

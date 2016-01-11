@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/preferences" android:name=".SettingsActivity"
+        <activity android:label="@string/preferences" android:name=".settings.SettingsActivity"
             android:parentActivityName="MainActivity"/>
     </application>
 

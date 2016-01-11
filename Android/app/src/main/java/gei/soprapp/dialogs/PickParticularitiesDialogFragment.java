@@ -1,4 +1,4 @@
-package gei.soprapp;
+package gei.soprapp.dialogs;
 
 
 import android.app.AlertDialog;
@@ -10,14 +10,16 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import gei.soprapp.R;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PickParticularitiesFragment extends DialogFragment {
+public class PickParticularitiesDialogFragment extends DialogFragment {
 
     private ArrayList<Integer> mSelectedItems;
 
-    public PickParticularitiesFragment() {
+    public PickParticularitiesDialogFragment() {
         // Required empty public constructor
     }
 
