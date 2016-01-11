@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reservations.findByReservationID", query = "SELECT r FROM Reservations r WHERE r.reservationID = :reservationID"),
     @NamedQuery(name = "Reservations.findByStart", query = "SELECT r FROM Reservations r WHERE r.start = :start"),
     @NamedQuery(name = "Reservations.findByEnd", query = "SELECT r FROM Reservations r WHERE r.end = :end"),
-    @NamedQuery(name = "Reservations.findByAll", query = "SELECT r FROM Reservations r WHERE r.ownerRef IN (SELECT u.userID FROM Users u)")})
+    @NamedQuery(name = "Reservations.findByAll", query = "SELECT r FROM Reservations r WHERE r.start >= :start")})
 public class Reservations implements Serializable {
 
     private static final long serialVersionUID = 1L;

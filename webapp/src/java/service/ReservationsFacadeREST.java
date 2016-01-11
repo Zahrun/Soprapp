@@ -7,7 +7,14 @@ package service;
 
 import entities.OldReservations;
 import entities.Reservations;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -101,15 +108,38 @@ public class ReservationsFacadeREST extends AbstractFacade<Reservations> {
     
     @GET
     @Path("filter/{searchParams}")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Reservations> filterReservations(@PathParam("searchParams") String searchParams){
         String[] params = searchParams.split("&");
-            System.out.println(params[0]);
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = new Date();
+        Date endDate = new Date();
         
-        List<Reservations> result;
-        result = (List<Reservations>) em.createNamedQuery("Reservations.findByAll");
-         //       .setParameter("user", params[0]);
+        try {
+            startDate = df.parse(params[2]);
+            if (params.length == 4) // if there endDate is specified
+                endDate = df.parse(params[3]);
+        } catch (ParseException ex) {
+            Logger.getLogger(ReservationsFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        List<Reservations> result = new ArrayList<>();
+        List<Reservations> tmp = super.findAll();
+
+        for (Reservations tmpReserv : tmp){
+            System.out.println(tmpReserv.getStart());
+            System.out.println(startDate);
+            System.out.println(tmpReserv.getStart().after(startDate));
+            if (tmpReserv.getStart().after(startDate)){
+                if (params.length == 4){
+                    if (tmpReserv.getEnd().before(endDate))
+                        result.add(tmpReserv);
+                }else
+                    result.add(tmpReserv);
+            }
+        }
         
-        return null;
+        return result;
     }
 
     

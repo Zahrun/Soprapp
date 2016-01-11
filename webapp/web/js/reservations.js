@@ -39,8 +39,8 @@ function drawReservationList(reservationList){
             + "<div class='informations'>"
             + "<div id='roomName'>" + tmpData.roomRef.number + "</div>"
             + "<div id='owner'>" + tmpData.ownerRef.name + " " + tmpData.ownerRef.surname + "</div>"
-            + "<div id='start'>Début: " + tmpData.start.split("T", 1) + "</div>"
-            + "<div id='end'>" + tmpData.end + "</div>"
+            + "<div id='start'>Début: " + tmpData.start.split("+", 1) + "</div>"
+            + "<div id='end'>Fin: " + tmpData.end.split("+", 1) + "</div>"
             + "</div>"
             + "<button class='btn btn-danger small-btn' onclick='clearReservation(" + tmpData.reservationID + ")'>Effacer</button></div>");
     }
