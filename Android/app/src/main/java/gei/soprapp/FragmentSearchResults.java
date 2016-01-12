@@ -84,9 +84,13 @@ public class FragmentSearchResults extends FragmentAbstract {
                 mListView.post(new Runnable() {
                     @Override
                     public void run() {
+                        String roomsNames[] = new String[rooms.length];
+                        for (int i =0; i< rooms.length; i++){
+                            roomsNames[i]=rooms[i].getNumber();
+                        }
                         //2- affichage
-                        ArrayAdapter<Rooms> adapter = new ArrayAdapter<Rooms>(getActivity(),
-                                android.R.layout.simple_list_item_1, rooms);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1, roomsNames);
                         mListView.setAdapter(adapter);
                     }
                 });

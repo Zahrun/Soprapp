@@ -100,7 +100,6 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
 
         final Button time = (Button) view.findViewById(R.id.timeButton);
         time.setOnClickListener(new View.OnClickListener()
-
                                 {
                                     @Override
                                     public void onClick(View v) {

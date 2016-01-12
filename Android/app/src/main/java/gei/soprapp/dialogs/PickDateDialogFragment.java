@@ -36,7 +36,7 @@ public class PickDateDialogFragment extends DialogFragment implements DatePicker
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         // Do something with the time chosen by the user
         FragmentSearchResults.setRequestDate(new GregorianCalendar(year, monthOfYear, dayOfMonth).getTimeInMillis());
-        final java.text.DateFormat dateformat = DateFormat.getTimeFormat(getActivity());
+        final java.text.DateFormat dateformat = DateFormat.getDateFormat(getActivity());
         final TextView textViewDate = ((TextView) getActivity().findViewById(R.id.textViewDate));
         final Date date = new GregorianCalendar(year,monthOfYear,dayOfMonth).getTime();
         textViewDate.post(new Runnable() {
