@@ -19,7 +19,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import gei.soprapp.entities.Equipments;
+import gei.soprapp.entities.Reservations;
 import gei.soprapp.entities.RoomEquipments;
+import gei.soprapp.entities.Rooms;
 import gei.soprapp.entities.Sites;
 
 /**
@@ -65,30 +67,33 @@ public class FragmentSearchResults extends FragmentAbstract {
         return FragmentAbstract.newInstance(fragment, sectionNumber, R.layout.fragment_search_results);
     }
 
+
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*
-        final TextView textView = (TextView) view.findViewById(R.id.resultatText);
-        textView.post(new Runnable() {
+        final ListView mListView = (ListView) view.findViewById(R.id.reservationsList);
+        //1- la requête
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                String text = new String();
-                text += "site " + siteRequest + "\n";
-                text += "date " + dateRequest + "\n";
-                text += "heure " + timeRequest + "\n";
-                Date date = new Date(dateRequest+timeRequest);
-                text += "debut(date+heure) " + date + "\n";
-                text += "duree " + dureeRequest + " (min)\n";
-                text += "nbPerssonnes " + nbPersonnesRequest + "\n";
-                for (String s : equipmentsRequest) {
-                    text += "equipement " + s.toString() + "\n";
-                }
-                textView.setText("Arguments de la requete:\n"+text);
-            }
-        });*/
+                final Rooms[] rooms = Requests.getRoomsSearched(mListView);
 
+                if (rooms==null)
+                    return;
+                mListView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //2- affichage
+                        ArrayAdapter<Rooms> adapter = new ArrayAdapter<Rooms>(getActivity(),
+                                android.R.layout.simple_list_item_1, rooms);
+                        mListView.setAdapter(adapter);
+                    }
+                });
+            }
+        }).start();
+
+        /*
         // TODO A CHANGERAffichage du résultat
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Set<String> defaultItems = new TreeSet<>();
@@ -103,7 +108,7 @@ public class FragmentSearchResults extends FragmentAbstract {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, favoriteRoomsArray);
         mListView.setAdapter(adapter);
-        // TODO stop todo
+        // TODO stop todo*/
 
         // Pouvoir revenir en arrière
         view.setFocusableInTouchMode(true);

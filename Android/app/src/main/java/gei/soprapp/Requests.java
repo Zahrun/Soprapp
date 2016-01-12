@@ -111,7 +111,7 @@ public class Requests {
         String uri = Globals.REST_URI+"entities.reservations/filter/{searchParams}";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("searchParams", "Marai");
+        params.put("searchParams", "Bertin");
 
         Reservations[] result = requete(uri, Reservations[].class, view, params);
         if (result==null){
@@ -196,9 +196,22 @@ public class Requests {
         String uri = Globals.REST_URI+"entities.reservations";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("searchParams", "&"+selected);
+        params.put("searchParams", "&" + selected);
 
         boolean result = true;//requete(uri, Reservations[].class, view, params);
+        return result;
+    }
+
+    public static Rooms[] getRoomsSearched(View view){
+        //site/date/durée/nombredepersonnes/equipements
+        String uri = Globals.REST_URI+"entities.rooms/mainSearch/{searchParams}";
+
+        Map<String, String> params = new HashMap<String, String>();
+        //TODO : change params
+        String parametres ="GEI&&&4";
+        params.put("searchParams", parametres);
+        Rooms[] result = requete(uri, Rooms[].class, view, params);
+
         return result;
     }
 }
