@@ -77,7 +77,7 @@ public class FragmentSearchResults extends FragmentAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Rooms[] rooms = Requests.getRoomsSearched(mListView);
+                final Rooms[] rooms = Requests.getRoomsSearched(mListView,siteRequest,dateRequest+timeRequest,dureeRequest,nbPersonnesRequest,equipmentsRequest);
 
                 if (rooms==null)
                     return;

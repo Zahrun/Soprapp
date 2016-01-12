@@ -205,14 +205,6 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date startDate = new Date(Long.valueOf(params[1]));
-        
-        /*
-         if (!"".equals(params[1]))
-                try {
-                    startDate = df.parse(params[1]);
-        } catch (ParseException ex) {
-            Logger.getLogger(RoomsFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
          
         Date endDate = new Date(startDate.getTime()+Long.valueOf(params[2])*60*1000);
         

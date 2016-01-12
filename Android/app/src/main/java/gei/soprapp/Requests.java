@@ -218,14 +218,13 @@ public class Requests {
         return result;
     }
 
-    public static Rooms[] getRoomsSearched(View view){
+    public static Rooms[] getRoomsSearched(View view,String siteRequest,long dateRequest,long dureeRequest,int nbPersonnesRequest,String[] equipmentsRequest){
         //site/date/durée/nombredepersonnes/equipements
         String uri = Globals.REST_URI+"entities.rooms/badSearch/{searchParams}";
 
         Map<String, String> params = new HashMap<String, String>();
-        //TODO : change params
-        Date date = new Date();
-        String parametres ="GEI&"+date.getTime()+"&2&3&";
+        String parametres =siteRequest+"&"+dateRequest+"&"+dureeRequest+"&"+nbPersonnesRequest+"&";
+        Log.e("REQUEST",parametres);
         params.put("searchParams", parametres);
         Rooms[] result = requete(uri, Rooms[].class, view, params);
 
