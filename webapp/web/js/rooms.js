@@ -69,7 +69,7 @@ function drawRoomList(roomList){
 
         resultDiv.append("<div id='" + tmpData.roomID + "' class='objectOverview roomOverview' onclick='editRoom(" + tmpData.roomID + ")' >"
             + "<div class='informations'>"
-            + "<div id='number'>" + tmpData.number + "</div>"
+            + "<div id='number'><b>" + tmpData.number + "</b></div>"
             + "<div id='capacity'>" + tmpData.capacity + "</div>"
             + "<div id='siteRef.name'>" + tmpData.siteRef.name + "</div>"
             + "</div></div>");
