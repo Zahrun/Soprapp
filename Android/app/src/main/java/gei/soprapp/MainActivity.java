@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Thread miseAJourThread;
 
     public SectionsPagerAdapter getmSectionsPagerAdapter() {
         return mSectionsPagerAdapter;
@@ -65,6 +67,24 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("onResume", "onResume");
+        miseAJourThread = new ThreadKeepUpdated(getmViewPager().getRootView());
+        miseAJourThread.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("onPause","onPause");
+        if (miseAJourThread!=null && !miseAJourThread.isInterrupted()) {
+            synchronized (miseAJourThread) {
+                miseAJourThread.interrupt();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

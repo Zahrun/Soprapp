@@ -31,6 +31,8 @@ import gei.soprapp.entities.Sites;
  */
 public class Requests {
 
+    private static boolean errorDialogPrinted = false;
+    private static AlertDialog errorDialog;
 
     private static <T> T requete(String URI, Class<T> type, final View view) {
         T result = null;
@@ -40,18 +42,35 @@ public class Requests {
         try {
                 ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type);
                 result = responseEntity.getBody();
+            if (Requests.errorDialogPrinted == true) {
+                errorDialog.dismiss();
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(view.getContext())
+                                .setTitle("La connexion a réussi")
+                                .setMessage("La connexion a réussi, vous pouvez maintenant utiliser l'application.")
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                .show();
+                    }
+                });
+                Requests.errorDialogPrinted = false;
+            }
         } catch (Exception e){
             e.printStackTrace();
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                    new AlertDialog.Builder(view.getContext())
-                            .setTitle("Pas de connexion")
-                            .setMessage("La connexion a échoué, vérifiez votre connexion internet.")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
+            if (!Requests.errorDialogPrinted) {
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Requests.errorDialog = new AlertDialog.Builder(view.getContext())
+                                .setTitle("Pas de connexion")
+                                .setMessage("La connexion a échoué, vérifiez votre connexion internet.")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+                Requests.errorDialogPrinted = true;
+            }
         }
         return result;
     }
