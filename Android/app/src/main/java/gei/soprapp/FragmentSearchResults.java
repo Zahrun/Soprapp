@@ -72,7 +72,7 @@ public class FragmentSearchResults extends FragmentAbstract {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ListView mListView = (ListView) view.findViewById(R.id.reservationsList);
+        final ListView mListView = (ListView) view.findViewById(R.id.resultatList);
         //1- la requête
         new Thread(new Runnable() {
             @Override
