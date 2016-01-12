@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rooms.filterByEverythingAND", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number AND r.capacity LIKE :capacity"),
     @NamedQuery(name = "Rooms.filterByEverythingOR", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number OR r.capacity LIKE :capacity"),
     @NamedQuery(
-            name = "findAvailable", 
+            name = "Rooms.findAvailable", 
             query="SELECT r"
                     + " FROM Rooms r"
                     + " WHERE r.capacity >= :nombrePersonnes"

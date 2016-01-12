@@ -44,7 +44,7 @@ public class Requests {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {
-            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type);
+            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type, params);
             result = responseEntity.getBody();
             if (Requests.errorDialogPrinted == true) {
                 errorDialog.dismiss();
@@ -116,7 +116,7 @@ public class Requests {
         String uri = Globals.REST_URI+"entities.reservations/filter/{searchParams}";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("searchParams", "Marai");
+        params.put("searchParams", "Bertin");
 
         Reservations[] result = requete(uri, Reservations[].class, view, params);
         if (result==null){
@@ -175,10 +175,8 @@ public class Requests {
 
         Map<String, String> params = new HashMap<String, String>();
         //TODO : change params
-        String parametres ="";
+        String parametres ="GEI&&&4";
         params.put("searchParams", parametres);
-
-
         Rooms[] result = requete(uri, Rooms[].class, view, params);
 
         return result;
