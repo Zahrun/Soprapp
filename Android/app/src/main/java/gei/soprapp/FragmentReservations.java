@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.TreeSet;
-
 import gei.soprapp.entities.Reservations;
 
 /**
@@ -40,12 +38,13 @@ public  class FragmentReservations extends FragmentAbstract {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ListView mListView = (ListView) view.findViewById(R.id.resultatResa);
+        final ListView mListView = (ListView) view.findViewById(R.id.reservationsList);
         //1- la requête
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final Reservations[] reservations = Requests.getReservationsCurrentUser(mListView);
+                if (reservations==null) return;
                 mListView.post(new Runnable() {
                     @Override
                     public void run() {
