@@ -12,6 +12,6 @@ import gei.soprapp.R;
 public class MultiSelectListPreferenceSalles extends MultiSelectListPreferenceCustom {
 
     public MultiSelectListPreferenceSalles(Context context, AttributeSet attrs) {
-        super(context, attrs, R.array.salles_array, Globals.CACHE_SALLES_KEY, Globals.PREF_FAVORITE_SALLE);
+        super(context, attrs, R.array.salles_array, Globals.CACHE_ROOMS_KEY, Globals.PREF_FAVORITE_ROOMS);
     }
 }

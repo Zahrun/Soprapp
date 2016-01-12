@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import gei.soprapp.Globals;
+
 /**
  * Created by Clément Baudouin on 10/01/2016.
  */
@@ -17,15 +19,9 @@ public class MultiSelectListPreferenceCustom extends MultiSelectListPreference {
         public MultiSelectListPreferenceCustom(Context context, AttributeSet attrs, int array, String itemListKey, String preferenceKey) {
             super(context, attrs);
             String defaultItemsArray[] = context.getResources().getStringArray(array);
-            TreeSet<String> defaultItems = new TreeSet<>();
-            for (String site : defaultItemsArray)
-            {
-                defaultItems.add(site);
-            }
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-            Set<String> itemsSet = sharedPreferences.getStringSet(itemListKey, defaultItems);
-            String[] items = new String[itemsSet.size()];
-            itemsSet.toArray(items);
+            Set<String> itemsSet = sharedPreferences.getStringSet(itemListKey, Globals.arrayToSet(defaultItemsArray));
+            String[] items = Globals.setToArray(itemsSet);
             this.setEntries(items);
             this.setEntryValues(items);
             Set<String> selectedItems = sharedPreferences.getStringSet(preferenceKey, new TreeSet<String>());

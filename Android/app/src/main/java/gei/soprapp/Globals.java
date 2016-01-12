@@ -14,17 +14,18 @@ import gei.soprapp.entities.Sites;
  */
 public class Globals {
     // Cache
-    public final static String CACHE_SALLES_KEY = "cache_salles";
-    public final static String CACHE_SITES_KEY = "cache_sites";
     public final static String CACHE_EQUIPMENTS_KEY = "cache_equipments";
+    public final static String CACHE_SITES_KEY = "cache_sites";
+    public static final String CACHE_ROOMS_KEY = "cache_rooms";
     // Préférences
-    public final static String PREF_FAVORITE_SALLE = "pref_key_salles";
+    public final static String PREF_FAVORITE_ROOMS = "pref_key_salles";
     public final static String PREF_FAVORITE_SITE = "pref_key_site";
     //Valeurs par defaut
     public final static int DEFAULT_POSITION = 0;
-    // URIs
+    // Réseau
     public final static String BASE_URI="http://176.31.1.146:8080/webapp";
     public final static String REST_URI=BASE_URI+"/rest/";
+    public static final long INTERVALLE_MISE_A_JOUR = 2000;
 
     public static <T> Set<T> arrayToSet(T[] array){
         TreeSet<T> set = new TreeSet<>();
@@ -47,13 +48,6 @@ public class Globals {
                 return i;
         }
         return DEFAULT_POSITION;
-    }
-
-    public static Sites findSiteFromDescription(Object selectedItem) {
-        if(!(selectedItem instanceof String)){
-            return null;
-        }
-        return null;
     }
 
     public static String[] listToArray(List<String> list) {
