@@ -15,7 +15,7 @@ import java.util.TreeSet;
 /**
  * Created by Clément Baudouin on 10/01/2016.
  */
-public class FragmentFavorites extends FragmentAbstract{
+public class FragmentFavorites extends FragmentAbstract implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     SharedPreferences sharedPreferences ;
     TreeSet<String> defaultItems ;
@@ -36,7 +36,7 @@ public class FragmentFavorites extends FragmentAbstract{
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         defaultItems = new TreeSet<>();
-        itemsSet = sharedPreferences.getStringSet( Globals.sallesPreferenceKey, defaultItems);
+        itemsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_SALLE, defaultItems);
         items = new String[itemsSet.size()];
         itemsSet.toArray(items);
 
@@ -44,7 +44,22 @@ public class FragmentFavorites extends FragmentAbstract{
         adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, items);
         mListView.setAdapter(adapter);
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        defaultItems = new TreeSet<>();
+        itemsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_SALLE, defaultItems);
+        items = new String[itemsSet.size()];
+        itemsSet.toArray(items);
+
+        mListView = (ListView) getView().findViewById(R.id.listFavorites);
+        adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, items);
+        mListView.setAdapter(adapter);
+    }
 }
