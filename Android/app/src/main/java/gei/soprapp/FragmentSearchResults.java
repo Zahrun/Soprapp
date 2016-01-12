@@ -1,8 +1,13 @@
 package gei.soprapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.sql.Time;
@@ -10,6 +15,8 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Set;
+import java.util.TreeSet;
 
 import gei.soprapp.entities.Equipments;
 import gei.soprapp.entities.RoomEquipments;
@@ -64,7 +71,7 @@ public class FragmentSearchResults extends FragmentAbstract {
 
         final TextView textView = (TextView) view.findViewById(R.id.resultatText);
 
-        textView.post(new Runnable() {
+        /*textView.post(new Runnable() {
             @Override
             public void run() {
                 String text = new String();
@@ -80,27 +87,24 @@ public class FragmentSearchResults extends FragmentAbstract {
                 }
                 textView.setText("Arguments de la requete:\n"+text);
             }
-        });
+        });*/
 
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Sites[] sites = Requests.getSites(view);
-                if (sites == null){
-                    return;
-                }
-                textView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String text = new String();
-                        for (Sites site : sites) {
-                            text += site.toString() + "\n";
-                        }
-                        textView.append("Petit test de requete (sites):\n" + text);
-                    }
-                });
-            }
-        }).start();*/
+        // TODO A CHANGERAffichage du résultat
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Set<String> defaultItems = new TreeSet<>();
+        Set<String> favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
+        String[] favoriteRoomsArray = new String[favoriteRoomsSet.size()];
+        favoriteRoomsSet.toArray(favoriteRoomsArray);
+        favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
+        favoriteRoomsArray = new String[favoriteRoomsSet.size()];
+        favoriteRoomsSet.toArray(favoriteRoomsArray);
+
+        ListView mListView = (ListView) view.findViewById(R.id.resultatList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, favoriteRoomsArray);
+        mListView.setAdapter(adapter);
+        // TODO stop todo
+
 
         view.setFocusableInTouchMode(true);
         view.requestFocus();

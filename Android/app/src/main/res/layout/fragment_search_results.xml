@@ -5,11 +5,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Resultats:"
+        android:textAppearance="?android:textAppearanceSearchResultTitle"
+        android:text="Résultats de la recherche:"
         android:id="@+id/resultatText"
         android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/resultatList"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/resultatText"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>
