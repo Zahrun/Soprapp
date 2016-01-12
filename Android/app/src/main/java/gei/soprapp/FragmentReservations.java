@@ -1,6 +1,7 @@
 package gei.soprapp;
 
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -18,6 +19,23 @@ public  class FragmentReservations extends FragmentAbstract {
         return FragmentAbstract.newInstance(fragment, sectionNumber, R.layout.fragment_reservations);
     }
 
+    private String[] formatReservations(Reservations[] reservations){
+        String[] reservationsStrings = new String[reservations.length];
+        for (int i = 0; i < reservations.length; i++){
+            Reservations current = reservations[i];
+            String date = DateFormat.getDateFormat(getContext()).format(current.getStart());
+            String heure = DateFormat.getTimeFormat(getContext()).format(current.getStart());
+            reservationsStrings[i] = "Le " + date + " à " + heure + " salle: \"" + current.getRoomRef().getNumber()+"\"";
+            reservationsStrings[i] += "\n\t\t capacité: " + current.getRoomRef().getCapacity() + " personnes";
+            if (current.getInvitedUsersCollection() != null){
+                reservationsStrings[i] += " (" + current.getInvitedUsersCollection().size()+" invitées)";
+            } else {
+                reservationsStrings[i] += " (" + 0 +" invitées)";
+            }
+        }
+        return reservationsStrings;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -32,8 +50,8 @@ public  class FragmentReservations extends FragmentAbstract {
                     @Override
                     public void run() {
                         //2- affichage
-                        ArrayAdapter<Reservations> adapter = new ArrayAdapter<Reservations>(getActivity(),
-                                android.R.layout.simple_list_item_1, reservations);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1, formatReservations(reservations));
                         mListView.setAdapter(adapter);
                     }
                 });
