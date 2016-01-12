@@ -44,6 +44,7 @@ public  class FragmentReservations extends FragmentAbstract {
             @Override
             public void run() {
                 final Reservations[] reservations = Requests.getReservationsCurrentUser(mListView);
+                if (reservations==null) return;
                 mListView.post(new Runnable() {
                     @Override
                     public void run() {
