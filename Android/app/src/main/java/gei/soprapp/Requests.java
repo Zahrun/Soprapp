@@ -193,12 +193,17 @@ public class Requests {
     }
 
     public static boolean deleteReservation(Reservations selected) {
-        String uri = Globals.REST_URI+"entities.reservations";
+        String uri = Globals.REST_URI+"entities.reservations/{id}";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("searchParams", "&" + selected);
+        params.put("id", selected.getReservationID().toString());
 
-        boolean result = true;//requete(uri, Reservations[].class, view, params);
+        boolean result = true;
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.delete(uri, params);
+
         return result;
     }
 
@@ -211,6 +216,7 @@ public class Requests {
         String parametres ="GEI&&&4";
         params.put("searchParams", parametres);
         Rooms[] result = requete(uri, Rooms[].class, view, params);
+
 
         return result;
     }

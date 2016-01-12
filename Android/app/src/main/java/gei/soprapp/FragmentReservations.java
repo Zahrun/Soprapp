@@ -56,17 +56,17 @@ public  class FragmentReservations extends FragmentAbstract {
                                 new AlertDialog.Builder(view.getContext())
                                         .setTitle("Vraiment supprimer ?")
                                         .setMessage("Voulez vous vraiment supprimer cette reservation ?")
-                                        .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        })
+                                        .setNegativeButton("Non", null)
                                         .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                Reservations selected = reservations[position];
-                                                Requests.deleteReservation(selected);
+                                                final Reservations selected = reservations[position];
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Requests.deleteReservation(selected);
+                                                    }
+                                                }).start();
                                             }
                                         })
                                         .show();
