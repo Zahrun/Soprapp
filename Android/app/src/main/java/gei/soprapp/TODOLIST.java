@@ -4,6 +4,8 @@ package gei.soprapp;
  * Created by Clément Baudouin on 12/01/2016.
  */
 public class TODOLIST {
+    // TODO automatiser la recherche de reservations (pas juste quand FragmentReservations est créé)
+
     // TODO envoyer requette trouver salle et afficher resultat
     // TODO faire une reservation après le résultat
 

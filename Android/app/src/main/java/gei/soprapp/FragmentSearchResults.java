@@ -69,9 +69,9 @@ public class FragmentSearchResults extends FragmentAbstract {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*
         final TextView textView = (TextView) view.findViewById(R.id.resultatText);
-
-        /*textView.post(new Runnable() {
+        textView.post(new Runnable() {
             @Override
             public void run() {
                 String text = new String();
@@ -105,7 +105,7 @@ public class FragmentSearchResults extends FragmentAbstract {
         mListView.setAdapter(adapter);
         // TODO stop todo
 
-
+        // Pouvoir revenir en arrière
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener(new View.OnKeyListener() {

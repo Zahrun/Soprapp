@@ -3,7 +3,9 @@ package gei.soprapp;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -16,13 +18,6 @@ import java.util.TreeSet;
 public class FragmentFavorites extends FragmentAbstract implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     SharedPreferences sharedPreferences ;
-    TreeSet<String> defaultItems ;
-    Set<String> favoriteRoomsSet;
-    Set<String> cacheRoomsSet;
-    String[] favoriteRoomsArray;
-    ListView mListView ;
-    ArrayAdapter<String> adapter;
-
 
     public static FragmentAbstract newInstance(int sectionNumber) {
         FragmentFavorites fragment = new FragmentFavorites();
@@ -34,53 +29,65 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
         super.onViewCreated(view, savedInstanceState);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        defaultItems = new TreeSet<>();
-        favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
-        favoriteRoomsArray = new String[favoriteRoomsSet.size()];
-        favoriteRoomsSet.toArray(favoriteRoomsArray);
-        favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
-        favoriteRoomsArray = new String[favoriteRoomsSet.size()];
+        Set<String> favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, new TreeSet<String>());
+        final String favoriteRoomsArray[] = new String[favoriteRoomsSet.size()];
         favoriteRoomsSet.toArray(favoriteRoomsArray);
 
-        mListView = (ListView) view.findViewById(R.id.listFavorites);
-        adapter = new ArrayAdapter<String>(getActivity(),
+        final ListView mListView = (ListView) view.findViewById(R.id.listFavorites);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, favoriteRoomsArray);
         mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = favoriteRoomsArray[position];
+                FragmentFavoritesReservations.setSelected(selected);
+                ((MainActivity) getContext()).getmSectionsPagerAdapter().switchFavoritesFragment();
+            }
+        });
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+    @Override
+    public void onDestroyView (){
+        super.onDestroyView();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Set<String> favoriteRoomsSet;
+        String favoriteRoomsArray[];
         switch (key){
             case Globals.PREF_FAVORITE_ROOMS:
-                favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
+                favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, new TreeSet<String>());
                 favoriteRoomsArray = new String[favoriteRoomsSet.size()];
                 favoriteRoomsSet.toArray(favoriteRoomsArray);
 
-                mListView = (ListView) getActivity().findViewById(R.id.listFavorites);
+                ListView mListView = (ListView) getActivity().findViewById(R.id.listFavorites);
                 if(mListView==null) return;
-                adapter = new ArrayAdapter<String>(getActivity(),
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_list_item_1, favoriteRoomsArray);
                 mListView.setAdapter(adapter);
                 break;
             case Globals.CACHE_ROOMS_KEY:
-                cacheRoomsSet = sharedPreferences.getStringSet( Globals.CACHE_ROOMS_KEY, defaultItems);
+                Set<String> cacheRoomsSet = sharedPreferences.getStringSet( Globals.CACHE_ROOMS_KEY, new TreeSet<String>());
+                favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, new TreeSet<String>());
+                Set<String> favoriteRoomsSetCopy = new TreeSet<>(favoriteRoomsSet);
                 for (String s : favoriteRoomsSet){
                     if (!cacheRoomsSet.contains(s)){
-                        favoriteRoomsSet.remove(s);
+                        favoriteRoomsSetCopy.remove(s);
                     }
                 }
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putStringSet(Globals.PREF_FAVORITE_ROOMS, favoriteRoomsSet).commit();
+                editor.putStringSet(Globals.PREF_FAVORITE_ROOMS, favoriteRoomsSetCopy).commit();
 
-                favoriteRoomsArray = new String[favoriteRoomsSet.size()];
-                favoriteRoomsSet.toArray(favoriteRoomsArray);
                 mListView = (ListView) getActivity().findViewById(R.id.listFavorites);
                 if(mListView==null) return;
                 adapter = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_list_item_1, favoriteRoomsArray);
+                        android.R.layout.simple_list_item_1, Globals.setToArray(favoriteRoomsSetCopy));
                 mListView.setAdapter(adapter);
                 break;
             default:

@@ -1,5 +1,8 @@
 package gei.soprapp;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import gei.soprapp.entities.Reservations;
 import gei.soprapp.entities.Sites;
 
 /**
@@ -69,6 +73,64 @@ public class Globals {
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minutes = c.get(Calendar.MINUTE);
         return hour*60*60*1000+minutes*60*1000;
+    }
+
+    public static String[] formatReservations(Reservations[] reservations, Context context, boolean printSalle){
+        String[] reservationsStrings = new String[reservations.length];
+        for (int i = 0; i < reservations.length; i++){
+            Reservations current = reservations[i];
+            String date = DateFormat.getDateFormat(context).format(current.getStart());
+            String heure = DateFormat.getTimeFormat(context).format(current.getStart());
+            reservationsStrings[i] = "Le " + date + " à " + heure;
+            if (printSalle) {
+                reservationsStrings[i ]+= " salle: \"" + current.getRoomRef().getNumber() + "\"";
+                reservationsStrings[i] += "\n\t\t capacité: " + current.getRoomRef().getCapacity() + " personnes";
+            }
+            long duree = (current.getEnd().getTime() - current.getStart().getTime())/(1000*60);
+            reservationsStrings[i] += "\n\t\t durée:";
+            if (duree>60*24*30*365){
+                long annees = duree / (60*24);
+                reservationsStrings[i] += " " +  annees + " an";
+                if (annees>1){
+                    reservationsStrings[i] += "nées";
+                }
+                duree -= annees*(60*24);
+            }
+            if (duree>60*24*30){
+                long mois = duree / (60*24*30);
+                reservationsStrings[i] += " " +  mois + " mois";
+                duree -= mois*(60*24*30);
+            }
+            if (duree>60*24){
+                long jours = duree / (60*24);
+                reservationsStrings[i] += " " +  jours + " jour";
+                if (jours>1){
+                    reservationsStrings[i] += "s";
+                }
+                duree -= jours*(60*24);
+            }
+            if (duree>60){
+                long heures = duree / 60;
+                reservationsStrings[i] += " " +  heures + " heure";
+                if (heures>1){
+                    reservationsStrings[i] += "s";
+                }
+                duree -= heures*60;
+            }
+            if (duree>0) {
+                reservationsStrings[i] += " " + duree + " minute";
+                if (duree>1){
+                    reservationsStrings[i] += "s";
+                }
+            }
+            /* invitations pas implementés
+            if (current.getInvitedUsersCollection() != null){
+                reservationsStrings[i] += " (" + current.getInvitedUsersCollection().size()+" invitées)";
+            } else {
+                reservationsStrings[i] += " (" + 0 +" invitées)";
+            }*/
+        }
+        return reservationsStrings;
     }
 
 

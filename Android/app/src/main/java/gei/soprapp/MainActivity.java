@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private Fragment fragmentSearch;
+        private Fragment fragmentFavorites;
         private final FragmentManager mFragmentManager;
         
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -139,6 +140,26 @@ public class MainActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
+        public void switchFavoritesFragment(){
+            int position = fragmentFavorites.getArguments().getInt(FragmentAbstract.ARG_SECTION_NUMBER);
+            boolean reservations = false;
+            if (fragmentFavorites instanceof FragmentFavorites) {
+                reservations = true;
+            }
+            mFragmentManager.beginTransaction().remove(fragmentFavorites).commit();
+            if (reservations) {
+                fragmentFavorites = FragmentFavoritesReservations.newInstance(position);
+                Log.e("Nouveau", "FragmentFavoritesReservations");
+            } else {
+                fragmentFavorites = FragmentFavorites.newInstance(position);
+                Log.e("Nouveau", "FragmentFavorites");
+            }
+            if (fragmentFavorites==null) {
+                Log.e("ERREUR ICI", "");
+            }
+            notifyDataSetChanged();
+        }
+
         @Override
         public Fragment getItem(final int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -146,17 +167,21 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch(position){
                 case 0:
-                    fragment = FragmentFavorites.newInstance(position + 1);
+                    if (fragmentFavorites == null)
+                    {
+                        fragmentFavorites = FragmentFavorites.newInstance(position);
+                    }
+                    fragment = fragmentFavorites;
                     break;
                 case 1:
                     if (fragmentSearch == null)
                     {
-                        fragmentSearch = FragmentSearch.newInstance(position + 1);
+                        fragmentSearch = FragmentSearch.newInstance(position);
                     }
                     fragment = fragmentSearch;
                     break;
                 case 2:
-                    fragment = FragmentReservations.newInstance(position + 1);
+                    fragment = FragmentReservations.newInstance(position);
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid section number");
@@ -170,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
             if (object instanceof FragmentSearch && fragmentSearch instanceof FragmentSearchResults)
                 return POSITION_NONE;
             if (object instanceof FragmentSearchResults && fragmentSearch instanceof FragmentSearch)
+                return POSITION_NONE;
+            if (object instanceof FragmentFavorites && fragmentFavorites instanceof FragmentFavoritesReservations)
+                return POSITION_NONE;
+            if (object instanceof FragmentFavoritesReservations && fragmentFavorites instanceof FragmentReservations)
                 return POSITION_NONE;
             return POSITION_UNCHANGED;
         }

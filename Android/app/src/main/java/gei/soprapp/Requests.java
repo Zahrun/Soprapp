@@ -44,7 +44,7 @@ public class Requests {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {
-            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type);
+            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type, params);
             result = responseEntity.getBody();
             if (Requests.errorDialogPrinted == true) {
                 errorDialog.dismiss();
@@ -104,11 +104,6 @@ public class Requests {
         if (result==null){
             return result;
         }
-        // Enregister la liste
-        int[] reservations = new int[result.length];
-        for (int i = 0; i<result.length; i++){
-            reservations[i] = result[i].getReservationID();
-        }
         return result;
     }
 
@@ -127,6 +122,16 @@ public class Requests {
         for (int i = 0; i<result.length; i++){
             reservations[i] = result[i].getReservationID();
         }
+        return result;
+    }
+
+    public static Reservations[] getReservationsOfRoom(View view, String selected){
+        String uri = Globals.REST_URI+"entities.reservations/filter/{searchParams}";
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("searchParams", "&"+selected);
+
+        Reservations[] result = requete(uri, Reservations[].class, view, params);
         return result;
     }
 
@@ -155,6 +160,25 @@ public class Requests {
         if (result==null){
             return result;
         }
+        // Enregister la liste en Strings
+        Log.d("Enregistrement", "listeRooms");
+        String[] rooms = new String[result.length];
+        for (int i = 0; i<result.length; i++){
+            rooms[i] = result[i].getNumber();
+        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(Globals.CACHE_ROOMS_KEY, Globals.arrayToSet(rooms));
+        editor.commit();
+        return result;
+    }
+
+    public static Rooms[] getSiteRooms(View view, String site){
+        String uri = Globals.REST_URI+"entities.rooms";
+        Rooms[] result = requete(uri, Rooms[].class, view);
+        if (result==null){
+            return result;
+        }
         // Enregister la liste
         Log.d("Enregistrement", "listeRooms");
         String[] rooms = new String[result.length];
@@ -165,6 +189,16 @@ public class Requests {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet(Globals.CACHE_ROOMS_KEY, Globals.arrayToSet(rooms));
         editor.commit();
+        return result;
+    }
+
+    public static boolean deleteReservation(Reservations selected) {
+        String uri = Globals.REST_URI+"entities.reservations";
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("searchParams", "&"+selected);
+
+        boolean result = true;//requete(uri, Reservations[].class, view, params);
         return result;
     }
 }

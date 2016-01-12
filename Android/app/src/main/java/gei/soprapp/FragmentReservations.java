@@ -1,8 +1,12 @@
 package gei.soprapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,23 +19,6 @@ public  class FragmentReservations extends FragmentAbstract {
     public static FragmentAbstract newInstance(int sectionNumber) {
         FragmentReservations fragment = new FragmentReservations();
         return FragmentAbstract.newInstance(fragment, sectionNumber, R.layout.fragment_reservations);
-    }
-
-    private String[] formatReservations(Reservations[] reservations){
-        String[] reservationsStrings = new String[reservations.length];
-        for (int i = 0; i < reservations.length; i++){
-            Reservations current = reservations[i];
-            String date = DateFormat.getDateFormat(getContext()).format(current.getStart());
-            String heure = DateFormat.getTimeFormat(getContext()).format(current.getStart());
-            reservationsStrings[i] = "Le " + date + " à " + heure + " salle: \"" + current.getRoomRef().getNumber()+"\"";
-            reservationsStrings[i] += "\n\t\t capacité: " + current.getRoomRef().getCapacity() + " personnes";
-            if (current.getInvitedUsersCollection() != null){
-                reservationsStrings[i] += " (" + current.getInvitedUsersCollection().size()+" invitées)";
-            } else {
-                reservationsStrings[i] += " (" + 0 +" invitées)";
-            }
-        }
-        return reservationsStrings;
     }
 
     @Override
@@ -50,14 +37,45 @@ public  class FragmentReservations extends FragmentAbstract {
                     public void run() {
                         //2- affichage
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, formatReservations(reservations));
+                                android.R.layout.simple_list_item_1, Globals.formatReservations(reservations, getContext(),true));
                         mListView.setAdapter(adapter);
                     }
                 });
             }
         }).start();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final Reservations[] reservations = Requests.getReservationsCurrentUser(mListView);
+                        view.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                new AlertDialog.Builder(view.getContext())
+                                        .setTitle("Vraiment supprimer ?")
+                                        .setMessage("Voulez vous vraiment supprimer cette reservation ?")
+                                        .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
 
+                                            }
+                                        })
+                                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Reservations selected = reservations[position];
+                                                Requests.deleteReservation(selected);
+                                            }
+                                        })
+                                        .show();
+                            }
+                        });
+                    }
+                }).start();
 
-
+            }
+        });
     }
 }
