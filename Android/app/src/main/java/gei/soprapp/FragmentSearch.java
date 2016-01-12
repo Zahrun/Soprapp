@@ -133,13 +133,22 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
 
         );
 
-        new Thread(new Runnable() {
+        new Thread(){
             @Override
             public void run() {
-                Requests.getSites(view);
-                Requests.getEquipments(view);
+                synchronized (this) {
+                    while (!this.isInterrupted()) {
+                        Requests.getSites(view);
+                        Requests.getEquipments(view);
+                        Requests.getRooms(view);
+                        try {
+                            this.wait(Globals.INTERVALLE_MISE_A_JOUR);
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                }
             }
-        }).start();
+        }.start();
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
