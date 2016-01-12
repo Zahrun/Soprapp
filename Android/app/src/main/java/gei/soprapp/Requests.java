@@ -33,6 +33,16 @@ public class Requests {
 
     private static boolean errorDialogPrinted = false;
     private static AlertDialog errorDialog;
+    private static Reservations[] reservations;
+    private static FragmentReservations fragmentReservations;
+
+    public static void setFragmentReservations(FragmentReservations fragmentReservations) {
+        Requests.fragmentReservations = fragmentReservations;
+    }
+
+    public static Reservations[] getReservations() {
+        return reservations;
+    }
 
     private static <T> T requete(String URI, Class<T> type, final View view) {
         return requete(URI, type, view, new HashMap<String, String>());
@@ -117,10 +127,10 @@ public class Requests {
         if (result==null){
             return result;
         }
-        // Enregister la liste
-        int[] reservations = new int[result.length];
-        for (int i = 0; i<result.length; i++){
-            reservations[i] = result[i].getReservationID();
+        //enregister la liste
+        Requests.reservations = result;
+        if (fragmentReservations != null) {
+            fragmentReservations.updateReservations(result);
         }
         return result;
     }
@@ -129,7 +139,7 @@ public class Requests {
         String uri = Globals.REST_URI+"entities.reservations/filter/{searchParams}";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("searchParams", "&"+selected);
+        params.put("searchParams", "&" + selected);
 
         Reservations[] result = requete(uri, Reservations[].class, view, params);
         return result;

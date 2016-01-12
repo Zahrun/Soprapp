@@ -29,7 +29,7 @@ public class Globals {
     // Réseau
     public final static String BASE_URI="http://176.31.1.146:8080/webapp";
     public final static String REST_URI=BASE_URI+"/rest/";
-    public static final long INTERVALLE_MISE_A_JOUR = 2000;
+    public static final long INTERVALLE_MISE_A_JOUR = 1000;
 
     public static <T> Set<T> arrayToSet(T[] array){
         TreeSet<T> set = new TreeSet<>();

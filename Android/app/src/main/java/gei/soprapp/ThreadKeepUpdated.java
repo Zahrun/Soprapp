@@ -25,6 +25,8 @@ public class ThreadKeepUpdated extends Thread {
                 if (this.isInterrupted()) break;
                 Requests.getRooms(view);
                 if (this.isInterrupted()) break;
+                Requests.getReservationsCurrentUser(view);
+                if (this.isInterrupted()) break;
                 try {
                     this.wait(Globals.INTERVALLE_MISE_A_JOUR);
                 } catch (InterruptedException e) {
