@@ -66,6 +66,10 @@
         <script src="js/rooms.js"></script>         
         <script src="js/reservations.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load('visualization', '1.0', {'packages':['corechart']});
+        </script>
 
     </body>
 </html>

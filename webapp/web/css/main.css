@@ -116,3 +116,10 @@ and open the template in the editor.
 .small-btn{
     width: 100px;
 }
+
+.statUnit{
+    border: 2px solid #CCCACA;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

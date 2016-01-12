@@ -9,15 +9,14 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 import gei.soprapp.FragmentSearchResults;
 import gei.soprapp.Globals;
-import gei.soprapp.MainActivity;
 import gei.soprapp.R;
-import gei.soprapp.entities.Equipments;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,7 +62,18 @@ public class PickEquipmentsDialogFragment extends DialogFragment {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
                         FragmentSearchResults.setRequestEquipments(Globals.listToArray(mSelectedItems));
-
+                        final TextView textViewEquipements = ((TextView) getActivity().findViewById(R.id.textViewEquipements));
+                        String text = "";
+                        for (String s : mSelectedItems) {
+                            text += s + ", ";
+                        }
+                        final String finalText = text.substring(0,text.length()-2);
+                        textViewEquipements.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textViewEquipements.setText(finalText);
+                            }
+                        });
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

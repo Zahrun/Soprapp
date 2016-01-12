@@ -36,7 +36,11 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         defaultItems = new TreeSet<>();
+<<<<<<< HEAD
         itemsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_SALLE, defaultItems);
+=======
+        itemsSet = sharedPreferences.getStringSet( Globals.CACHE_SALLES_KEY, defaultItems);
+>>>>>>> origin/master
         items = new String[itemsSet.size()];
         itemsSet.toArray(items);
 

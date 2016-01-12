@@ -16,7 +16,6 @@ function getRoomList() {
 
 
 function initRoomEdit() {
-
     
     // load the initial list
     searchRooms();
@@ -78,8 +77,8 @@ function drawRoomList(roomList){
 }
 
 function createRoom(){ 
-    // retrieve the parameters from the form
-    var siteRef_name = $('input[name="siteRef_name"]').val();
+    
+    var siteRef_name = $('input[name="siteRef_name"]:checked').val();
     var number = $('input[name="number"]').val();
     var capacity = $('input[name="capacity"]').val();
     
