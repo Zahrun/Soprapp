@@ -62,7 +62,6 @@ function drawRoomList(roomList){
     var resultDiv = $("#searchResult");
     resultDiv.html("");
     var tmpData;
-    var iconImg;
     for (var i = 0; i < roomList.length; i++) {
         tmpData = roomList[i];
 

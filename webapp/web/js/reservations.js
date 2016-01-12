@@ -197,7 +197,7 @@ function getRooms(){
        url: "http://localhost:8080/webapp/rest/entities.rooms/",
        type: 'GET',
        success: function (result){
-           drawRoomList(result);               
+           drawReservRoomList(result);               
        },
        dataType: "json"
    });
@@ -210,13 +210,13 @@ function loadRoomList(){
        url: "http://localhost:8080/webapp/rest/entities.rooms/filterRoomsName/" + salleInput,
        type: 'GET',
        success: function (result){
-            drawRoomList(result);              
+            drawReservRoomList(result);              
        },
        dataType: "json"
    });
 }
 
-function drawRoomList(roomList){
+function drawReservRoomList(roomList){
     var salleList = $("#salleList");
     salleList.html("");
     for (var i = 0; i < roomList.length; i++){
