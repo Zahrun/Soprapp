@@ -66,7 +66,7 @@ function drawSiteList(siteList){
     for (var i = 0; i < siteList.length; i++) {
         tmpData = siteList[i];
 
-        resultDiv.append("<div id='" + tmpData.siteID + "' class='siteOverview' onclick='editSite(" + tmpData.siteID + ")' >"
+        resultDiv.append("<div id='" + tmpData.siteID + "' class='objectOverview siteOverview' onclick='editSite(" + tmpData.siteID + ")' >"
             + "<div class='informations'>"
             + "<div id='name'><b>" + tmpData.name + "</b></div>"
             + "<div id='address'>" + tmpData.address + "</div>"
