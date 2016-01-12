@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import gei.soprapp.entities.Equipments;
+import gei.soprapp.entities.Rooms;
 import gei.soprapp.entities.Sites;
 
 /**
@@ -55,6 +56,7 @@ public class Requests {
             return result;
         }
         // Enregister la liste
+        Log.d("Enregistrement", "listeSites");
         String[] sites = new String[result.length];
         for (int i = 0; i<result.length; i++){
             sites[i] = result[i].getName();
@@ -73,6 +75,7 @@ public class Requests {
             return result;
         }
         // Enregister la liste
+        Log.d("Enregistrement", "listeEquipments");
         String[] equipments = new String[result.length];
         for (int i = 0; i<result.length; i++){
             equipments[i] = result[i].getDescription();
@@ -80,6 +83,25 @@ public class Requests {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet(Globals.CACHE_EQUIPMENTS_KEY, Globals.arrayToSet(equipments));
+        editor.commit();
+        return result;
+    }
+
+    public static Rooms[] getRooms(View view){
+        String uri = Globals.REST_URI+"entities.rooms";
+        Rooms[] result = requete(uri, Rooms[].class, view);
+        if (result==null){
+            return result;
+        }
+        // Enregister la liste
+        Log.d("Enregistrement", "listeRooms");
+        String[] rooms = new String[result.length];
+        for (int i = 0; i<result.length; i++){
+            rooms[i] = result[i].getNumber();
+        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(Globals.CACHE_ROOMS_KEY, Globals.arrayToSet(rooms));
         editor.commit();
         return result;
     }
