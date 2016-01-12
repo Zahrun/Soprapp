@@ -5,9 +5,16 @@
  */
 package service;
 
+import entities.Reservations;
 import entities.Rooms;
 import entities.Sites;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -157,6 +164,37 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
                 .getResultList();
         return listRooms;
     }
+     @GET
+    @Path(value = "mainSearch/{searchParams}")
+    public List<Rooms> mainSearchGET(@PathParam("searchParams") String searchParams) {
+        
+        String[] params = {"", "", "", "", ""};
+        String[] splitResult = searchParams.split("&");
+        System.arraycopy(splitResult, 0, params, 0, splitResult.length);
+        
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = new Date();
+        
+         if (!"".equals(params[1]))
+                try {
+                    startDate = df.parse(params[1]);
+        } catch (ParseException ex) {
+            Logger.getLogger(RoomsFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+        }                 
+        
+        List<Rooms> listRooms;
+        
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.findAvailable")
+                .setParameter("site", params[0]) 
+                .setParameter("date", params[1])  
+                .setParameter("heure", params[2]) 
+                .setParameter("nombrePersonnes",params[3])   
+                .setParameter("equipements", params[4])   
+                .getResultList();
+        return listRooms;
+    }
+    
+    
     
    /*  public List<Rooms> filterByEverythingAND(String number, String capacity){
         List<Rooms> listRooms;

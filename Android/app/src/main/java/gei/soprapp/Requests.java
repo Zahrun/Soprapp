@@ -167,4 +167,20 @@ public class Requests {
         editor.commit();
         return result;
     }
+
+
+    public static Rooms[] getRoomsSearched(View view){
+        //site/date/durée/nombredepersonnes/equipements
+        String uri = Globals.REST_URI+"entities.rooms/mainSearch/{searchParams}";
+
+        Map<String, String> params = new HashMap<String, String>();
+        //TODO : change params
+        String parametres ="";
+        params.put("searchParams", parametres);
+
+
+        Rooms[] result = requete(uri, Rooms[].class, view, params);
+
+        return result;
+    }
 }

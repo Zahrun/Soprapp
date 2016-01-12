@@ -40,7 +40,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rooms.filterByName", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number"),
     @NamedQuery(name = "Rooms.filterBySite", query = "SELECT r FROM Rooms r WHERE r.siteRef.name LIKE :siteRef_name"), // new query
     @NamedQuery(name = "Rooms.filterByEverythingAND", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number AND r.capacity LIKE :capacity"),
-    @NamedQuery(name = "Rooms.filterByEverythingOR", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number OR r.capacity LIKE :capacity")})
+    @NamedQuery(name = "Rooms.filterByEverythingOR", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number OR r.capacity LIKE :capacity"),
+    @NamedQuery(
+            name = "findAvailable", 
+            query="SELECT r"
+                    + " FROM Rooms r"
+                    + " WHERE r.capacity >= :nombrePersonnes"
+                    + " AND r.siteRef.name LIKE :site ")})
 
 public class Rooms implements Serializable {
 
