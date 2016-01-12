@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%
+ <%
    EntityManagerFactory ef = Persistence.createEntityManagerFactory("webappPU");
    EntityManager em = ef.createEntityManager();
 
@@ -16,20 +16,20 @@
 %>
 
 <!-- action="http://localhost:8080/webapp/rest/entities.sites/createRoom"  method="POST" -->
-<div id="createUserForm">
+<div id="createRoomForm">
     
 
     <!-- faire une liste des sites disponibles pour le choix -->
 
     <div class="form-group">
-        <label for="siteRef_name">Site:</label> 
+        <label for="siteRef_name">Site:</label>         
 
 <%      List<Sites> listAllSites = siteFacade.findAll();
         int i = 0;
    
         for (Sites site : listAllSites) { %>           
-        <input name="siteRef_name" type="radio" value="<%=listAllSites.get(i).getName()%>" /> <%out.println(site.getName());
-            i++;   // j'ai tenté avec => listAllSites.get(i).getName() dans value au dessus, d'où le i qui se ballade !! sinon j'vais site.getName()
+        <input name="siteRef_name" type="radio" value="<%=site.getName()%>" > <%out.println(site.getName());
+               // j'ai tenté avec => listAllSites.get(i).getName() dans value au dessus, d'où le i qui se ballade !! sinon j'vais site.getName()
                    // mais je pensais que ça changeait à la fin...
         }
             %>
