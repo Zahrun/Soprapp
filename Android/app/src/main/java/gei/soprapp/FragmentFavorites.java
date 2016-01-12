@@ -13,7 +13,7 @@ import java.util.TreeSet;
 /**
  * Created by Clément Baudouin on 10/01/2016.
  */
-public class FragmentFavorites extends FragmentAbstract implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class FragmentFavorites extends FragmentAbstract implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     SharedPreferences sharedPreferences ;
     TreeSet<String> defaultItems ;
@@ -38,11 +38,15 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
         favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
         favoriteRoomsArray = new String[favoriteRoomsSet.size()];
         favoriteRoomsSet.toArray(favoriteRoomsArray);
+        favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, defaultItems);
+        favoriteRoomsArray = new String[favoriteRoomsSet.size()];
+        favoriteRoomsSet.toArray(favoriteRoomsArray);
 
         mListView = (ListView) view.findViewById(R.id.listFavorites);
         adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, favoriteRoomsArray);
         mListView.setAdapter(adapter);
+
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
