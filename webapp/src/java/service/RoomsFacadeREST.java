@@ -118,40 +118,63 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         return em;
     }
     
-     // methods for filtering
+     // METHODS FOR FILTERING
     
-    @GET
+    /* @GET
     @Path(value = "filterRooms/{number}/{capacity}")
     public List<Rooms> filterRoomsGET(@PathParam(value = "number") final String number, @PathParam(value = "capacity") final String capacity) {
         return filterByEverythingOR(number, capacity);
-    }
+    } */
+ 
     
     @GET
-    @Path(value = "filterRoomsName/{number}")
+    @Path(value = "filterRoomsNumber/{number}")
     public List<Rooms> filterRoomsNameGET(@PathParam(value = "number") final String number) {
-        return filterByEverythingOR(number, "-404");
+        List<Rooms> listRooms;
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByName")
+                .setParameter("number", "%" + number + "%")           
+                .getResultList();
+        return listRooms;
     }
+    
+    
+    @GET
+    @Path(value = "filterRoomsSite/{siteRef_name}")
+    public List<Rooms> filterRoomsSiteGET(@PathParam(value = "siteRef_name") final String siteRef_name) {
+        List<Rooms> listRooms;
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterBySite")
+                .setParameter("siteRef_name", "%" + siteRef_name + "%")           
+                .getResultList();
+        return listRooms;
+    }
+    
     @GET
     @Path(value = "filterRoomsCapacity/{capacity}")
     public List<Rooms> filterRoomsCapacityGET(@PathParam(value = "capacity") final String capacity) {
-        return filterByEverythingAND("", capacity);
+        List<Rooms> listRooms;
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.findByCapacity")
+                .setParameter("capacity", Short.parseShort(capacity))            
+                .getResultList();
+        return listRooms;
     }
     
-     public List<Rooms> filterByEverythingAND(String number, String capacity){
+   /*  public List<Rooms> filterByEverythingAND(String number, String capacity){
         List<Rooms> listRooms;
         listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingAND")
                 .setParameter("number", "%" + number + "%")
                 .setParameter("capacity", Short.parseShort(capacity))               
                 .getResultList();
         return listRooms;
-    }
+    } */
     
-    public List<Rooms> filterByEverythingOR(String number, String capacity){
+   /* public List<Rooms> filterByEverythingOR(String number, String capacity){
         List<Rooms> listRooms;
-        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByEverythingOR")
+
+        listRooms = (List<Rooms>) em.createNamedQuery("Rooms.filterByName")
                 .setParameter("number", "%" + number + "%")
-                .setParameter("capacity", Short.parseShort(capacity))              
+             //   .setParameter("capacity", Short.parseShort(capacity))    // Quand on cherche autre chose que la capacité on a pas un short ici mais un int !!!          
                 .getResultList();
+        
         return listRooms;
-    }
+    }*/         // TODO if needed
 }

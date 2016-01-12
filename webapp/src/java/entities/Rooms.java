@@ -36,8 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Rooms.findAll", query = "SELECT r FROM Rooms r"),
     @NamedQuery(name = "Rooms.findByRoomID", query = "SELECT r FROM Rooms r WHERE r.roomID = :roomID"),
-    @NamedQuery(name = "Rooms.findByCapacity", query = "SELECT r FROM Rooms r WHERE r.capacity = :capacity"),
+    @NamedQuery(name = "Rooms.findByCapacity", query = "SELECT r FROM Rooms r WHERE r.capacity >= :capacity"),
     @NamedQuery(name = "Rooms.filterByName", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number"),
+    @NamedQuery(name = "Rooms.filterBySite", query = "SELECT r FROM Rooms r WHERE r.siteRef.name LIKE :siteRef_name"), // new query
     @NamedQuery(name = "Rooms.filterByEverythingAND", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number AND r.capacity LIKE :capacity"),
     @NamedQuery(name = "Rooms.filterByEverythingOR", query = "SELECT r FROM Rooms r WHERE r.number LIKE :number OR r.capacity LIKE :capacity")})
 

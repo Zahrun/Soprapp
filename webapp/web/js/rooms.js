@@ -28,22 +28,23 @@ function searchRooms() {
     var url = "http://localhost:8080/webapp/rest/entities.rooms/filterRooms";
     switch (selectedOption) {
         case "all":
-            if (searchString !== "")
-                url += "/" + searchString + "/" + searchString ;
-            else
+        //    if (searchString !== "")
+        //        url += "/" + searchString + "/" + searchString ;
+        //    else
                 url = "http://localhost:8080/webapp/rest/entities.rooms";
             break;
-        case "name":
-            url += "Name/" + searchString;
+        case "number":
+            url += "Number/" + searchString;
             break;
-            // autres cas de recherche à préciser !
-      /* 
-        case "surname":
-            url += "Surname/" + searchString;
+       
+        case "capacity":
+            url += "Capacity/" + searchString;
             break;
-        case "mail":
-            url += "Mail/" + searchString;
-            break;*/
+            
+        case "site":
+            url += "Site/" + searchString;
+            break;
+
         default:
             url += "";
             break;
