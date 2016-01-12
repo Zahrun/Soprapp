@@ -60,6 +60,7 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
                 favoriteRoomsSet.toArray(favoriteRoomsArray);
 
                 mListView = (ListView) getActivity().findViewById(R.id.listFavorites);
+                if(mListView==null) return;
                 adapter = new ArrayAdapter<String>(getActivity(),
                         android.R.layout.simple_list_item_1, favoriteRoomsArray);
                 mListView.setAdapter(adapter);
@@ -77,6 +78,7 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
                 favoriteRoomsArray = new String[favoriteRoomsSet.size()];
                 favoriteRoomsSet.toArray(favoriteRoomsArray);
                 mListView = (ListView) getActivity().findViewById(R.id.listFavorites);
+                if(mListView==null) return;
                 adapter = new ArrayAdapter<String>(getActivity(),
                         android.R.layout.simple_list_item_1, favoriteRoomsArray);
                 mListView.setAdapter(adapter);

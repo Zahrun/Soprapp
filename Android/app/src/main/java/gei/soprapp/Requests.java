@@ -35,13 +35,17 @@ public class Requests {
     private static AlertDialog errorDialog;
 
     private static <T> T requete(String URI, Class<T> type, final View view) {
+        return requete(URI, type, view, new HashMap<String, String>());
+    }
+
+    private static <T> T requete(String URI, Class<T> type, final View view, Map<String,String> params) {
         T result = null;
         // Create a new RestTemplate instance
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {
-                ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type);
-                result = responseEntity.getBody();
+            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type);
+            result = responseEntity.getBody();
             if (Requests.errorDialogPrinted == true) {
                 errorDialog.dismiss();
                 view.post(new Runnable() {
@@ -59,6 +63,7 @@ public class Requests {
         } catch (Exception e){
             e.printStackTrace();
             if (!Requests.errorDialogPrinted) {
+                Requests.errorDialogPrinted = true;
                 view.post(new Runnable() {
                     @Override
                     public void run() {
@@ -69,32 +74,7 @@ public class Requests {
                                 .show();
                     }
                 });
-                Requests.errorDialogPrinted = true;
             }
-        }
-        return result;
-    }
-
-    private static <T> T requete(String URI, Class<T> type, final View view, Map<String,String> params) {
-        T result = null;
-        // Create a new RestTemplate instance
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        try {
-            ResponseEntity<T> responseEntity = restTemplate.getForEntity(URI, type, params);
-            result = responseEntity.getBody();
-        } catch (Exception e){
-            e.printStackTrace();
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                    new AlertDialog.Builder(view.getContext())
-                            .setTitle("Pas de connexion")
-                            .setMessage("La connexion a échoué, vérifiez votre connexion internet.")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
         }
         return result;
     }
