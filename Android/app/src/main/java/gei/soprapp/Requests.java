@@ -14,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.GenericArrayType;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -217,13 +218,13 @@ public class Requests {
         return result;
     }
 
-    public static Rooms[] getRoomsSearched(View view){
+    public static Rooms[] getRoomsSearched(View view,String siteRequest,long dateRequest,long dureeRequest,int nbPersonnesRequest,String[] equipmentsRequest){
         //site/date/durée/nombredepersonnes/equipements
-        String uri = Globals.REST_URI+"entities.rooms/mainSearch/{searchParams}";
+        String uri = Globals.REST_URI+"entities.rooms/badSearch/{searchParams}";
 
         Map<String, String> params = new HashMap<String, String>();
-        //TODO : change params
-        String parametres ="GEI&&&4";
+        String parametres =siteRequest+"&"+dateRequest+"&"+dureeRequest+"&"+nbPersonnesRequest+"&";
+        Log.e("REQUEST",parametres);
         params.put("searchParams", parametres);
         Rooms[] result = requete(uri, Rooms[].class, view, params);
 

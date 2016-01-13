@@ -164,7 +164,8 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
                 .getResultList();
         return listRooms;
     }
-     @GET
+    
+    @GET
     @Path(value = "mainSearch/{searchParams}")
     public List<Rooms> mainSearchGET(@PathParam("searchParams") final String searchParams) {
         
@@ -185,6 +186,7 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         return listRooms;
     }
     
+<<<<<<< HEAD
     public List<Rooms> areWellEquiped( List<Rooms> listRooms) {
         List<Rooms> result = listRooms ;
         //TODO 
@@ -196,6 +198,33 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         //TODO 
         
         return result ;
+=======
+    @GET
+    @Path(value = "badSearch/{searchParams}")
+    public List<Rooms> badSearchGET(@PathParam("searchParams") String searchParams) {
+        //site/date/durée/nombredepersonnes/equipements
+        String[] params = {"", "", "", "", ""};
+        String[] splitResult = searchParams.split("&");
+        System.arraycopy(splitResult, 0, params, 0, splitResult.length);
+        
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = new Date(Long.valueOf(params[1]));
+         
+        Date endDate = new Date(startDate.getTime()+Long.valueOf(params[2])*60*1000);
+        
+        List<Rooms> listRooms = this.filterRoomsSiteGET(params[0]);
+        List<Rooms> listRoomsCapacite = this.filterRoomsCapacityGET(params[3]);
+        listRooms.retainAll(listRoomsCapacite);
+        
+        ReservationsFacadeREST rfREST = new ReservationsFacadeREST(em);
+        List<Reservations> listReservations = rfREST.filterReservations("&&"+startDate.getTime()+"&"+endDate.getTime());
+        
+        for (Reservations res : listReservations){
+            listRooms.remove(res.getRoomRef());
+        }
+        
+        return listRooms;
+>>>>>>> origin/master
     }
     
     
