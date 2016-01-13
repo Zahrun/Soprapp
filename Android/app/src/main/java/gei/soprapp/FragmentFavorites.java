@@ -3,6 +3,7 @@ package gei.soprapp;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,13 +29,13 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
         Set<String> favoriteRoomsSet = sharedPreferences.getStringSet( Globals.PREF_FAVORITE_ROOMS, new TreeSet<String>());
         final String favoriteRoomsArray[] = new String[favoriteRoomsSet.size()];
         favoriteRoomsSet.toArray(favoriteRoomsArray);
 
         final ListView mListView = (ListView) view.findViewById(R.id.listFavorites);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, favoriteRoomsArray);
         mListView.setAdapter(adapter);
 
@@ -43,7 +44,7 @@ public class FragmentFavorites extends FragmentAbstract implements SharedPrefere
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selected = favoriteRoomsArray[position];
                 FragmentFavoritesReservations.setSelected(selected);
-                ((MainActivity) getContext()).getmSectionsPagerAdapter().switchFavoritesFragment();
+                ((MainActivity.SectionsPagerAdapter)((ViewPager) view.getRootView().findViewById(R.id.container)).getAdapter()).switchFavoritesFragment();
             }
         });
 

@@ -3,6 +3,7 @@ package gei.soprapp;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
@@ -77,10 +78,11 @@ public class FragmentSearchResults extends FragmentAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Rooms[] rooms = Requests.getRoomsSearched(mListView,siteRequest,dateRequest+timeRequest,dureeRequest,nbPersonnesRequest,equipmentsRequest);
+                final Rooms[] rooms = Requests.getRoomsSearched(view,siteRequest,dateRequest+timeRequest,dureeRequest,nbPersonnesRequest,equipmentsRequest);
 
                 if (rooms==null)
                     return;
+                if (mListView!=null)
                 mListView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -121,7 +123,7 @@ public class FragmentSearchResults extends FragmentAbstract {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    ((MainActivity) getContext()).getmSectionsPagerAdapter().switchSearchFragment();
+                    ((MainActivity.SectionsPagerAdapter)((ViewPager) view.getRootView().findViewById(R.id.container)).getAdapter()).switchSearchFragment();
                     return true;
                 }
                 return false;

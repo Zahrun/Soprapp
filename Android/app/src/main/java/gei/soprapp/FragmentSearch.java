@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -140,7 +141,7 @@ public class FragmentSearch extends FragmentAbstract implements SharedPreference
                 int duree = Integer.valueOf(((EditText) view.findViewById(R.id.editTextDuree)).getText().toString());
                 int nbPersonnes = Integer.valueOf(((EditText) view.findViewById(R.id.editTextNbPerssonnes)).getText().toString());
                 FragmentSearchResults.setRequest(site,duree,nbPersonnes);
-                ((MainActivity) getContext()).getmSectionsPagerAdapter().switchSearchFragment();
+                ((MainActivity.SectionsPagerAdapter)((ViewPager) view.getRootView().findViewById(R.id.container)).getAdapter()).switchSearchFragment();
             }
         });
     }

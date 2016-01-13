@@ -27,12 +27,7 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private Thread miseAJourThread;
-
-    public SectionsPagerAdapter getmSectionsPagerAdapter() {
-        return mSectionsPagerAdapter;
-    }
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -52,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayShowHomeEnabled(true);
@@ -149,13 +144,8 @@ public class MainActivity extends AppCompatActivity {
             mFragmentManager.beginTransaction().remove(fragmentFavorites).commit();
             if (reservations) {
                 fragmentFavorites = FragmentFavoritesReservations.newInstance(position);
-                Log.e("Nouveau", "FragmentFavoritesReservations");
             } else {
                 fragmentFavorites = FragmentFavorites.newInstance(position);
-                Log.e("Nouveau", "FragmentFavorites");
-            }
-            if (fragmentFavorites==null) {
-                Log.e("ERREUR ICI", "");
             }
             notifyDataSetChanged();
         }

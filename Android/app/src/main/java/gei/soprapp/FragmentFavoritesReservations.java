@@ -2,6 +2,7 @@ package gei.soprapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,7 @@ public class FragmentFavoritesReservations extends FragmentAbstract {
 
         final TextView textView = (TextView) view.findViewById(R.id.favoritesReservationsText);
         CharSequence text = textView.getText();
-        textView.setText(text.subSequence(0,text.length()-1)+" "+selected+":");
+        textView.setText(text.subSequence(0, text.length() - 1) + " " + selected + ":");
 
 
         final ListView mListView = (ListView) view.findViewById(R.id.favoritesReservationsList);
@@ -45,11 +46,12 @@ public class FragmentFavoritesReservations extends FragmentAbstract {
             @Override
             public void run() {
                 final Reservations[] reservations = Requests.getReservationsOfRoom(mListView, FragmentFavoritesReservations.selected);
-                if (reservations==null) return;
+                if (reservations==null || reservations.length==0) return;
                 if (mListView==null) return;
                 mListView.post(new Runnable() {
                     @Override
                     public void run() {
+                        textView.append("\n\t\t\t(capacité: " + reservations[0].getRoomRef().getCapacity()+")");
                         //2- affichage
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_list_item_1, Globals.formatReservations(reservations, getContext(),false));
@@ -66,7 +68,7 @@ public class FragmentFavoritesReservations extends FragmentAbstract {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    ((MainActivity) v.getContext()).getmSectionsPagerAdapter().switchFavoritesFragment();
+                    ((MainActivity.SectionsPagerAdapter)((ViewPager) v.getRootView().findViewById(R.id.container)).getAdapter()).switchFavoritesFragment();
                     return true;
                 }
                 return false;

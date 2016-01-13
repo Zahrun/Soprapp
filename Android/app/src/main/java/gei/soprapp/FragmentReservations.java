@@ -53,7 +53,7 @@ public  class FragmentReservations extends FragmentAbstract {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        final Reservations[] reservations = Requests.getReservationsCurrentUser(mListView);
+                        final Reservations[] reservations = Requests.getReservationsCurrentUser(view);
                         view.post(new Runnable() {
                             @Override
                             public void run() {
