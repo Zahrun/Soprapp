@@ -213,10 +213,16 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         listRooms.retainAll(listRoomsCapacite);
         
         ReservationsFacadeREST rfREST = new ReservationsFacadeREST(em);
-        List<Reservations> listReservations = rfREST.filterReservations("&&"+startDate.getTime()+"&"+endDate.getTime());
+        List<Reservations> listReservations = rfREST.findAll();
         
+        long start= startDate.getTime();
+        long end= endDate.getTime();
         for (Reservations res : listReservations){
-            listRooms.remove(res.getRoomRef());
+            long rs = res.getStart().getTime();
+            long re = res.getEnd().getTime();
+            if(rs<=start && re >start || rs>start && rs<end){
+                listRooms.remove(res.getRoomRef());
+            }
         }
         
         return listRooms;
