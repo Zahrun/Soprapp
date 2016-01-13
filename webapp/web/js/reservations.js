@@ -207,7 +207,7 @@ function loadRoomList(){
     var salleInput = $("input[name='roomName']").val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/filterRoomsName/" + salleInput,
+       url: "http://localhost:8080/webapp/rest/entities.rooms/filterRoomsNumber/" + salleInput,
        type: 'GET',
        success: function (result){
             drawReservRoomList(result);              

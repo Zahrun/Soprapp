@@ -186,7 +186,6 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         return listRooms;
     }
     
-<<<<<<< HEAD
     public List<Rooms> areWellEquiped( List<Rooms> listRooms) {
         List<Rooms> result = listRooms ;
         //TODO 
@@ -198,7 +197,8 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         //TODO 
         
         return result ;
-=======
+    }
+    
     @GET
     @Path(value = "badSearch/{searchParams}")
     public List<Rooms> badSearchGET(@PathParam("searchParams") String searchParams) {
@@ -230,7 +230,6 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
         }
         
         return listRooms;
->>>>>>> origin/master
     }
     
     
