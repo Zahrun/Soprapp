@@ -203,7 +203,7 @@ public class Requests {
         return result;
     }
 
-    public static boolean deleteReservation(Reservations selected) {
+    public static boolean deleteReservation(final View view, Reservations selected) {
         String uri = Globals.REST_URI+"entities.reservations/{id}";
 
         Map<String, String> params = new HashMap<String, String>();
@@ -211,9 +211,26 @@ public class Requests {
 
         boolean result = true;
 
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.delete(uri, params);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            restTemplate.delete(uri, params);
+        } catch (Exception e){
+            e.printStackTrace();
+            if (!Requests.errorDialogPrinted) {
+                Requests.errorDialogPrinted = true;
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Requests.errorDialog = new AlertDialog.Builder(view.getContext())
+                                .setTitle("Pas de connexion")
+                                .setMessage("La connexion a échoué, vérifiez votre connexion internet.")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+            }
+        }
 
         return result;
     }

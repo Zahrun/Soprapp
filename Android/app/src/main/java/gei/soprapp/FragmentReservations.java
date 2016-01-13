@@ -68,7 +68,7 @@ public  class FragmentReservations extends FragmentAbstract {
                                                 new Thread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        Requests.deleteReservation(selected);
+                                                        Requests.deleteReservation(view, selected);
                                                     }
                                                 }).start();
                                             }
