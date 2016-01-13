@@ -166,32 +166,36 @@ public class RoomsFacadeREST extends AbstractFacade<Rooms> {
     }
      @GET
     @Path(value = "mainSearch/{searchParams}")
-    public List<Rooms> mainSearchGET(@PathParam("searchParams") String searchParams) {
+    public List<Rooms> mainSearchGET(@PathParam("searchParams") final String searchParams) {
         
-        String[] params = {"", "", "", "", ""};
+        String[] params = {"", ""};
         String[] splitResult = searchParams.split("&");
-        System.arraycopy(splitResult, 0, params, 0, splitResult.length);
-        
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date startDate = new Date();
-        
-         if (!"".equals(params[1]))
-                try {
-                    startDate = df.parse(params[1]);
-        } catch (ParseException ex) {
-            Logger.getLogger(RoomsFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }                 
+        System.arraycopy(splitResult, 0, params, 0, splitResult.length); 
+                  
         
         List<Rooms> listRooms;
         
         listRooms = (List<Rooms>) em.createNamedQuery("Rooms.findAvailable")
-                .setParameter("site", params[0]) 
-                .setParameter("date", params[1])  
-                .setParameter("heure", params[2]) 
-                .setParameter("nombrePersonnes",params[3])   
-                .setParameter("equipements", params[4])   
+                .setParameter("site", params[0])
+                .setParameter("nombrePersonnes",Short.parseShort(params[1]))  
                 .getResultList();
+        
+        listRooms = areWellEquiped(listRooms) ;
+        listRooms = areAvailable(listRooms);
         return listRooms;
+    }
+    
+    public List<Rooms> areWellEquiped( List<Rooms> listRooms) {
+        List<Rooms> result = listRooms ;
+        //TODO 
+        
+        return result ;
+    }
+    public List<Rooms> areAvailable(List<Rooms> listRooms){
+        List<Rooms> result = listRooms ;
+        //TODO 
+        
+        return result ;
     }
     
     
