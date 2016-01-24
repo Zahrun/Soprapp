@@ -1,11 +1,13 @@
 /* global Site, Sites */
 
 // this file is made to control all the interactions from the "Sites" section of the webpage
-
+ 
+    var serverURL="176.31.1.146:8080/webapp2";
+    
 // REST api -> GET
 function getSiteList() {    
     $.get(
-        "http://localhost:8080/webapp/rest/entities.sites",
+        "http://"+serverURL+"/rest/entities.sites",
         function (data) {
             drawSiteList(data);
         },
@@ -26,13 +28,13 @@ function initSiteEdit() {
 function searchSites() {    
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
-    var url = "http://localhost:8080/webapp/rest/entities.sites/filterSites";
+    var url = "http://"+serverURL+"/rest/entities.sites/filterSites";
     switch (selectedOption) {
         case "all":
             if (searchString !== "")
                 url += "/" + searchString + "/" + searchString + "/" + searchString;            
             else
-                url = "http://localhost:8080/webapp/rest/entities.sites";
+                url = "http://"+serverURL+"/rest/entities.sites";
             break;
         case "name":
             url += "Name/" + searchString;
@@ -83,7 +85,7 @@ function createSite(){
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.sites/js",
+       url: "http://"+serverURL+"/rest/entities.sites/js",
        type: 'POST',
        data: {
            name: name,
@@ -103,7 +105,7 @@ function createSite(){
 }
 
 function editSite(id){ 
-    loadPage("http://localhost:8080/webapp/editSites.jsp?id=" + id, "Sites");
+    loadPage("http://"+serverURL+"/editSites.jsp?id=" + id, "Sites");
 }
 
 function updateSite(id){ 
@@ -114,7 +116,7 @@ function updateSite(id){
     var description = $('input[name = "description"]').val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.sites/js/" + id,
+       url: "http://"+serverURL+"/rest/entities.sites/js/" + id,
        type: 'PUT',
        data: {
            name: name,
@@ -133,7 +135,7 @@ function updateSite(id){
 
 function deleteSite(id){
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.sites/" + id,
+       url: "http://"+serverURL+"/rest/entities.sites/" + id,
        type: 'DELETE',
        success: function (result){
            // redirect to the search page

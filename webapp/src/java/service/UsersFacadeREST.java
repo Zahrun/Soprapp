@@ -6,6 +6,7 @@
 package service;
 
 import entities.Users;
+import globals.Globals;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -172,9 +173,9 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         try {
             
             if (user != null && user.getAdmin())
-                location = new URI("http://localhost:8080/webapp/mainPage.jsp");
+                location = new URI("http://"+Globals.SERVER_URI+"/mainPage.jsp");
             else
-                location = new URI("http://localhost:8080/webapp/index.html");
+                location = new URI("http://"+Globals.SERVER_URI+"/index.html");
             
             return Response.temporaryRedirect(location).build();
         } catch (URISyntaxException ex) {

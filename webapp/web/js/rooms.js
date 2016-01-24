@@ -2,11 +2,13 @@
 
 // this file is made to control all the interactions from the "Salles" section of the webpage
 
+    var serverURL="176.31.1.146:8080/webapp2";
+    
 // REST api -> GET
 function getRoomList() {
     var roomList;
     $.get(
-        "http://localhost:8080/webapp/rest/entities.rooms",
+        "http://"+serverURL+"/rest/entities.rooms",
         function (data) {
             drawRoomList(data);
         },
@@ -25,13 +27,13 @@ function initRoomEdit() {
 function searchRooms() {
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
-    var url = "http://localhost:8080/webapp/rest/entities.rooms/filterRooms";
+    var url = "http://"+serverURL+"/rest/entities.rooms/filterRooms";
     switch (selectedOption) {
         case "all":
         //    if (searchString !== "")
         //        url += "/" + searchString + "/" + searchString ;
         //    else
-                url = "http://localhost:8080/webapp/rest/entities.rooms";
+                url = "http://"+serverURL+"/rest/entities.rooms";
             break;
         case "number":
             url += "Number/" + searchString;
@@ -84,7 +86,7 @@ function createRoom(){
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/js",
+       url: "http://"+serverURL+"/rest/entities.rooms/js",
        type: 'POST',
        data: {
            siteRef_name: siteRef_name,
@@ -104,7 +106,7 @@ function createRoom(){
 }
 
 function editRoom(id){ // TODO
-    loadPage("http://localhost:8080/webapp/editRooms.jsp?id=" + id, "Salles");
+    loadPage("http://"+serverURL+"/editRooms.jsp?id=" + id, "Salles");
 }
 
 function updateRoom(id){ // TODO
@@ -114,7 +116,7 @@ function updateRoom(id){ // TODO
     var capacity = $('input[name = "capacity"]').val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/js/" + id,
+       url: "http://"+serverURL+"/rest/entities.rooms/js/" + id,
        type: 'PUT',
        data: {
            number: number,
@@ -132,7 +134,7 @@ function updateRoom(id){ // TODO
 
 function deleteRoom(id){ 
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/" + id,
+       url: "http://"+serverURL+"/rest/entities.rooms/" + id,
        type: 'DELETE',
        success: function (result){
            // redirect to the search page

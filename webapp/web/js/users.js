@@ -1,11 +1,13 @@
 /* global User, Users */
 
 // this file is made to control all the interactions from the "Utilisateurs" section of the webpage
-
+ 
+    var serverURL="176.31.1.146:8080/webapp2";
+    
 // REST api -> GET
 function getUserList() {
     $.get(
-        "http://localhost:8080/webapp/rest/entities.users",
+        "http://"+serverURL+"/rest/entities.users",
         function (data) {
             drawUserList(data);
         },
@@ -32,13 +34,13 @@ function initUserEdit() {
 function searchUsers() {
     var searchString = $("#searchString").val();
     var selectedOption = $("input[name='searchOption']:checked").attr("id");
-    var url = "http://localhost:8080/webapp/rest/entities.users/filterUsers";
+    var url = "http://"+serverURL+"/rest/entities.users/filterUsers";
     switch (selectedOption) {
         case "all":
             if (searchString !== "")
                 url += "/" + searchString + "/" + searchString + "/" + searchString;
             else
-                url = "http://localhost:8080/webapp/rest/entities.users";
+                url = "http://"+serverURL+"/rest/entities.users";
             break;
         case "name":
             url += "Name/" + searchString;
@@ -94,7 +96,7 @@ function createUser(){
     
     // sending the put request with the parameters
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js",
+       url: "http://"+serverURL+"/rest/entities.users/js",
        type: 'POST',
        data: {
            admin: admin,
@@ -116,7 +118,7 @@ function createUser(){
 }
 
 function editUser(id){
-    loadPage("http://localhost:8080/webapp/editUsers.jsp?id=" + id, "Utilisateurs");
+    loadPage("http://"+serverURL+"/editUsers.jsp?id=" + id, "Utilisateurs");
 }
 
 function updateUser(id){
@@ -129,7 +131,7 @@ function updateUser(id){
     var admin = $('input[name = "admin"]').is(":checked");
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/js/" + id,
+       url: "http://"+serverURL+"/rest/entities.users/js/" + id,
        type: 'PUT',
        data: {
            name: name,
@@ -150,7 +152,7 @@ function updateUser(id){
 
 function deleteUser(id){
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.users/" + id,
+       url: "http://"+serverURL+"/rest/entities.users/" + id,
        type: 'DELETE',
        success: function (result){
            // redirect to the search page

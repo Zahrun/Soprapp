@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
  
+    var serverURL="176.31.1.146:8080/webapp2";
+    
 function initReservationEdit(){
     getReservationList();
     
@@ -19,7 +21,7 @@ function initReservationEdit(){
 // get the list of existing reservations
 function getReservationList() {
     $.get(
-        "http://localhost:8080/webapp/rest/entities.reservations",
+        "http://"+serverURL+"/rest/entities.reservations",
         function (data) {
             drawReservationList(data);
         },
@@ -55,7 +57,7 @@ function searchReservations(){
     // on ajoute des %% pour que les chaines ne soient pas vides
     // elles sont équivalentes à des jokers lors des requetes SQL
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.reservations/filter/"
+       url: "http://"+serverURL+"/rest/entities.reservations/filter/"
         + ownerName + "&"
         + roomName + "&"
         + dateRangeStart + "&"
@@ -70,7 +72,7 @@ function searchReservations(){
 
 function clearReservation(id){
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.reservations/" + id,
+       url: "http://"+serverURL+"/rest/entities.reservations/" + id,
        type: 'DELETE',
        success: function (result){
            // redirect to the search page
@@ -84,7 +86,7 @@ function clearReservation(id){
 function initStats(){
     // get data for reservationWeekDate
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.stats/reservationWeekdate",
+       url: "http://"+serverURL+"/rest/entities.stats/reservationWeekdate",
        type: 'GET',
        success: function (result){
             //drawWeekReservation(result);
@@ -100,7 +102,7 @@ function initStats(){
    
    // get data for reservationMonth
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.stats/reservationMonth",
+       url: "http://"+serverURL+"/rest/entities.stats/reservationMonth",
        type: 'GET',
        success: function (result){
             drawMonthReservation(result);
@@ -194,7 +196,7 @@ function inputChange(){
 
 function getRooms(){
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/",
+       url: "http://"+serverURL+"/rest/entities.rooms/",
        type: 'GET',
        success: function (result){
            drawReservRoomList(result);               
@@ -207,7 +209,7 @@ function loadRoomList(){
     var salleInput = $("input[name='roomName']").val();
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.rooms/filterRoomsNumber/" + salleInput,
+       url: "http://"+serverURL+"/rest/entities.rooms/filterRoomsNumber/" + salleInput,
        type: 'GET',
        success: function (result){
             drawReservRoomList(result);              
@@ -233,7 +235,7 @@ function loadRoomStats(id, number){
     roomStatDiv.html("");
     
     $.ajax({
-       url: "http://localhost:8080/webapp/rest/entities.stats/room/" + id,
+       url: "http://"+serverURL+"/rest/entities.stats/room/" + id,
        type: 'GET',
        success: function (result){
            roomStatDiv.append("<div>Il y a eu " + result.value + " réservations pour cette salle</div>");
