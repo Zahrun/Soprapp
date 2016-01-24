@@ -11,5 +11,5 @@ package globals;
  * @author Aroun
  */
 public class Globals {
-    public static final String SERVER_URI="176.31.1.146:8080/webapp2";
+    public static final String SERVER_URI="176.31.1.146:8080/webapp";
 }

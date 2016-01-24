@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
  
-    var serverURL="176.31.1.146:8080/webapp2";
+    var serverURL="176.31.1.146:8080/webapp";
     
 function initReservationEdit(){
     getReservationList();

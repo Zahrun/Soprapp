@@ -2,7 +2,7 @@
 
 // this file is made to control all the interactions from the "Salles" section of the webpage
 
-    var serverURL="176.31.1.146:8080/webapp2";
+    var serverURL="176.31.1.146:8080/webapp";
     
 // REST api -> GET
 function getRoomList() {
