@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2016 at 01:26 PM
+-- Generation Time: Dec 04, 2015 at 08:51 AM
 -- Server version: 5.5.46
 -- PHP Version: 5.4.4-14+deb7u5
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Equipments` (
   `equipmentID` int(3) unsigned NOT NULL AUTO_INCREMENT,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`equipmentID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `Equipments`
@@ -40,8 +40,7 @@ INSERT INTO `Equipments` (`equipmentID`, `description`) VALUES
 (1, 'Visio'),
 (2, 'Téléphone'),
 (3, 'Salle Digilab'),
-(4, 'Sécurisée'),
-(5, 'Tableau');
+(4, 'Sécurisée');
 
 -- --------------------------------------------------------
 
@@ -56,7 +55,16 @@ CREATE TABLE IF NOT EXISTS `InvitedUsers` (
   PRIMARY KEY (`invitedUserID`),
   KEY `userRef` (`userRef`),
   KEY `reservationRef` (`reservationRef`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `InvitedUsers`
+--
+
+INSERT INTO `InvitedUsers` (`invitedUserID`, `reservationRef`, `userRef`) VALUES
+(1, 1, 2),
+(2, 2, 2),
+(3, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -88,17 +96,7 @@ CREATE TABLE IF NOT EXISTS `OldReservations` (
   PRIMARY KEY (`oldReservationID`),
   KEY `roomRef` (`roomRef`),
   KEY `ownerRef` (`ownerRef`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
-
---
--- Dumping data for table `OldReservations`
---
-
-INSERT INTO `OldReservations` (`oldReservationID`, `roomRef`, `start`, `end`, `ownerRef`) VALUES
-(4, 4, '2016-01-21 00:00:00', '2016-01-28 00:00:00', 20),
-(5, 4, '2016-01-21 00:00:00', '2016-01-28 00:00:00', 20),
-(6, 4, '2016-01-21 00:00:00', '2016-01-28 00:00:00', 20),
-(7, 15, '2016-01-28 16:00:00', '2016-01-28 16:43:00', 20);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -115,21 +113,16 @@ CREATE TABLE IF NOT EXISTS `Reservations` (
   PRIMARY KEY (`reservationID`),
   KEY `roomRef` (`roomRef`),
   KEY `ownerRef` (`ownerRef`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `Reservations`
 --
 
 INSERT INTO `Reservations` (`reservationID`, `roomRef`, `start`, `end`, `ownerRef`) VALUES
-(6, 4, '2016-01-13 16:00:00', '2016-01-13 17:00:00', 6),
-(7, 5, '2016-01-19 00:00:00', '2016-01-26 00:00:00', 3),
-(8, 4, '2016-01-18 00:00:00', '2016-01-18 20:00:00', 14),
-(9, 5, '2016-01-17 00:00:00', '2016-01-18 00:00:00', 20),
-(11, 4, '2016-01-21 14:34:00', '2016-01-28 09:46:00', 20),
-(15, 12, '2016-01-26 15:00:00', '2016-01-28 15:34:00', 20),
-(16, 15, '2016-01-28 16:00:00', '2016-01-28 16:43:00', 20),
-(18, 14, '2016-02-18 09:00:00', '2016-02-18 19:00:00', 20);
+(1, 1, '2015-12-07 11:18:54', '2015-12-11 10:20:54', 1),
+(2, 3, '2015-12-22 09:00:00', '2015-12-22 13:00:00', 1),
+(3, 3, '2015-12-15 23:00:00', '2015-12-17 22:59:59', 2);
 
 -- --------------------------------------------------------
 
@@ -146,6 +139,18 @@ CREATE TABLE IF NOT EXISTS `RoomEquipments` (
   KEY `equipmentRef` (`equipmentRef`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
+--
+-- Dumping data for table `RoomEquipments`
+--
+
+INSERT INTO `RoomEquipments` (`roomEquipmentID`, `roomRef`, `equipmentRef`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 4),
+(4, 3, 3),
+(5, 3, 1),
+(6, 3, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -159,22 +164,16 @@ CREATE TABLE IF NOT EXISTS `Rooms` (
   `capacity` smallint(4) NOT NULL,
   PRIMARY KEY (`roomID`),
   KEY `siteRef` (`siteRef`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `Rooms`
 --
 
 INSERT INTO `Rooms` (`roomID`, `siteRef`, `number`, `capacity`) VALUES
-(4, 4, 'Fourier', 100),
-(5, 5, 'Salle 404', 10),
-(10, 5, 'STPI102', 32),
-(11, 2, 'Salle 3', 10),
-(12, 2, 'Salle 101', 9),
-(14, 4, 'Salle B2', 44),
-(15, 5, 'STPI 4', 45),
-(17, 5, 'Salle 20', 100),
-(18, 2, 'frefe', 56);
+(1, 1, 'Salle Fourier', 60),
+(2, 1, 'Salle 102', 30),
+(3, 2, 'Salle 3', 3);
 
 -- --------------------------------------------------------
 
@@ -188,38 +187,15 @@ CREATE TABLE IF NOT EXISTS `Sites` (
   `address` text COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`siteID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `Sites`
 --
 
 INSERT INTO `Sites` (`siteID`, `name`, `address`, `description`) VALUES
-(2, 'GEI', 'Impasse de l''informatique', 'wololohh'),
-(4, 'Castle', 'Far far away', 'But, where is fiona?'),
-(5, 'Insa Toulouse', 'Avenue des sciences appliquées', 'Deleted by error...Sorry ^^'' gg'),
-(8, 'Hell', '6 pieds sous terre', 'Personne n''a envie d''y aller'),
-(9, 'VFVGDFa', 'fefe', 'fefe');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test`
---
-
-CREATE TABLE IF NOT EXISTS `test` (
-  `name` varchar(8) NOT NULL,
-  `age` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `test`
---
-
-INSERT INTO `test` (`name`, `age`) VALUES
-('jr', 0),
-('jack', 21),
-('name', 25);
+(1, 'INSA Toulouse', 'Avenue de Rangueil', 'Le meilleur endroit du monde'),
+(2, 'GEI', 'Impasse de l''informatique', NULL);
 
 -- --------------------------------------------------------
 
@@ -235,22 +211,15 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `password` text COLLATE utf8_unicode_ci NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `Users`
 --
 
 INSERT INTO `Users` (`userID`, `name`, `surname`, `mailAddress`, `password`, `admin`) VALUES
-(3, 'testUser', 'test', 'a@a.a', 'a', 1),
-(5, 'Donald', 'Dodo', 'donald@disney.fr', 'coincoin', 0),
-(6, 'Marai', 'Daniel', 'marre@marre.marre', 'marre', 0),
-(7, 'lala', 'lili', 'lala@lili.fr', 'lala', 0),
-(14, 'rgautier', 'rgautier', 'rgautier@rgautier.rgautier', 'rgautier', 1),
-(15, 'Machin', 'Truc', 'a@b.T', 'mc', 0),
-(17, 'root', 'admin', 'admin@admin.admin', 'adminadmin', 1),
-(20, 'Bertin', 'Alexis', 'alexis@bertin.fr', 'alexis', 1),
-(22, 'Le Botlan', 'Didier', 'didier@lebotlan.fr', 'pizza', 1);
+(1, 'Le Botlan', 'Didier', 'didier@lebotlan.fr', 'pizza', 1),
+(2, 'Marre', 'Daniel', 'marre@marre.marre', 'marre', 0);
 
 --
 -- Constraints for dumped tables
@@ -260,29 +229,29 @@ INSERT INTO `Users` (`userID`, `name`, `surname`, `mailAddress`, `password`, `ad
 -- Constraints for table `InvitedUsers`
 --
 ALTER TABLE `InvitedUsers`
-  ADD CONSTRAINT `InvitedUsers_ibfk_1` FOREIGN KEY (`reservationRef`) REFERENCES `Reservations` (`reservationID`),
-  ADD CONSTRAINT `InvitedUsers_ibfk_2` FOREIGN KEY (`userRef`) REFERENCES `Users` (`userID`);
+  ADD CONSTRAINT `InvitedUsers_ibfk_2` FOREIGN KEY (`userRef`) REFERENCES `Users` (`userID`),
+  ADD CONSTRAINT `InvitedUsers_ibfk_1` FOREIGN KEY (`reservationRef`) REFERENCES `Reservations` (`reservationID`);
 
 --
 -- Constraints for table `OldInvitedUsers`
 --
 ALTER TABLE `OldInvitedUsers`
-  ADD CONSTRAINT `OldInvitedUsers_ibfk_1` FOREIGN KEY (`oldReservationRef`) REFERENCES `OldReservations` (`oldReservationID`),
-  ADD CONSTRAINT `OldInvitedUsers_ibfk_2` FOREIGN KEY (`userRef`) REFERENCES `Users` (`userID`);
+  ADD CONSTRAINT `OldInvitedUsers_ibfk_2` FOREIGN KEY (`userRef`) REFERENCES `Users` (`userID`),
+  ADD CONSTRAINT `OldInvitedUsers_ibfk_1` FOREIGN KEY (`oldReservationRef`) REFERENCES `OldReservations` (`oldReservationID`);
 
 --
 -- Constraints for table `OldReservations`
 --
 ALTER TABLE `OldReservations`
-  ADD CONSTRAINT `OldReservations_ibfk_1` FOREIGN KEY (`roomRef`) REFERENCES `Rooms` (`roomID`),
-  ADD CONSTRAINT `OldReservations_ibfk_2` FOREIGN KEY (`ownerRef`) REFERENCES `Users` (`userID`);
+  ADD CONSTRAINT `OldReservations_ibfk_2` FOREIGN KEY (`ownerRef`) REFERENCES `Users` (`userID`),
+  ADD CONSTRAINT `OldReservations_ibfk_1` FOREIGN KEY (`roomRef`) REFERENCES `Rooms` (`roomID`);
 
 --
 -- Constraints for table `Reservations`
 --
 ALTER TABLE `Reservations`
-  ADD CONSTRAINT `Reservations_ibfk_1` FOREIGN KEY (`roomRef`) REFERENCES `Rooms` (`roomID`),
-  ADD CONSTRAINT `Reservations_ibfk_2` FOREIGN KEY (`ownerRef`) REFERENCES `Users` (`userID`);
+  ADD CONSTRAINT `Reservations_ibfk_2` FOREIGN KEY (`ownerRef`) REFERENCES `Users` (`userID`),
+  ADD CONSTRAINT `Reservations_ibfk_1` FOREIGN KEY (`roomRef`) REFERENCES `Rooms` (`roomID`);
 
 --
 -- Constraints for table `RoomEquipments`
